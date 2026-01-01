@@ -164,9 +164,14 @@ function generateSidebar(currentPagePath) {
 }
 
 // Auto-generate sidebar on page load
-document.addEventListener('DOMContentLoaded', function() {
-    const sidebar = document.querySelector('.sidebar');
-    if (sidebar) {
+(function() {
+    function initSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        if (!sidebar) {
+            console.warn('Sidebar element not found');
+            return;
+        }
+        
         // Get current page path - extract from URL
         const currentPath = window.location.pathname;
         // Remove leading slash and 'docs/' if present
@@ -178,6 +183,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Generate and inject sidebar
         try {
+            if (typeof generateSidebar === 'undefined') {
+                console.error('generateSidebar function not defined');
+                sidebar.innerHTML = '<div class="sidebar-header"><h1><a href="index.html">waQup</a></h1><p>Documentation</p></div><nav><p style="padding: 20px; color: red;">Navigation script error</p></nav>';
+                return;
+            }
+            
             const sidebarHTML = generateSidebar(cleanPath);
             sidebar.innerHTML = sidebarHTML;
         } catch (error) {
@@ -186,5 +197,13 @@ document.addEventListener('DOMContentLoaded', function() {
             sidebar.innerHTML = '<div class="sidebar-header"><h1><a href="index.html">waQup</a></h1><p>Documentation</p></div><nav><p style="padding: 20px; color: red;">Navigation error - check console</p></nav>';
         }
     }
-});
+    
+    // Run when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSidebar);
+    } else {
+        // DOM is already ready
+        initSidebar();
+    }
+})();
 
