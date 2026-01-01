@@ -150,6 +150,11 @@ function generateSidebar(currentPagePath) {
                 itemPath = './' + itemPath;
             }
             
+            // Debug: log the generated path (remove in production)
+            if (depth === 0) {
+                console.log(`Generated link for ${item.name}: ${itemPath}`);
+            }
+            
             const isActive = currentPagePath.includes(item.id);
             const activeClass = isActive ? ' class="active"' : '';
             
@@ -222,8 +227,18 @@ function generateSidebar(currentPagePath) {
                 return;
             }
             
+            console.log('Generating sidebar for path:', cleanPath);
             const sidebarHTML = generateSidebar(cleanPath);
             sidebar.innerHTML = sidebarHTML;
+            
+            // Debug: verify the generated links
+            setTimeout(() => {
+                const links = sidebar.querySelectorAll('a');
+                console.log('Generated sidebar links:');
+                links.forEach(link => {
+                    console.log(`  ${link.textContent.trim()}: ${link.getAttribute('href')}`);
+                });
+            }, 100);
         } catch (error) {
             console.error('Error generating sidebar:', error);
             // Fallback: show basic sidebar
