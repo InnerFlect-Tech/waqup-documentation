@@ -101,9 +101,16 @@ const navigationStructure = {
 // Generate sidebar navigation HTML
 function generateSidebar(currentPagePath) {
     // Calculate relative path depth
-    const depth = currentPagePath.split('/').length - 2; // Subtract filename and current folder
-    const basePath = depth === 0 ? '' : '../'.repeat(depth);
-    const homePath = depth === 0 ? 'index.html' : '../'.repeat(depth) + 'index.html';
+    // Handle root index.html specially
+    if (currentPagePath === 'index.html' || currentPagePath === '' || currentPagePath.endsWith('/')) {
+        const depth = 0;
+        const basePath = '';
+        const homePath = 'index.html';
+    } else {
+        const depth = currentPagePath.split('/').length - 2; // Subtract filename and current folder
+        const basePath = depth === 0 ? '' : '../'.repeat(depth);
+        const homePath = depth === 0 ? 'index.html' : '../'.repeat(depth) + 'index.html';
+    }
     
     let html = `
             <div class="sidebar-header">
