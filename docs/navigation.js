@@ -114,10 +114,17 @@ function generateSidebar(currentPagePath) {
         homePath = depth === 0 ? 'index.html' : '../'.repeat(depth) + 'index.html';
     }
     
-    // Ensure homePath doesn't start with /
+    // Ensure homePath doesn't start with / and is relative
     let cleanHomePath = homePath;
     if (cleanHomePath.startsWith('/')) {
         cleanHomePath = cleanHomePath.substring(1);
+    }
+    // Ensure it's relative (starts with ./ if not empty and not already relative)
+    if (cleanHomePath && !cleanHomePath.startsWith('./') && !cleanHomePath.startsWith('../')) {
+        // For root, use './' to ensure it's relative to current directory
+        if (cleanHomePath === 'index.html') {
+            cleanHomePath = './index.html';
+        }
     }
     
     let html = `
@@ -141,6 +148,10 @@ function generateSidebar(currentPagePath) {
             if (itemPath.startsWith('/')) {
                 itemPath = itemPath.substring(1);
             }
+            // For root level, ensure it starts with ./ to make it explicitly relative
+            if (depth === 0 && !itemPath.startsWith('./') && !itemPath.startsWith('../')) {
+                itemPath = './' + itemPath;
+            }
             
             const isActive = currentPagePath.includes(item.id);
             const activeClass = isActive ? ' class="active"' : '';
@@ -158,6 +169,10 @@ function generateSidebar(currentPagePath) {
                     // Ensure it doesn't start with /
                     if (subfolderPath.startsWith('/')) {
                         subfolderPath = subfolderPath.substring(1);
+                    }
+                    // For root level, ensure it starts with ./ to make it explicitly relative
+                    if (depth === 0 && !subfolderPath.startsWith('./') && !subfolderPath.startsWith('../')) {
+                        subfolderPath = './' + subfolderPath;
                     }
                     
                     const isSubfolderActive = currentPagePath === subfolder.path || currentPagePath.endsWith(subfolder.path);
