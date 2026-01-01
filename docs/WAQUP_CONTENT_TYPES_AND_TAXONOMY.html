@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="waQup - Voice-first ritual creation platform documentation">
+    <title>Content Types & Taxonomy</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#2563eb',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: 'transparent',
+                lineColor: '#475569',
+                secondaryColor: '#f8fafc',
+                tertiaryColor: '#f1f5f9',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                textColor: '#1e293b',
+                border1: 'transparent',
+                border2: 'transparent',
+                noteBkgColor: '#fef3c7',
+                noteTextColor: '#78350f',
+                noteBorderColor: '#f59e0b',
+                actorBorder: 'transparent',
+                actorBkg: '#dbeafe',
+                actorTextColor: '#1e293b',
+                actorLineColor: '#475569',
+                signalColor: '#1e293b',
+                signalTextColor: '#1e293b',
+                labelBoxBkgColor: '#dbeafe',
+                labelBoxBorderColor: 'transparent',
+                labelTextColor: '#1e293b',
+                loopTextColor: '#1e293b',
+                activationBorderColor: 'transparent',
+                activationBkgColor: '#dbeafe',
+                sequenceNumberColor: '#ffffff',
+                sectionBkgColor: '#f8fafc',
+                altSectionBkgColor: '#f1f5f9',
+                sectionBkgColor2: '#e2e8f0',
+                excludeBkgColor: '#fee2e2',
+                excludeBorderColor: 'transparent',
+                critBorderColor: 'transparent',
+                critBkgColor: '#fee2e2',
+                doneBkgColor: '#dbeafe',
+                doneBorderColor: 'transparent',
+                taskBorderColor: 'transparent',
+                taskBkgColor: '#dbeafe',
+                taskTextLightColor: '#ffffff',
+                taskTextColor: '#1e293b',
+                taskTextDarkColor: '#1e293b',
+                taskTextOutsideColor: '#475569',
+                taskTextClickableColor: '#2563eb',
+                activeTaskBorderColor: 'transparent',
+                activeTaskBkgColor: '#bfdbfe',
+                gridColor: '#e2e8f0',
+                doneTaskBkgColor: '#dbeafe',
+                doneTaskBorderColor: 'transparent',
+                critBorderColor: 'transparent',
+                critBkgColor: '#fee2e2',
+                todayLineColor: '#dc2626',
+                labelColor: '#1e293b',
+                errorBkgColor: '#fee2e2',
+                errorTextColor: '#991b1b'
+            },
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20
+            },
+            sequence: {
+                diagramMarginX: 50,
+                diagramMarginY: 10,
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                bottomMarginAdj: 1,
+                useMaxWidth: true,
+                rightAngles: false,
+                showSequenceNumbers: false
+            },
+            gantt: {
+                titleTopMargin: 25,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75,
+                gridLineStartPadding: 35,
+                fontSize: 11,
+                fontFamily: 'inherit',
+                numberSectionStyles: 4,
+                axisFormat: '%Y-%m-%d',
+                useMaxWidth: true
+            }
+        });
+        
+        // Remove borders from Mermaid diagrams after they render - ULTRA aggressive approach
+        function removeMermaidBorders() {
+            document.querySelectorAll('.mermaid svg').forEach(svg => {
+                // Remove stroke from all rect, polygon, circle, and ellipse elements
+                svg.querySelectorAll('rect, polygon, circle, ellipse').forEach(shape => {
+                    // Skip if it's part of a path or line
+                    const parent = shape.closest('g');
+                    if (parent && (parent.classList.contains('edgePath') || parent.classList.contains('flowchart-link'))) {
+                        return;
+                    }
+                    // Check if it's actually a shape (has fill) and not a line
+                    const fill = shape.getAttribute('fill');
+                    if (fill === 'none' || fill === 'transparent') {
+                        // Might be a line, skip it
+                        return;
+                    }
+                    // ULTRA aggressively remove stroke - ALL methods
+                    shape.removeAttribute('stroke');
+                    shape.setAttribute('stroke', 'none');
+                    shape.setAttribute('stroke-width', '0');
+                    shape.setAttribute('stroke-opacity', '0');
+                    shape.style.stroke = 'none';
+                    shape.style.strokeWidth = '0';
+                    shape.style.strokeOpacity = '0';
+                    shape.style.border = 'none';
+                    // Force override with inline style
+                    const currentStyle = shape.getAttribute('style') || '';
+                    shape.setAttribute('style', currentStyle + ' stroke: none !important; stroke-width: 0 !important; stroke-opacity: 0 !important;');
+                });
+            });
+        }
+        
+        // Run multiple times to catch all rendered diagrams
+        function runBorderRemoval() {
+            removeMermaidBorders();
+            setTimeout(removeMermaidBorders, 100);
+            setTimeout(removeMermaidBorders, 300);
+            setTimeout(removeMermaidBorders, 500);
+            setTimeout(removeMermaidBorders, 1000);
+            setTimeout(removeMermaidBorders, 2000);
+            setTimeout(removeMermaidBorders, 3000);
+        }
+        
+        // Continuous border removal using requestAnimationFrame
+        function continuousBorderRemoval() {
+            removeMermaidBorders();
+            requestAnimationFrame(continuousBorderRemoval);
+        }
+        
+        // Start continuous removal after a short delay
+        setTimeout(() => {
+            // Run for 5 seconds continuously
+            let count = 0;
+            const interval = setInterval(() => {
+                removeMermaidBorders();
+                count++;
+                if (count > 50) { // Stop after ~5 seconds (50 * 100ms)
+                    clearInterval(interval);
+                }
+            }, 100);
+        }, 500);
+        
+        // Run after Mermaid renders
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                runBorderRemoval();
+            });
+        } else {
+            runBorderRemoval();
+        }
+        
+        // Also use MutationObserver to catch dynamically rendered diagrams
+        const observer = new MutationObserver((mutations) => {
+            let shouldRun = false;
+            mutations.forEach((mutation) => {
+                if (mutation.addedNodes.length > 0) {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === 1 && (node.classList?.contains('mermaid') || node.querySelector?.('.mermaid'))) {
+                            shouldRun = true;
+                        }
+                    });
+                }
+            });
+            if (shouldRun) {
+                removeMermaidBorders();
+                setTimeout(removeMermaidBorders, 100);
+                setTimeout(removeMermaidBorders, 500);
+            }
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'stroke', 'stroke-width']
+        });
+    </script>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #3b82f6;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --border-color: #e2e8f0;
+            --border-radius: 8px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            background: var(--bg-primary);
+            border-right: 1px solid var(--border-color);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 32px 24px 24px;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .sidebar-header a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .sidebar-header a:hover {
+            color: var(--primary-color);
+        }
+
+        .sidebar-header p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .sidebar nav {
+            flex: 1;
+            padding: 16px 0;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            margin: 0;
+            list-style: none;
+        }
+
+        .nav-menu li::before {
+            display: none;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 14px 24px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .nav-menu a:hover {
+            background: var(--bg-secondary);
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
+        .nav-menu a.active {
+            background: var(--bg-tertiary);
+            color: var(--primary-color);
+            font-weight: 600;
+            border-left-color: var(--primary-color);
+        }
+
+        .nav-section {
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+
+        .nav-section-title,
+        .nav-group-title {
+            display: block;
+            padding: 12px 24px 8px;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-top: 20px;
+            margin-bottom: 6px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+        }
+
+        .nav-section:first-child .nav-section-title,
+        .nav-group:first-child .nav-group-title {
+            margin-top: 0;
+            border-top: none;
+            padding-top: 8px;
+        }
+
+        .nav-group {
+            margin: 0;
+        }
+
+        .nav-group-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-group-items li {
+            margin: 0;
+        }
+
+        .nav-subgroup {
+            margin: 0;
+            margin-top: 8px;
+        }
+
+        .nav-subgroup-title {
+            display: block;
+            padding: 8px 24px 6px 32px;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 8px;
+            margin-bottom: 4px;
+        }
+
+        .nav-subgroup-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-subgroup-items li {
+            margin: 0;
+        }
+
+        .nav-subgroup-items a {
+            padding-left: 40px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .nav-subgroup-items a:hover {
+            color: var(--primary-color);
+            opacity: 1;
+        }
+
+        /* Archived reference styling */
+        .nav-subgroup-title {
+            font-style: italic;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: var(--bg-primary);
+            padding: 48px 64px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        .content-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: var(--text-primary);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            color: var(--text-primary);
+            font-size: 1.875rem;
+            font-weight: 600;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h3 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        h4 {
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 10px;
+        }
+
+        h5, h6 {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        ul, ol {
+            margin-left: 0;
+            margin-bottom: 24px;
+            padding-left: 24px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        /* Only apply custom bullets to content lists, not navigation */
+        .content-wrapper ul > li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .content-wrapper ul > li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.75em;
+            width: 6px;
+            height: 6px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        ol {
+            list-style-type: decimal;
+            padding-left: 24px;
+        }
+
+        ol > li {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            padding-left: 8px;
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+            font-size: 0.875em;
+            color: #dc2626;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            margin: 24px 0;
+            box-shadow: var(--shadow-md);
+            border: 1px solid #334155;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border: none;
+            font-weight: 400;
+            font-size: inherit;
+        }
+
+        /* Mermaid diagram styling */
+        .mermaid-container {
+            margin: 32px 0;
+            padding: 24px;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .mermaid {
+            background: transparent;
+            text-align: center;
+        }
+        
+        /* Remove black borders from ALL Mermaid shapes */
+        .mermaid svg rect[class*="node"],
+        .mermaid svg rect[class*="label"],
+        .mermaid svg rect[class*="flowchart"],
+        .mermaid svg rect[class*="cluster"],
+        .mermaid svg rect[class*="decision"],
+        .mermaid svg rect[class*="actor"],
+        .mermaid svg rect[class*="note"],
+        .mermaid svg polygon[class*="node"],
+        .mermaid svg polygon[class*="decision"],
+        .mermaid svg polygon[class*="flowchart"],
+        .mermaid svg .node rect,
+        .mermaid svg .node polygon,
+        .mermaid svg .node circle,
+        .mermaid svg .node ellipse,
+        .mermaid svg .flowchart-label rect,
+        .mermaid svg .decision polygon,
+        .mermaid svg .decision rect,
+        .mermaid svg .cluster rect,
+        .mermaid svg .cluster polygon,
+        .mermaid svg .flowchart-node rect,
+        .mermaid svg .flowchart-node polygon,
+        .mermaid svg g[class*="node"] rect,
+        .mermaid svg g[class*="node"] polygon,
+        .mermaid svg g[class*="flowchart"] rect,
+        .mermaid svg g[class*="flowchart"] polygon {
+            stroke: transparent !important;
+            stroke-width: 0 !important;
+            border: none !important;
+        }
+        
+        /* Target all rect and polygon elements in Mermaid diagrams */
+        .mermaid svg rect:not(.edgePath rect):not(.flowchart-link rect),
+        .mermaid svg polygon:not(.edgePath polygon):not(.flowchart-link polygon) {
+            stroke: transparent !important;
+            stroke-width: 0 !important;
+        }
+        
+        /* Override any inline styles for shapes */
+        .mermaid svg rect[stroke],
+        .mermaid svg polygon[stroke],
+        .mermaid svg circle[stroke],
+        .mermaid svg ellipse[stroke] {
+            stroke: transparent !important;
+            stroke-width: 0 !important;
+        }
+        
+        /* Target shapes by their fill attribute */
+        .mermaid svg rect[fill]:not([fill="none"]):not([fill="transparent"]),
+        .mermaid svg polygon[fill]:not([fill="none"]):not([fill="transparent"]),
+        .mermaid svg circle[fill]:not([fill="none"]):not([fill="transparent"]),
+        .mermaid svg ellipse[fill]:not([fill="none"]):not([fill="transparent"]) {
+            stroke: transparent !important;
+            stroke-width: 0 !important;
+        }
+        
+        /* Universal rule: remove stroke from all rect and polygon elements */
+        .mermaid svg > g > g rect,
+        .mermaid svg > g > g polygon,
+        .mermaid svg > g > g > g rect,
+        .mermaid svg > g > g > g polygon,
+        .mermaid svg g:not(.edgePath):not(.flowchart-link) rect,
+        .mermaid svg g:not(.edgePath):not(.flowchart-link) polygon {
+            stroke: transparent !important;
+            stroke-width: 0 !important;
+        }
+        
+        /* Final catch-all: remove borders from all shapes - ULTRA aggressive */
+        .mermaid svg rect:not(.edgePath rect):not(.flowchart-link rect),
+        .mermaid svg polygon:not(.edgePath polygon):not(.flowchart-link polygon),
+        .mermaid svg circle:not(.edgePath circle),
+        .mermaid svg ellipse:not(.edgePath ellipse) {
+            stroke: none !important;
+            stroke-width: 0 !important;
+            stroke-opacity: 0 !important;
+        }
+        
+        /* Target ALL shapes regardless of class or parent */
+        .mermaid svg rect[fill]:not([fill="none"]):not([fill="transparent"]),
+        .mermaid svg polygon[fill]:not([fill="none"]):not([fill="transparent"]),
+        .mermaid svg circle[fill]:not([fill="none"]):not([fill="transparent"]),
+        .mermaid svg ellipse[fill]:not([fill="none"]):not([fill="transparent"]) {
+            stroke: none !important;
+            stroke-width: 0 !important;
+            stroke-opacity: 0 !important;
+        }
+        
+        /* Keep lines and arrows visible */
+        .mermaid svg .edgePath path,
+        .mermaid svg .flowchart-link,
+        .mermaid svg line,
+        .mermaid svg path[marker-end],
+        .mermaid svg .arrowheadPath {
+            stroke: #475569 !important;
+            stroke-width: 2px !important;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding: 16px 20px;
+            margin: 24px 0;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        blockquote p {
+            margin-bottom: 0;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        th, td {
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 16px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--bg-secondary);
+        }
+
+        tr:hover {
+            background-color: var(--bg-tertiary);
+            transition: background-color 0.2s ease;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            margin: 24px 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid var(--border-color);
+            margin: 40px 0;
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        em {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Index page styles */
+        .index-content {
+            max-width: 1000px;
+        }
+
+        .lead {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+        }
+
+        .documentation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .doc-card {
+            background: var(--bg-secondary);
+            padding: 24px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .doc-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .doc-card-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 4px 8px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 4px;
+        }
+
+        .doc-card h2 {
+            font-size: 1.5rem;
+            margin: 0 0 12px 0;
+            border: none;
+            padding: 0;
+        }
+
+        .doc-card h2 a {
+            color: var(--text-primary);
+        }
+
+        .doc-card p {
+            margin-bottom: 16px;
+            font-size: 0.9375rem;
+        }
+
+        .doc-link {
+            display: inline-block;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9375rem;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Responsive design */
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                position: relative;
+                height: auto;
+                max-height: none;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .main-content {
+                padding: 32px 24px;
+                height: auto;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .documentation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .main-content {
+                padding: 24px 16px;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            pre {
+                padding: 16px;
+                font-size: 0.8125rem;
+            }
+
+            .mermaid-container {
+                padding: 16px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .sidebar {
+                display: none;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><a href="index.html">waQup</a></h1>
+                <p>Documentation</p>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-group"><span class="nav-group-title">Foundation</span><ul class="nav-group-items"><li><a href="waqup_product_constitution.html" class="">Product Constitution</a></li><li><a href="waqup_scientific_foundations.html" class="">Scientific Foundations</a></li></ul></li><li class="nav-group"><span class="nav-group-title">User Experience</span><ul class="nav-group-items"><li><a href="waqup_conversational_and_ritual_system.html" class="">Conversational & Ritual System</a></li><li><a href="waqup_ai_voice_and_ethics.html" class="">AI Voice & Ethics</a></li></ul></li><li class="nav-group"><span class="nav-group-title">Technical</span><ul class="nav-group-items"><li><a href="waqup_system_architecture.html" class="">System Architecture</a></li></ul></li><li class="nav-group"><span class="nav-group-title">Business</span><ul class="nav-group-items"><li><a href="waqup_value_and_growth_economy.html" class="">Value & Growth Economy</a></li></ul></li><li class="nav-group"><span class="nav-group-title">Planning</span><ul class="nav-group-items"><li><a href="waqup_roadmap_and_releases.html" class="">Roadmap & Releases</a></li></ul></li><li class="nav-section"><span class="nav-section-title">Archived Reference</span></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — System Architecture</span><ul class="nav-subgroup-items"><li><a href="01-architecture-overview.html" class="">Architecture Overview</a></li><li><a href="03-data-flow.html" class="">Data Flow</a></li><li><a href="05-api-flow.html" class="">API Flow</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — User Experience</span><ul class="nav-subgroup-items"><li><a href="02-features-workflows.html" class="">Features & Workflows</a></li><li><a href="04-user-journey.html" class="">User Journey</a></li><li><a href="waqup_content_types_and_taxonomy.html" class="active">Content Types & Taxonomy</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — Business</span><ul class="nav-subgroup-items"><li><a href="waqup_credits_system.html" class="">Credits System</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — Planning</span><ul class="nav-subgroup-items"><li><a href="06-development-timeline.html" class="">Development Timeline & Roadmap</a></li></ul></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="content-wrapper">
+                <h1>Content Types &amp; Taxonomy</h1>
+<blockquote>
+<p><strong>⚠️ Archived Reference Document</strong><br>
+This document is kept for historical reference. The complete, up-to-date content has been merged into the <strong><a href="./waqup_conversational_and_ritual_system.html#content-types--taxonomy">Conversational &amp; Ritual System</a></strong> document.</p>
+</blockquote>
+<p><strong>Domain</strong>: WHAT the three content types are, HOW they differ psychologically, and HOW they’re organized (taxonomy, tags, depth layers)</p>
+<hr>
+<p><strong>Related SSOT Documents</strong>:</p>
+<ul>
+<li>Product Constitution: Core identity and boundaries</li>
+<li>Features &amp; Workflows: How each type is created and used</li>
+<li>Credits System: Credit costs per content type</li>
+<li>Scientific Foundations: Psychological basis for each type</li>
+<li>Data Flow: How content types are stored and retrieved</li>
+</ul>
+<hr>
+<h2>Core Principle: Three Depths, Not Interchangeable</h2>
+<p>waQup is built on <strong>three different depths of subconscious engagement</strong>.</p>
+<p>They are <strong>not interchangeable</strong>.</p>
+<p>Think of them as <strong>layers</strong>:</p>
+<ol>
+<li><strong>Affirmations</strong> → cognitive re-patterning (shallow → medium)</li>
+<li><strong>Guided Meditations</strong> → state induction (medium)</li>
+<li><strong>Rituals</strong> → identity encoding (deepest)</li>
+</ol>
+<p>Most apps confuse these. waQup separates them <strong>on purpose</strong>.</p>
+<hr>
+<h2>1. Affirmations (Micro-Reprogramming)</h2>
+<h3>What Affirmations Are in waQup</h3>
+<p>Affirmations are <strong>precise linguistic encodings</strong> designed to:</p>
+<ul>
+<li>Bypass resistance</li>
+<li>Avoid negation errors</li>
+<li>Align language with felt identity</li>
+</ul>
+<p>They are <strong>not</strong>:</p>
+<ul>
+<li>Positive thinking</li>
+<li>Wishful statements</li>
+<li>Surface motivation</li>
+</ul>
+<p>They are <strong>syntax-correct instructions to the subconscious</strong>.</p>
+<h3>How They Work Psychologically</h3>
+<ol>
+<li>The brain responds to present-tense identity language</li>
+<li>Repetition builds neural familiarity</li>
+<li>Familiarity reduces threat</li>
+<li>Reduced threat allows adoption</li>
+</ol>
+<p><strong>Example</strong>:</p>
+<ul>
+<li>❌ “I am becoming calm”</li>
+<li>✅ “I am calm and present in my body”</li>
+</ul>
+<h3>In the App</h3>
+<p><strong>Characteristics</strong>:</p>
+<ul>
+<li>Can exist alone (standalone affirmations)</li>
+<li>Can be listened to daily (lightweight, repeatable)</li>
+<li>Can be recorded in:
+<ul>
+<li>User’s voice</li>
+<li>Selected voice</li>
+</ul>
+</li>
+<li>Fast generation (less AI processing)</li>
+<li>Shorter duration (1-5 minutes)</li>
+</ul>
+<p><strong>Depth</strong>: Shallow → Medium</p>
+<p><strong>Use Cases</strong>: Habits, mindset, focus, confidence, daily reinforcement</p>
+<p><strong>Credit Cost</strong>: 0.5 credits (lighter AI processing)</p>
+<p><strong>Structure</strong>:</p>
+<ul>
+<li>Core affirmation statements (3-7 statements)</li>
+<li>Present-tense identity language</li>
+<li>Repetition pattern</li>
+<li>Optional: brief grounding</li>
+</ul>
+<hr>
+<h2>2. Guided Meditations (State + Imagery)</h2>
+<h3>What Guided Meditations Are</h3>
+<p>Guided meditations are <strong>state-induction journeys</strong>.</p>
+<p>They use:</p>
+<ul>
+<li>Breath</li>
+<li>Attention direction</li>
+<li>Imagery</li>
+<li>Pacing</li>
+<li>Silence</li>
+</ul>
+<p>Their purpose is <strong>not identity change, but state access</strong>.</p>
+<h3>How They Work Psychologically</h3>
+<ol>
+<li>Slow the nervous system</li>
+<li>Shift brainwave dominance</li>
+<li>Increase suggestibility</li>
+<li>Open access to emotional material</li>
+</ol>
+<p>They <strong>prepare the terrain, but don’t rewrite the map</strong>.</p>
+<h3>In the App</h3>
+<p><strong>Characteristics</strong>:</p>
+<ul>
+<li>Can be generic (relaxation, grounding, presence)</li>
+<li>Can be semi-personalized</li>
+<li>Can be listened to without credits (once created)</li>
+<li>Can include affirmations inside them</li>
+<li>Medium duration (5-20 minutes)</li>
+<li>Moderate AI processing</li>
+</ul>
+<p><strong>Depth</strong>: Medium</p>
+<p><strong>Use Cases</strong>: Regulation, stress, clarity, emotional access, nervous system regulation</p>
+<p><strong>Credit Cost</strong>: 1 credit (standard AI processing)</p>
+<p><strong>Structure</strong>:</p>
+<ul>
+<li>Grounding / arrival</li>
+<li>Breath work</li>
+<li>Attention direction</li>
+<li>Imagery / visualization</li>
+<li>Optional: embedded affirmations</li>
+<li>Closure / return</li>
+</ul>
+<hr>
+<h2>3. Rituals (Identity Encoding — The Core)</h2>
+<h3>What Rituals Are (This is Key)</h3>
+<p>A waQup ritual is a <strong>structured act of self-authorship</strong>.</p>
+<p>It combines:</p>
+<ul>
+<li>Reflection</li>
+<li>Intention</li>
+<li>Language</li>
+<li>Voice</li>
+<li>Repetition</li>
+<li>Emotional imprint</li>
+</ul>
+<p><strong>Rituals are not content. They are events.</strong></p>
+<h3>What Makes Rituals Different</h3>
+<p>Rituals:</p>
+<ul>
+<li>Are <strong>created, not consumed</strong></li>
+<li>Include <strong>context</strong> (why this matters)</li>
+<li>Encode <strong>identity-level language</strong></li>
+<li>Are tied to a <strong>moment in life</strong></li>
+</ul>
+<p>This is why they are <strong>rare — and powerful</strong>.</p>
+<h3>Structure of a Ritual (Simplified)</h3>
+<p>A ritual typically includes:</p>
+<ol>
+<li><strong>Grounding / arrival</strong> (nervous system regulation)</li>
+<li><strong>Context</strong> (what is changing, why this matters)</li>
+<li><strong>Core affirmations</strong> (personalized, identity-level)</li>
+<li><strong>Emotional anchoring</strong> (felt sense integration)</li>
+<li><strong>Closure / integration</strong> (commitment to new identity)</li>
+</ol>
+<p>This structure is what makes it <strong>stick</strong>.</p>
+<h3>In the App</h3>
+<p><strong>Characteristics</strong>:</p>
+<ul>
+<li>Ritual creation consumes credits (highest cost)</li>
+<li>Ritual playback is unlimited (free)</li>
+<li>Rituals can evolve over time</li>
+<li>Rituals become part of the user’s inner archive</li>
+<li>Longer duration (10-30 minutes)</li>
+<li>Highest AI processing (full personalization)</li>
+</ul>
+<p><strong>Depth</strong>: Deep</p>
+<p><strong>Use Cases</strong>: Identity shifts, transitions, trauma-safe re-framing, life thresholds, major changes</p>
+<p><strong>Credit Cost</strong>: 1 credit (full AI processing, highest value)</p>
+<p><strong>Structure</strong>:</p>
+<ul>
+<li>Grounding / arrival</li>
+<li>Context (personalized, why this matters)</li>
+<li>Core affirmations (identity-level, personalized)</li>
+<li>Emotional anchoring (felt sense)</li>
+<li>Closure / integration (commitment)</li>
+</ul>
+<hr>
+<h2>4. How the Three Work Together (System Logic)</h2>
+<h3>Typical User Journey</h3>
+<ol>
+<li><strong>User starts with affirmations</strong> (lightweight, daily)</li>
+<li><strong>When resistance appears</strong> → uses guided meditation (state access)</li>
+<li><strong>When something truly matters</strong> → creates a ritual (identity encoding)</li>
+</ol>
+<p><strong>Affirmations repeat</strong><br>
+<strong>Meditations open</strong><br>
+<strong>Rituals encode</strong></p>
+<h3>Internal Hierarchy</h3>
+<ul>
+<li><strong>Affirmations</strong> = statements (cognitive layer)</li>
+<li><strong>Guided meditations</strong> = states (nervous system layer)</li>
+<li><strong>Rituals</strong> = identity contracts (deepest layer)</li>
+</ul>
+<p>waQup doesn’t force one path — it offers <strong>depth when needed</strong>.</p>
+<hr>
+<h2>5. Taxonomy System</h2>
+<h3>Primary Classification: Content Type</h3>
+<p><strong>Required field</strong>: <code>content_type</code> (enum)</p>
+<ul>
+<li><code>affirmation</code></li>
+<li><code>guided_meditation</code></li>
+<li><code>ritual</code></li>
+</ul>
+<h3>Secondary Classification: Tags</h3>
+<p><strong>Tags</strong> are flexible, user-defined, and system-suggested.</p>
+<h4>System Tags (Predefined)</h4>
+<p><strong>By Use Case</strong>:</p>
+<ul>
+<li><code>habits</code> (affirmations)</li>
+<li><code>mindset</code> (affirmations)</li>
+<li><code>focus</code> (affirmations)</li>
+<li><code>confidence</code> (affirmations)</li>
+<li><code>regulation</code> (meditations)</li>
+<li><code>stress</code> (meditations)</li>
+<li><code>clarity</code> (meditations)</li>
+<li><code>emotional-access</code> (meditations)</li>
+<li><code>identity-shift</code> (rituals)</li>
+<li><code>transition</code> (rituals)</li>
+<li><code>trauma-safe</code> (rituals)</li>
+<li><code>life-threshold</code> (rituals)</li>
+</ul>
+<p><strong>By Practice Type</strong> (for rituals and meditations):</p>
+<ul>
+<li><code>breath-work</code></li>
+<li><code>body-scanning</code></li>
+<li><code>movement</code></li>
+<li><code>sensory-awareness</code></li>
+<li><code>visualization</code></li>
+<li><code>combination</code></li>
+</ul>
+<p><strong>By Time/Context</strong>:</p>
+<ul>
+<li><code>morning</code></li>
+<li><code>evening</code></li>
+<li><code>before-sleep</code></li>
+<li><code>anxiety</code></li>
+<li><code>calming</code></li>
+<li><code>energizing</code></li>
+<li><code>grounding</code></li>
+</ul>
+<p><strong>By Depth</strong> (system-assigned):</p>
+<ul>
+<li><code>shallow</code> (affirmations)</li>
+<li><code>medium</code> (meditations, some affirmations)</li>
+<li><code>deep</code> (rituals)</li>
+</ul>
+<h4>User Tags (Custom)</h4>
+<p>Users can add custom tags:</p>
+<ul>
+<li>Personal context tags</li>
+<li>Life event tags</li>
+<li>Emotional state tags</li>
+<li>Any meaningful categorization</li>
+</ul>
+<p><strong>Tag Rules</strong>:</p>
+<ul>
+<li>Maximum 10 tags per content item</li>
+<li>Tags are lowercase, hyphenated</li>
+<li>System suggests tags based on content analysis</li>
+<li>Users can remove/add tags freely</li>
+</ul>
+<h3>Tertiary Classification: Collections</h3>
+<p><strong>Collections</strong> are user-organized groups:</p>
+<ul>
+<li>Folders (user-created)</li>
+<li>Packs (creator-published)</li>
+<li>Sequences (multiple items in order)</li>
+</ul>
+<hr>
+<h2>6. Database Schema</h2>
+<h3>Content Items Table</h3>
+<pre><code class="language-sql">CREATE TABLE content_items (
+    id UUID PRIMARY KEY,
+    user_id UUID REFERENCES users(id),
+    content_type ENUM('affirmation', 'guided_meditation', 'ritual') NOT NULL,
+    
+    -- Core fields
+    title VARCHAR(255) NOT NULL,
+    content_text TEXT NOT NULL,
+    audio_url VARCHAR(500),
+    audio_duration INTEGER, -- seconds
+    
+    -- Type-specific fields
+    structure JSONB, -- type-specific structure
+    context JSONB, -- creation context, personalization
+    
+    -- Metadata
+    tags TEXT[], -- array of tag strings
+    depth VARCHAR(20), -- shallow, medium, deep (system-assigned)
+    
+    -- Voice
+    voice_id UUID REFERENCES voices(id),
+    voice_type VARCHAR(50), -- 'user', 'standard', 'premium'
+    
+    -- Timestamps
+    created_at TIMESTAMP NOT NULL,
+    last_played_at TIMESTAMP,
+    play_count INTEGER DEFAULT 0,
+    
+    -- Organization
+    folder_id UUID REFERENCES folders(id),
+    pack_id UUID REFERENCES ritual_packs(id), -- if part of pack
+    
+    -- Status
+    status VARCHAR(20) DEFAULT 'active', -- active, archived, deleted
+    
+    -- Indexes
+    INDEX idx_user_content_type (user_id, content_type),
+    INDEX idx_tags (tags),
+    INDEX idx_depth (depth)
+);
+</code></pre>
+<h3>Tags Table (Normalized)</h3>
+<pre><code class="language-sql">CREATE TABLE tags (
+    id UUID PRIMARY KEY,
+    name VARCHAR(100) UNIQUE NOT NULL,
+    category VARCHAR(50), -- 'use-case', 'practice-type', 'time-context', 'custom'
+    usage_count INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE content_item_tags (
+    content_item_id UUID REFERENCES content_items(id),
+    tag_id UUID REFERENCES tags(id),
+    PRIMARY KEY (content_item_id, tag_id)
+);
+</code></pre>
+<hr>
+<h2>7. API Design</h2>
+<h3>Filtering by Type</h3>
+<p><strong>GET /api/v1/content</strong></p>
+<pre><code class="language-json">Query Parameters:
+- content_type: &quot;affirmation&quot; | &quot;guided_meditation&quot; | &quot;ritual&quot; | null (all)
+- tags: string[] (filter by tags)
+- depth: &quot;shallow&quot; | &quot;medium&quot; | &quot;deep&quot; | null (all)
+- folder_id: uuid (optional)
+- pack_id: uuid (optional)
+
+Response:
+{
+  &quot;content_items&quot;: [
+    {
+      &quot;id&quot;: &quot;uuid&quot;,
+      &quot;content_type&quot;: &quot;ritual&quot;,
+      &quot;title&quot;: &quot;Evening Calm&quot;,
+      &quot;depth&quot;: &quot;deep&quot;,
+      &quot;tags&quot;: [&quot;evening&quot;, &quot;calming&quot;, &quot;transition&quot;],
+      &quot;duration&quot;: 600,
+      &quot;created_at&quot;: &quot;2024-01-01T00:00:00Z&quot;
+    }
+  ],
+  &quot;pagination&quot;: {...}
+}
+</code></pre>
+<h3>Type-Specific Creation</h3>
+<p><strong>POST /api/v1/content/create</strong></p>
+<pre><code class="language-json">Request:
+{
+  &quot;content_type&quot;: &quot;affirmation&quot; | &quot;guided_meditation&quot; | &quot;ritual&quot;,
+  &quot;intent&quot;: &quot;I need calm&quot;,
+  &quot;context&quot;: {...},
+  &quot;preferences&quot;: {...}
+}
+
+Response:
+{
+  &quot;content_item_id&quot;: &quot;uuid&quot;,
+  &quot;content_type&quot;: &quot;ritual&quot;,
+  &quot;status&quot;: &quot;generating&quot;,
+  &quot;estimated_time&quot;: 30
+}
+</code></pre>
+<hr>
+<h2>8. User Interface Organization</h2>
+<h3>Library View Options</h3>
+<ol>
+<li>
+<p><strong>By Type</strong> (default):</p>
+<ul>
+<li>Affirmations tab</li>
+<li>Guided Meditations tab</li>
+<li>Rituals tab</li>
+</ul>
+</li>
+<li>
+<p><strong>By Tags</strong>:</p>
+<ul>
+<li>Filter by tag</li>
+<li>See all types with matching tag</li>
+</ul>
+</li>
+<li>
+<p><strong>By Depth</strong>:</p>
+<ul>
+<li>Shallow (affirmations)</li>
+<li>Medium (meditations)</li>
+<li>Deep (rituals)</li>
+</ul>
+</li>
+<li>
+<p><strong>By Collection</strong>:</p>
+<ul>
+<li>Folders</li>
+<li>Packs</li>
+<li>Sequences</li>
+</ul>
+</li>
+</ol>
+<h3>Creation Flow</h3>
+<p><strong>Step 1</strong>: User selects content type</p>
+<ul>
+<li>“Create Affirmation” (lightweight)</li>
+<li>“Create Guided Meditation” (state access)</li>
+<li>“Create Ritual” (deep encoding)</li>
+</ul>
+<p><strong>Step 2</strong>: Conversation adapts to type</p>
+<ul>
+<li>Affirmations: Focus on statements, identity language</li>
+<li>Meditations: Focus on state, imagery, breath</li>
+<li>Rituals: Focus on context, meaning, identity shift</li>
+</ul>
+<hr>
+<h2>9. Credits Integration</h2>
+<h3>Credit Costs by Type</h3>
+<ul>
+<li><strong>Affirmations</strong>: 0.5 credits (lighter processing)</li>
+<li><strong>Guided Meditations</strong>: 1 credit (standard processing)</li>
+<li><strong>Rituals</strong>: 1 credit (full processing, highest value)</li>
+</ul>
+<p><strong>Rationale</strong>:</p>
+<ul>
+<li>Affirmations are shorter, simpler</li>
+<li>Meditations are standard length</li>
+<li>Rituals are full personalization (but same credit = intentional choice)</li>
+</ul>
+<p><strong>Alternative</strong>: All cost 1 credit (simplicity, intentionality)</p>
+<hr>
+<h2>10. Why This Design is Rare (and Strong)</h2>
+<h3>Most Apps:</h3>
+<ul>
+<li>Mix everything (no distinction)</li>
+<li>Overload content (too many options)</li>
+<li>Remove authorship (pre-made content)</li>
+</ul>
+<h3>waQup:</h3>
+<ul>
+<li>Separates functions (clear hierarchy)</li>
+<li>Respects psychological layers (depth awareness)</li>
+<li>Gives ownership back to the user (self-authorship)</li>
+</ul>
+<h3>This Creates:</h3>
+<ul>
+<li>Higher trust (clear purpose)</li>
+<li>Deeper retention (meaningful progression)</li>
+<li>Emotional loyalty (identity-level connection)</li>
+<li>Ethical monetization (value-based pricing)</li>
+</ul>
+<hr>
+<h2>11. Open Questions</h2>
+<ol>
+<li><strong>Credit costs</strong>: Should affirmations cost 0.5 credits or 1 credit?</li>
+<li><strong>Tag limits</strong>: Is 10 tags per item sufficient?</li>
+<li><strong>Type transitions</strong>: Can users convert affirmations → meditations → rituals?</li>
+<li><strong>Pack types</strong>: Can packs contain mixed types or single type only?</li>
+<li><strong>Search</strong>: Should search prioritize by type or relevance?</li>
+</ol>
+<hr>
+<h2>Summary</h2>
+<p>The three content types form a <strong>hierarchical system</strong>:</p>
+<ul>
+<li><strong>Affirmations</strong>: Cognitive re-patterning (shallow → medium)</li>
+<li><strong>Guided Meditations</strong>: State induction (medium)</li>
+<li><strong>Rituals</strong>: Identity encoding (deepest)</li>
+</ul>
+<p>They are <strong>not interchangeable</strong> and serve different psychological purposes.</p>
+<p>The taxonomy system supports:</p>
+<ul>
+<li>Type-based organization</li>
+<li>Flexible tagging</li>
+<li>User-defined collections</li>
+<li>Clear depth progression</li>
+</ul>
+<p>This creates a <strong>coherent, meaningful system</strong> that respects psychological layers and user autonomy.</p>
+
+            </div>
+        </main>
+    </div>
+</body>
+</html>
