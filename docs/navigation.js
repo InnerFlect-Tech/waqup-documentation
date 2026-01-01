@@ -114,9 +114,15 @@ function generateSidebar(currentPagePath) {
         homePath = depth === 0 ? 'index.html' : '../'.repeat(depth) + 'index.html';
     }
     
+    // Ensure homePath doesn't start with /
+    let cleanHomePath = homePath;
+    if (cleanHomePath.startsWith('/')) {
+        cleanHomePath = cleanHomePath.substring(1);
+    }
+    
     let html = `
             <div class="sidebar-header">
-                <h1><a href="${homePath}">waQup</a></h1>
+                <h1><a href="${cleanHomePath}">waQup</a></h1>
                 <p>Documentation</p>
             </div>
             <nav>
@@ -127,7 +133,15 @@ function generateSidebar(currentPagePath) {
 <li class="nav-group"><span class="nav-group-title">${group.title}</span><ul class="nav-group-items">`;
         
         group.items.forEach(item => {
-            const itemPath = basePath + item.path;
+            // Ensure path doesn't start with / and is properly relative
+            let itemPath = basePath + item.path;
+            // Remove any double slashes
+            itemPath = itemPath.replace(/\/+/g, '/');
+            // Ensure it doesn't start with /
+            if (itemPath.startsWith('/')) {
+                itemPath = itemPath.substring(1);
+            }
+            
             const isActive = currentPagePath.includes(item.id);
             const activeClass = isActive ? ' class="active"' : '';
             
@@ -138,7 +152,14 @@ function generateSidebar(currentPagePath) {
                 <ul class="nav-subgroup-items">`;
                 
                 item.subfolders.forEach(subfolder => {
-                    const subfolderPath = basePath + subfolder.path;
+                    let subfolderPath = basePath + subfolder.path;
+                    // Remove any double slashes
+                    subfolderPath = subfolderPath.replace(/\/+/g, '/');
+                    // Ensure it doesn't start with /
+                    if (subfolderPath.startsWith('/')) {
+                        subfolderPath = subfolderPath.substring(1);
+                    }
+                    
                     const isSubfolderActive = currentPagePath === subfolder.path || currentPagePath.endsWith(subfolder.path);
                     const subActiveClass = isSubfolderActive ? ' class="active"' : '';
                     html += `
