@@ -244,7 +244,7 @@
 
         .container {
             width: 100%;
-            height: 100vh;
+            min-height: 100vh;
             display: grid;
             grid-template-columns: 280px 1fr;
             gap: 0;
@@ -259,10 +259,13 @@
             padding: 0;
             position: sticky;
             top: 0;
-            height: 100vh;
+            align-self: start;
+            max-height: 100vh;
             overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
+            z-index: 10;
         }
 
         .sidebar-header {
@@ -434,9 +437,10 @@
         .main-content {
             background: var(--bg-primary);
             padding: 48px 64px;
-            overflow-y: auto;
             overflow-x: hidden;
-            height: 100vh;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
         }
 
         .content-wrapper {
@@ -927,7 +931,7 @@
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li class="nav-group"><span class="nav-group-title">Foundation</span><ul class="nav-group-items"><li><a href="waqup_product_constitution.html" class="">Product Constitution</a></li><li><a href="waqup_scientific_foundations.html" class="">Scientific Foundations</a></li></ul></li><li class="nav-group"><span class="nav-group-title">User Experience</span><ul class="nav-group-items"><li><a href="waqup_conversational_and_ritual_system.html" class="">Conversational & Ritual System</a></li><li><a href="waqup_ai_voice_and_ethics.html" class="">AI Voice & Ethics</a></li></ul></li><li class="nav-group"><span class="nav-group-title">Technical</span><ul class="nav-group-items"><li><a href="waqup_system_architecture.html" class="">System Architecture</a></li></ul></li><li class="nav-group"><span class="nav-group-title">Business</span><ul class="nav-group-items"><li><a href="waqup_value_and_growth_economy.html" class="">Value & Growth Economy</a></li></ul></li><li class="nav-group"><span class="nav-group-title">Planning</span><ul class="nav-group-items"><li><a href="waqup_roadmap_and_releases.html" class="">Roadmap & Releases</a></li></ul></li><li class="nav-section"><span class="nav-section-title">Archived Reference</span></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — System Architecture</span><ul class="nav-subgroup-items"><li><a href="01-architecture-overview.html" class="">Architecture Overview</a></li><li><a href="03-data-flow.html" class="">Data Flow</a></li><li><a href="05-api-flow.html" class="">API Flow</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — User Experience</span><ul class="nav-subgroup-items"><li><a href="02-features-workflows.html" class="">Features & Workflows</a></li><li><a href="04-user-journey.html" class="active">User Journey</a></li><li><a href="waqup_content_types_and_taxonomy.html" class="">Content Types & Taxonomy</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — Business</span><ul class="nav-subgroup-items"><li><a href="waqup_credits_system.html" class="">Credits System</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — Planning</span><ul class="nav-subgroup-items"><li><a href="06-development-timeline.html" class="">Development Timeline & Roadmap</a></li></ul></li>
+                    <li class="nav-section"><span class="nav-section-title">Archived Reference</span></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — System Architecture</span><ul class="nav-subgroup-items"><li><a href="01-architecture-overview.html" class="">Architecture Overview</a></li><li><a href="03-data-flow.html" class="">Data Flow</a></li><li><a href="05-api-flow.html" class="">API Flow</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — User Experience</span><ul class="nav-subgroup-items"><li><a href="02-features-workflows.html" class="">Features & Workflows</a></li><li><a href="04-user-journey.html" class="active">User Journey</a></li><li><a href="waqup_content_types_and_taxonomy.html" class="">Content Types & Taxonomy</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — Business</span><ul class="nav-subgroup-items"><li><a href="waqup_credits_system.html" class="">Credits System</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — Planning</span><ul class="nav-subgroup-items"><li><a href="06-development-timeline.html" class="">Development Timeline & Roadmap</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Other</span><ul class="nav-subgroup-items"><li><a href="ai-voice-and-ethics.html" class="">AI Voice & Ethics</a></li><li><a href="conversational-and-ritual-system.html" class="">Conversational & Ritual System</a></li><li><a href="product-constitution.html" class="">Product Constitution</a></li><li><a href="roadmap-and-releases.html" class="">Roadmap & Releases</a></li><li><a href="scientific-foundations.html" class="">Scientific Foundations</a></li><li><a href="system-architecture.html" class="">System Architecture</a></li><li><a href="value-and-growth-economy.html" class="">Value & Growth Economy</a></li></ul></li>
                 </ul>
             </nav>
         </aside>

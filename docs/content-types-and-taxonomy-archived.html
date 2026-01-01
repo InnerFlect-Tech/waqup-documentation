@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="waQup - Voice-first ritual creation platform documentation">
-    <title>Credits System</title>
+    <title>Content Types & Taxonomy</title>
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ 
@@ -931,320 +931,494 @@
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li class="nav-section"><span class="nav-section-title">Archived Reference</span></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — System Architecture</span><ul class="nav-subgroup-items"><li><a href="01-architecture-overview.html" class="">Architecture Overview</a></li><li><a href="03-data-flow.html" class="">Data Flow</a></li><li><a href="05-api-flow.html" class="">API Flow</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — User Experience</span><ul class="nav-subgroup-items"><li><a href="02-features-workflows.html" class="">Features & Workflows</a></li><li><a href="04-user-journey.html" class="">User Journey</a></li><li><a href="waqup_content_types_and_taxonomy.html" class="">Content Types & Taxonomy</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — Business</span><ul class="nav-subgroup-items"><li><a href="waqup_credits_system.html" class="active">Credits System</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Archived — Planning</span><ul class="nav-subgroup-items"><li><a href="06-development-timeline.html" class="">Development Timeline & Roadmap</a></li></ul></li><li class="nav-subgroup"><span class="nav-subgroup-title">Other</span><ul class="nav-subgroup-items"><li><a href="ai-voice-and-ethics.html" class="">AI Voice & Ethics</a></li><li><a href="conversational-and-ritual-system.html" class="">Conversational & Ritual System</a></li><li><a href="product-constitution.html" class="">Product Constitution</a></li><li><a href="roadmap-and-releases.html" class="">Roadmap & Releases</a></li><li><a href="scientific-foundations.html" class="">Scientific Foundations</a></li><li><a href="system-architecture.html" class="">System Architecture</a></li><li><a href="value-and-growth-economy.html" class="">Value & Growth Economy</a></li></ul></li>
+                    <li class="nav-section"><span class="nav-section-title">Archived Reference</span></li><li class="nav-subgroup"><span class="nav-subgroup-title">Other</span><ul class="nav-subgroup-items"><li><a href="ai-voice-and-ethics.html" class="">AI Voice & Ethics</a></li><li><a href="api-flow-archived.html" class="">API Flow</a></li><li><a href="architecture-overview-archived.html" class="">Architecture Overview</a></li><li><a href="content-types-and-taxonomy-archived.html" class="active">Content Types & Taxonomy</a></li><li><a href="conversational-and-ritual-system.html" class="">Conversational & Ritual System</a></li><li><a href="credits-system-archived.html" class="">Credits System</a></li><li><a href="data-flow-archived.html" class="">Data Flow</a></li><li><a href="development-timeline-archived.html" class="">Development Timeline & Roadmap</a></li><li><a href="features-workflows-archived.html" class="">Features & Workflows</a></li><li><a href="product-constitution.html" class="">Product Constitution</a></li><li><a href="roadmap-and-releases.html" class="">Roadmap & Releases</a></li><li><a href="scientific-foundations.html" class="">Scientific Foundations</a></li><li><a href="system-architecture.html" class="">System Architecture</a></li><li><a href="user-journey-archived.html" class="">User Journey</a></li><li><a href="value-and-growth-economy.html" class="">Value & Growth Economy</a></li></ul></li>
                 </ul>
             </nav>
         </aside>
         <main class="main-content">
             <div class="content-wrapper">
-                <h1>Credits System</h1>
+                <h1>Content Types &amp; Taxonomy</h1>
 <blockquote>
 <p><strong>⚠️ Archived Reference Document</strong><br>
-This document is kept for historical reference. The complete, up-to-date content has been merged into the <strong><a href="./waqup_value_and_growth_economy.html#credits-system">Value &amp; Growth Economy</a></strong> document.</p>
+This document is kept for historical reference. The complete, up-to-date content has been merged into the <strong><a href="./waqup_conversational_and_ritual_system.html#content-types--taxonomy">Conversational &amp; Ritual System</a></strong> document.</p>
 </blockquote>
-<p><strong>Domain</strong>: HOW credits manage AI resource consumption and enable intentional creation (resource management, not gamification)</p>
+<p><strong>Domain</strong>: WHAT the three content types are, HOW they differ psychologically, and HOW they’re organized (taxonomy, tags, depth layers)</p>
 <hr>
 <p><strong>Related SSOT Documents</strong>:</p>
 <ul>
-<li>Content Types &amp; Taxonomy: Three content types and their credit costs</li>
-<li>Value &amp; Growth Economy: Overall economic model and value circulation</li>
-<li>Features &amp; Workflows: How credits integrate with content creation</li>
-<li>Architecture Overview: Credit Management Service implementation</li>
-<li>User Journey: Credit purchase and consumption experience</li>
+<li>Product Constitution: Core identity and boundaries</li>
+<li>Features &amp; Workflows: How each type is created and used</li>
+<li>Credits System: Credit costs per content type</li>
+<li>Scientific Foundations: Psychological basis for each type</li>
+<li>Data Flow: How content types are stored and retrieved</li>
 </ul>
 <hr>
-<h2>1. Why Credits (Not Pure Subscription)</h2>
-<p>Credits fit waQup because <strong>value is created at the moment of ritual creation, not in passive listening</strong>.</p>
-<p>A ritual is an act of <strong>encoding</strong> → that is where effort, attention, and meaning happen.</p>
-<p>So we price:</p>
-<ul>
-<li><strong>Creation</strong> (encoding)</li>
-<li><strong>Transformation</strong> (deep change)</li>
-</ul>
-<p>Not time.</p>
-<p><strong>Credits</strong>:</p>
-<ul>
-<li>Feel intentional</li>
-<li>Reduce churn</li>
-<li>Avoid “I’m paying but not using it” guilt</li>
-<li>Match ritual psychology (scarcity + choice)</li>
-<li>Align infrastructure costs (AI only when needed)</li>
-</ul>
-<hr>
-<h2>2. What Credits Are (Definition)</h2>
-<p><strong>A credit = one irreversible act of creation or deep change.</strong></p>
-<p>Credits are consumed when the user creates or transforms something meaningful.</p>
-<p><strong>Not</strong> when they listen.</p>
-<p><strong>Core Principle</strong>: Practice is free, creation is sacred.</p>
-<hr>
-<h2>3. What Costs Credits (Core Rules)</h2>
-<h3>Consumes Credits</h3>
-<p><strong>By Content Type</strong> (see Content Types &amp; Taxonomy document):</p>
-<ul>
-<li><strong>Affirmations</strong>: 0.5 credits (lighter AI processing, shorter content)</li>
-<li><strong>Guided Meditations</strong>: 1 credit (standard AI processing)</li>
-<li><strong>Rituals</strong>: 1 credit (full AI processing, highest value)</li>
-</ul>
-<p><strong>Other Actions</strong>:</p>
-<ul>
-<li>Clone + deeply modify existing content (see thresholds below)</li>
-<li>Generate hypnosis / NLP-structured content (1 credit)</li>
-</ul>
-<p><strong>Optional extra credit</strong>:</p>
-<ul>
-<li>Use premium voices (+0.5 credit, or clarify if included in base)</li>
-</ul>
-<h3>Does NOT Cost Credits</h3>
-<ul>
-<li>Listening / replaying (unlimited)</li>
-<li>Daily practice (unlimited)</li>
-<li>Offline usage (unlimited)</li>
-<li>Using own voice (if feature exists)</li>
-<li>Editing text manually (minor tweaks)</li>
-<li>Minor tweaks (duration, pace, tags)</li>
-</ul>
-<h3>Modification Thresholds</h3>
-<p><strong>Free (No Credit)</strong>:</p>
-<ul>
-<li>Manual text editing</li>
-<li>Changing duration</li>
-<li>Adjusting pace/tone settings</li>
-<li>Adding/removing tags</li>
-<li>Organizing in folders</li>
-<li>Exporting rituals</li>
-</ul>
-<p><strong>1 Credit (Deep Modification)</strong>:</p>
-<ul>
-<li>Changing practice type (breath work → movement)</li>
-<li>Changing intent (calming → energizing)</li>
-<li>Restructuring ritual requiring LLM regeneration</li>
-<li>Changing core ritual structure</li>
-<li>Any modification requiring AI regeneration</li>
-</ul>
-<hr>
-<h2>4. Credit Packs (Simple, Humane)</h2>
-<h3>Example Packs (Illustrative)</h3>
-<ul>
-<li><strong>Starter</strong>: 3 credits → €9 (€3/credit)</li>
-<li><strong>Seeker</strong>: 10 credits → €25 (€2.50/credit)</li>
-<li><strong>Architect</strong>: 30 credits → €60 (€2/credit)</li>
-</ul>
-<p><strong>Psychology</strong>:</p>
-<ul>
-<li>Small entry point</li>
-<li>No pressure</li>
-<li>Higher packs feel like commitment, not upsell</li>
-<li>Bulk discount rewards intentional use</li>
-</ul>
-<h3>Credit Properties</h3>
-<ul>
-<li><strong>Never expire</strong> (no FOMO, no manipulation)</li>
-<li><strong>Personal</strong> (non-transferable, except future gifting feature)</li>
-<li><strong>Refundable</strong> (on system errors, see error handling)</li>
-<li><strong>Transparent</strong> (always visible balance, clear costs)</li>
-</ul>
-<hr>
-<h2>5. Free Tier (Important)</h2>
-<p>Free users get:</p>
-<ul>
-<li><strong>1 ritual credit</strong> (one-time, to experience creation)</li>
-<li><strong>Full replay access</strong> (unlimited listening)</li>
-<li><strong>Basic structure only</strong> (standard voices, standard features)</li>
-</ul>
-<p>This lets them:</p>
-<ul>
-<li>Feel the power</li>
-<li>Encode once</li>
-<li>Understand the system</li>
-<li>Experience value before paywall</li>
-</ul>
-<p>Then the paywall feels <strong>natural, not coercive</strong>.</p>
-<hr>
-<h2>6. Error Handling &amp; Refunds</h2>
-<h3>Credit Refund Policy</h3>
-<p>Credits are <strong>refunded</strong> when:</p>
-<ul>
-<li>Ritual generation fails due to system error</li>
-<li>Audio generation fails after text generation</li>
-<li>User cancels before ritual completion</li>
-<li>LLM/TTS service unavailable</li>
-<li>Any technical failure preventing completion</li>
-</ul>
-<p>Credits are <strong>consumed</strong> when:</p>
-<ul>
-<li>Ritual successfully generated and saved</li>
-<li>User confirms ritual completion</li>
-<li>Ritual appears in library</li>
-</ul>
-<p><strong>Principle</strong>: User only pays for successful value delivery.</p>
-<hr>
-<h2>7. Credit Balance &amp; Visibility</h2>
-<h3>Balance Display</h3>
-<ul>
-<li>Always visible in UI (non-intrusive, calm)</li>
-<li>Shown before consumption: “This will use 1 credit. You have 5 remaining.”</li>
-<li>Transaction history available (credits used, credits purchased, refunds)</li>
-<li>No pressure messaging (no “low balance” warnings)</li>
-</ul>
-<h3>Purchase Flow</h3>
-<ul>
-<li>Clear pricing before purchase</li>
-<li>No hidden fees</li>
-<li>Immediate credit availability</li>
-<li>Simple checkout (Stripe integration)</li>
-</ul>
-<hr>
-<h2>8. Premium Voices</h2>
-<p><strong>Standard voices</strong>: Included in ritual creation credit (1 credit covers creation + standard voice)</p>
-<p><strong>Premium voices</strong>:</p>
-<ul>
-<li>Option A: +0.5 credit per ritual</li>
-<li>Option B: Included in base credit (preferred for simplicity)</li>
-</ul>
-<p><strong>Recommendation</strong>: Include in base credit to maintain simplicity and avoid decision fatigue.</p>
-<hr>
-<h2>9. Marketplace Relationship</h2>
-<h3>Creator Packs</h3>
-<ul>
-<li>Purchased separately (direct payment or credits)</li>
-<li>Credits can be used to purchase packs (1 credit = €3 value, or separate pricing)</li>
-<li>Creator revenue: Separate from user credits (creators receive payment, not credits)</li>
-</ul>
-<h3>Credit Usage for Marketplace</h3>
-<ul>
-<li>Users can use credits to purchase packs</li>
-<li>Credit value: €3 per credit (or market rate)</li>
-<li>Credits supplement, don’t replace direct payment</li>
-</ul>
-<hr>
-<h2>10. Internal Logic (Systemic, Not Cosmetic)</h2>
-<p>Credits align:</p>
-<p><strong>User Psychology</strong> → “What is worth encoding now?”</p>
-<ul>
-<li>Intentional choice</li>
-<li>Scarcity creates meaning</li>
-<li>No infinite scrolling</li>
-</ul>
-<p><strong>Infrastructure Cost</strong> → AI + processing only when needed</p>
-<ul>
-<li>Pay for what you use</li>
-<li>Predictable costs</li>
-<li>Scales with usage</li>
-</ul>
-<p><strong>Retention</strong> → Rituals stay forever</p>
-<ul>
-<li>No subscription pressure</li>
-<li>No “use it or lose it”</li>
-<li>Credits never expire</li>
-</ul>
-<p><strong>Ethics</strong> → No addiction loops</p>
-<ul>
-<li>No streaks</li>
-<li>No pressure</li>
-<li>No manipulation</li>
-<li>No FOMO</li>
-</ul>
-<p>This avoids:</p>
-<ul>
-<li>Infinite content scrolling</li>
-<li>Meditation gamification</li>
-<li>Streak anxiety</li>
-<li>Subscription fatigue</li>
-</ul>
-<hr>
-<h2>11. Economic Scalability</h2>
-<p>From a business view:</p>
-<ul>
-<li><strong>Near-zero marginal cost</strong> per replay</li>
-<li><strong>Credits purchased upfront</strong> (cash flow)</li>
-<li><strong>No refund pressure</strong> (“I forgot to cancel”)</li>
-<li><strong>Works globally</strong> (no subscription fatigue)</li>
-<li><strong>Predictable revenue</strong> per engaged user</li>
-<li><strong>Credits = cash flow + clarity</strong></li>
-</ul>
-<hr>
-<h2>12. Long-Term Extensibility</h2>
-<p>Credits later can unlock:</p>
-<ul>
-<li><strong>Creator rituals</strong> (revenue share)</li>
-<li><strong>Couple rituals</strong> (2 credits)</li>
-<li><strong>Trauma-safe guided work</strong> (higher credit, 2 credits)</li>
-<li><strong>Therapist-generated rituals</strong> (premium, 2 credits)</li>
-<li><strong>Custom voice models</strong> (premium, 2 credits)</li>
-<li><strong>Ritual sequences</strong> (multiple rituals, proportional credits)</li>
-</ul>
-<p>Same system. No redesign.</p>
-<hr>
-<h2>13. Anti-Gamification Safeguards</h2>
-<h3>What Credits Are NOT</h3>
-<ul>
-<li>Not a reward system (no “earn credits by practicing”)</li>
-<li>Not a loyalty program (no “more credits for streaks”)</li>
-<li>Not a social comparison tool (no leaderboards)</li>
-<li>Not a manipulation mechanism (no FOMO, urgency)</li>
-</ul>
-<h3>What Credits ARE</h3>
-<ul>
-<li>Resource management tool</li>
-<li>Cost allocation mechanism</li>
-<li>Intentional choice enabler</li>
-<li>Infrastructure cost alignment</li>
-</ul>
-<hr>
-<h2>14. Implementation Notes</h2>
-<h3>Credit Management Service</h3>
-<ul>
-<li>Tracks credit balance per user</li>
-<li>Validates credit availability before consumption</li>
-<li>Processes refunds on errors</li>
-<li>Records transaction history</li>
-<li>Integrates with Payment Service for purchases</li>
-</ul>
-<h3>API Integration</h3>
-<ul>
-<li>Check credit balance before ritual creation</li>
-<li>Consume credit on successful completion</li>
-<li>Refund credit on failure</li>
-<li>Track credit transactions</li>
-</ul>
-<h3>UI/UX Principles</h3>
-<ul>
-<li>Calm, non-intrusive balance display</li>
-<li>Clear cost communication before action</li>
-<li>No pressure messaging</li>
-<li>Transparent transaction history</li>
-<li>Simple purchase flow</li>
-</ul>
-<hr>
-<h2>15. Content Type Credit Costs</h2>
-<h3>Rationale</h3>
-<ul>
-<li><strong>Affirmations (0.5 credits)</strong>: Shorter, simpler AI processing, lighter content</li>
-<li><strong>Guided Meditations (1 credit)</strong>: Standard processing, medium complexity</li>
-<li><strong>Rituals (1 credit)</strong>: Full processing, highest value, but same cost = intentional choice</li>
-</ul>
-<p><strong>Alternative Consideration</strong>: All cost 1 credit for simplicity and intentionality (recommended for Phase 1, can adjust based on usage data).</p>
-<hr>
-<h2>16. Open Questions</h2>
+<h2>Core Principle: Three Depths, Not Interchangeable</h2>
+<p>waQup is built on <strong>three different depths of subconscious engagement</strong>.</p>
+<p>They are <strong>not interchangeable</strong>.</p>
+<p>Think of them as <strong>layers</strong>:</p>
 <ol>
-<li><strong>Affirmation credit cost</strong>: 0.5 credits (lighter) or 1 credit (simplicity)?</li>
-<li><strong>Premium voice pricing</strong>: Include in base credit or +0.5 credit?</li>
-<li><strong>Credit gifting</strong>: When to implement? What are the mechanics?</li>
-<li><strong>Marketplace credit value</strong>: Fixed €3/credit or variable?</li>
-<li><strong>Bulk discounts</strong>: Should larger packs have better per-credit pricing?</li>
-<li><strong>Type transitions</strong>: Should converting affirmations → meditations → rituals cost credits?</li>
+<li><strong>Affirmations</strong> → cognitive re-patterning (shallow → medium)</li>
+<li><strong>Guided Meditations</strong> → state induction (medium)</li>
+<li><strong>Rituals</strong> → identity encoding (deepest)</li>
+</ol>
+<p>Most apps confuse these. waQup separates them <strong>on purpose</strong>.</p>
+<hr>
+<h2>1. Affirmations (Micro-Reprogramming)</h2>
+<h3>What Affirmations Are in waQup</h3>
+<p>Affirmations are <strong>precise linguistic encodings</strong> designed to:</p>
+<ul>
+<li>Bypass resistance</li>
+<li>Avoid negation errors</li>
+<li>Align language with felt identity</li>
+</ul>
+<p>They are <strong>not</strong>:</p>
+<ul>
+<li>Positive thinking</li>
+<li>Wishful statements</li>
+<li>Surface motivation</li>
+</ul>
+<p>They are <strong>syntax-correct instructions to the subconscious</strong>.</p>
+<h3>How They Work Psychologically</h3>
+<ol>
+<li>The brain responds to present-tense identity language</li>
+<li>Repetition builds neural familiarity</li>
+<li>Familiarity reduces threat</li>
+<li>Reduced threat allows adoption</li>
+</ol>
+<p><strong>Example</strong>:</p>
+<ul>
+<li>❌ “I am becoming calm”</li>
+<li>✅ “I am calm and present in my body”</li>
+</ul>
+<h3>In the App</h3>
+<p><strong>Characteristics</strong>:</p>
+<ul>
+<li>Can exist alone (standalone affirmations)</li>
+<li>Can be listened to daily (lightweight, repeatable)</li>
+<li>Can be recorded in:
+<ul>
+<li>User’s voice</li>
+<li>Selected voice</li>
+</ul>
+</li>
+<li>Fast generation (less AI processing)</li>
+<li>Shorter duration (1-5 minutes)</li>
+</ul>
+<p><strong>Depth</strong>: Shallow → Medium</p>
+<p><strong>Use Cases</strong>: Habits, mindset, focus, confidence, daily reinforcement</p>
+<p><strong>Credit Cost</strong>: 0.5 credits (lighter AI processing)</p>
+<p><strong>Structure</strong>:</p>
+<ul>
+<li>Core affirmation statements (3-7 statements)</li>
+<li>Present-tense identity language</li>
+<li>Repetition pattern</li>
+<li>Optional: brief grounding</li>
+</ul>
+<hr>
+<h2>2. Guided Meditations (State + Imagery)</h2>
+<h3>What Guided Meditations Are</h3>
+<p>Guided meditations are <strong>state-induction journeys</strong>.</p>
+<p>They use:</p>
+<ul>
+<li>Breath</li>
+<li>Attention direction</li>
+<li>Imagery</li>
+<li>Pacing</li>
+<li>Silence</li>
+</ul>
+<p>Their purpose is <strong>not identity change, but state access</strong>.</p>
+<h3>How They Work Psychologically</h3>
+<ol>
+<li>Slow the nervous system</li>
+<li>Shift brainwave dominance</li>
+<li>Increase suggestibility</li>
+<li>Open access to emotional material</li>
+</ol>
+<p>They <strong>prepare the terrain, but don’t rewrite the map</strong>.</p>
+<h3>In the App</h3>
+<p><strong>Characteristics</strong>:</p>
+<ul>
+<li>Can be generic (relaxation, grounding, presence)</li>
+<li>Can be semi-personalized</li>
+<li>Can be listened to without credits (once created)</li>
+<li>Can include affirmations inside them</li>
+<li>Medium duration (5-20 minutes)</li>
+<li>Moderate AI processing</li>
+</ul>
+<p><strong>Depth</strong>: Medium</p>
+<p><strong>Use Cases</strong>: Regulation, stress, clarity, emotional access, nervous system regulation</p>
+<p><strong>Credit Cost</strong>: 1 credit (standard AI processing)</p>
+<p><strong>Structure</strong>:</p>
+<ul>
+<li>Grounding / arrival</li>
+<li>Breath work</li>
+<li>Attention direction</li>
+<li>Imagery / visualization</li>
+<li>Optional: embedded affirmations</li>
+<li>Closure / return</li>
+</ul>
+<hr>
+<h2>3. Rituals (Identity Encoding — The Core)</h2>
+<h3>What Rituals Are (This is Key)</h3>
+<p>A waQup ritual is a <strong>structured act of self-authorship</strong>.</p>
+<p>It combines:</p>
+<ul>
+<li>Reflection</li>
+<li>Intention</li>
+<li>Language</li>
+<li>Voice</li>
+<li>Repetition</li>
+<li>Emotional imprint</li>
+</ul>
+<p><strong>Rituals are not content. They are events.</strong></p>
+<h3>What Makes Rituals Different</h3>
+<p>Rituals:</p>
+<ul>
+<li>Are <strong>created, not consumed</strong></li>
+<li>Include <strong>context</strong> (why this matters)</li>
+<li>Encode <strong>identity-level language</strong></li>
+<li>Are tied to a <strong>moment in life</strong></li>
+</ul>
+<p>This is why they are <strong>rare — and powerful</strong>.</p>
+<h3>Structure of a Ritual (Simplified)</h3>
+<p>A ritual typically includes:</p>
+<ol>
+<li><strong>Grounding / arrival</strong> (nervous system regulation)</li>
+<li><strong>Context</strong> (what is changing, why this matters)</li>
+<li><strong>Core affirmations</strong> (personalized, identity-level)</li>
+<li><strong>Emotional anchoring</strong> (felt sense integration)</li>
+<li><strong>Closure / integration</strong> (commitment to new identity)</li>
+</ol>
+<p>This structure is what makes it <strong>stick</strong>.</p>
+<h3>In the App</h3>
+<p><strong>Characteristics</strong>:</p>
+<ul>
+<li>Ritual creation consumes credits (highest cost)</li>
+<li>Ritual playback is unlimited (free)</li>
+<li>Rituals can evolve over time</li>
+<li>Rituals become part of the user’s inner archive</li>
+<li>Longer duration (10-30 minutes)</li>
+<li>Highest AI processing (full personalization)</li>
+</ul>
+<p><strong>Depth</strong>: Deep</p>
+<p><strong>Use Cases</strong>: Identity shifts, transitions, trauma-safe re-framing, life thresholds, major changes</p>
+<p><strong>Credit Cost</strong>: 1 credit (full AI processing, highest value)</p>
+<p><strong>Structure</strong>:</p>
+<ul>
+<li>Grounding / arrival</li>
+<li>Context (personalized, why this matters)</li>
+<li>Core affirmations (identity-level, personalized)</li>
+<li>Emotional anchoring (felt sense)</li>
+<li>Closure / integration (commitment)</li>
+</ul>
+<hr>
+<h2>4. How the Three Work Together (System Logic)</h2>
+<h3>Typical User Journey</h3>
+<ol>
+<li><strong>User starts with affirmations</strong> (lightweight, daily)</li>
+<li><strong>When resistance appears</strong> → uses guided meditation (state access)</li>
+<li><strong>When something truly matters</strong> → creates a ritual (identity encoding)</li>
+</ol>
+<p><strong>Affirmations repeat</strong><br>
+<strong>Meditations open</strong><br>
+<strong>Rituals encode</strong></p>
+<h3>Internal Hierarchy</h3>
+<ul>
+<li><strong>Affirmations</strong> = statements (cognitive layer)</li>
+<li><strong>Guided meditations</strong> = states (nervous system layer)</li>
+<li><strong>Rituals</strong> = identity contracts (deepest layer)</li>
+</ul>
+<p>waQup doesn’t force one path — it offers <strong>depth when needed</strong>.</p>
+<hr>
+<h2>5. Taxonomy System</h2>
+<h3>Primary Classification: Content Type</h3>
+<p><strong>Required field</strong>: <code>content_type</code> (enum)</p>
+<ul>
+<li><code>affirmation</code></li>
+<li><code>guided_meditation</code></li>
+<li><code>ritual</code></li>
+</ul>
+<h3>Secondary Classification: Tags</h3>
+<p><strong>Tags</strong> are flexible, user-defined, and system-suggested.</p>
+<h4>System Tags (Predefined)</h4>
+<p><strong>By Use Case</strong>:</p>
+<ul>
+<li><code>habits</code> (affirmations)</li>
+<li><code>mindset</code> (affirmations)</li>
+<li><code>focus</code> (affirmations)</li>
+<li><code>confidence</code> (affirmations)</li>
+<li><code>regulation</code> (meditations)</li>
+<li><code>stress</code> (meditations)</li>
+<li><code>clarity</code> (meditations)</li>
+<li><code>emotional-access</code> (meditations)</li>
+<li><code>identity-shift</code> (rituals)</li>
+<li><code>transition</code> (rituals)</li>
+<li><code>trauma-safe</code> (rituals)</li>
+<li><code>life-threshold</code> (rituals)</li>
+</ul>
+<p><strong>By Practice Type</strong> (for rituals and meditations):</p>
+<ul>
+<li><code>breath-work</code></li>
+<li><code>body-scanning</code></li>
+<li><code>movement</code></li>
+<li><code>sensory-awareness</code></li>
+<li><code>visualization</code></li>
+<li><code>combination</code></li>
+</ul>
+<p><strong>By Time/Context</strong>:</p>
+<ul>
+<li><code>morning</code></li>
+<li><code>evening</code></li>
+<li><code>before-sleep</code></li>
+<li><code>anxiety</code></li>
+<li><code>calming</code></li>
+<li><code>energizing</code></li>
+<li><code>grounding</code></li>
+</ul>
+<p><strong>By Depth</strong> (system-assigned):</p>
+<ul>
+<li><code>shallow</code> (affirmations)</li>
+<li><code>medium</code> (meditations, some affirmations)</li>
+<li><code>deep</code> (rituals)</li>
+</ul>
+<h4>User Tags (Custom)</h4>
+<p>Users can add custom tags:</p>
+<ul>
+<li>Personal context tags</li>
+<li>Life event tags</li>
+<li>Emotional state tags</li>
+<li>Any meaningful categorization</li>
+</ul>
+<p><strong>Tag Rules</strong>:</p>
+<ul>
+<li>Maximum 10 tags per content item</li>
+<li>Tags are lowercase, hyphenated</li>
+<li>System suggests tags based on content analysis</li>
+<li>Users can remove/add tags freely</li>
+</ul>
+<h3>Tertiary Classification: Collections</h3>
+<p><strong>Collections</strong> are user-organized groups:</p>
+<ul>
+<li>Folders (user-created)</li>
+<li>Packs (creator-published)</li>
+<li>Sequences (multiple items in order)</li>
+</ul>
+<hr>
+<h2>6. Database Schema</h2>
+<h3>Content Items Table</h3>
+<pre><code class="language-sql">CREATE TABLE content_items (
+    id UUID PRIMARY KEY,
+    user_id UUID REFERENCES users(id),
+    content_type ENUM('affirmation', 'guided_meditation', 'ritual') NOT NULL,
+    
+    -- Core fields
+    title VARCHAR(255) NOT NULL,
+    content_text TEXT NOT NULL,
+    audio_url VARCHAR(500),
+    audio_duration INTEGER, -- seconds
+    
+    -- Type-specific fields
+    structure JSONB, -- type-specific structure
+    context JSONB, -- creation context, personalization
+    
+    -- Metadata
+    tags TEXT[], -- array of tag strings
+    depth VARCHAR(20), -- shallow, medium, deep (system-assigned)
+    
+    -- Voice
+    voice_id UUID REFERENCES voices(id),
+    voice_type VARCHAR(50), -- 'user', 'standard', 'premium'
+    
+    -- Timestamps
+    created_at TIMESTAMP NOT NULL,
+    last_played_at TIMESTAMP,
+    play_count INTEGER DEFAULT 0,
+    
+    -- Organization
+    folder_id UUID REFERENCES folders(id),
+    pack_id UUID REFERENCES ritual_packs(id), -- if part of pack
+    
+    -- Status
+    status VARCHAR(20) DEFAULT 'active', -- active, archived, deleted
+    
+    -- Indexes
+    INDEX idx_user_content_type (user_id, content_type),
+    INDEX idx_tags (tags),
+    INDEX idx_depth (depth)
+);
+</code></pre>
+<h3>Tags Table (Normalized)</h3>
+<pre><code class="language-sql">CREATE TABLE tags (
+    id UUID PRIMARY KEY,
+    name VARCHAR(100) UNIQUE NOT NULL,
+    category VARCHAR(50), -- 'use-case', 'practice-type', 'time-context', 'custom'
+    usage_count INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE content_item_tags (
+    content_item_id UUID REFERENCES content_items(id),
+    tag_id UUID REFERENCES tags(id),
+    PRIMARY KEY (content_item_id, tag_id)
+);
+</code></pre>
+<hr>
+<h2>7. API Design</h2>
+<h3>Filtering by Type</h3>
+<p><strong>GET /api/v1/content</strong></p>
+<pre><code class="language-json">Query Parameters:
+- content_type: &quot;affirmation&quot; | &quot;guided_meditation&quot; | &quot;ritual&quot; | null (all)
+- tags: string[] (filter by tags)
+- depth: &quot;shallow&quot; | &quot;medium&quot; | &quot;deep&quot; | null (all)
+- folder_id: uuid (optional)
+- pack_id: uuid (optional)
+
+Response:
+{
+  &quot;content_items&quot;: [
+    {
+      &quot;id&quot;: &quot;uuid&quot;,
+      &quot;content_type&quot;: &quot;ritual&quot;,
+      &quot;title&quot;: &quot;Evening Calm&quot;,
+      &quot;depth&quot;: &quot;deep&quot;,
+      &quot;tags&quot;: [&quot;evening&quot;, &quot;calming&quot;, &quot;transition&quot;],
+      &quot;duration&quot;: 600,
+      &quot;created_at&quot;: &quot;2024-01-01T00:00:00Z&quot;
+    }
+  ],
+  &quot;pagination&quot;: {...}
+}
+</code></pre>
+<h3>Type-Specific Creation</h3>
+<p><strong>POST /api/v1/content/create</strong></p>
+<pre><code class="language-json">Request:
+{
+  &quot;content_type&quot;: &quot;affirmation&quot; | &quot;guided_meditation&quot; | &quot;ritual&quot;,
+  &quot;intent&quot;: &quot;I need calm&quot;,
+  &quot;context&quot;: {...},
+  &quot;preferences&quot;: {...}
+}
+
+Response:
+{
+  &quot;content_item_id&quot;: &quot;uuid&quot;,
+  &quot;content_type&quot;: &quot;ritual&quot;,
+  &quot;status&quot;: &quot;generating&quot;,
+  &quot;estimated_time&quot;: 30
+}
+</code></pre>
+<hr>
+<h2>8. User Interface Organization</h2>
+<h3>Library View Options</h3>
+<ol>
+<li>
+<p><strong>By Type</strong> (default):</p>
+<ul>
+<li>Affirmations tab</li>
+<li>Guided Meditations tab</li>
+<li>Rituals tab</li>
+</ul>
+</li>
+<li>
+<p><strong>By Tags</strong>:</p>
+<ul>
+<li>Filter by tag</li>
+<li>See all types with matching tag</li>
+</ul>
+</li>
+<li>
+<p><strong>By Depth</strong>:</p>
+<ul>
+<li>Shallow (affirmations)</li>
+<li>Medium (meditations)</li>
+<li>Deep (rituals)</li>
+</ul>
+</li>
+<li>
+<p><strong>By Collection</strong>:</p>
+<ul>
+<li>Folders</li>
+<li>Packs</li>
+<li>Sequences</li>
+</ul>
+</li>
+</ol>
+<h3>Creation Flow</h3>
+<p><strong>Step 1</strong>: User selects content type</p>
+<ul>
+<li>“Create Affirmation” (lightweight)</li>
+<li>“Create Guided Meditation” (state access)</li>
+<li>“Create Ritual” (deep encoding)</li>
+</ul>
+<p><strong>Step 2</strong>: Conversation adapts to type</p>
+<ul>
+<li>Affirmations: Focus on statements, identity language</li>
+<li>Meditations: Focus on state, imagery, breath</li>
+<li>Rituals: Focus on context, meaning, identity shift</li>
+</ul>
+<hr>
+<h2>9. Credits Integration</h2>
+<h3>Credit Costs by Type</h3>
+<ul>
+<li><strong>Affirmations</strong>: 0.5 credits (lighter processing)</li>
+<li><strong>Guided Meditations</strong>: 1 credit (standard processing)</li>
+<li><strong>Rituals</strong>: 1 credit (full processing, highest value)</li>
+</ul>
+<p><strong>Rationale</strong>:</p>
+<ul>
+<li>Affirmations are shorter, simpler</li>
+<li>Meditations are standard length</li>
+<li>Rituals are full personalization (but same credit = intentional choice)</li>
+</ul>
+<p><strong>Alternative</strong>: All cost 1 credit (simplicity, intentionality)</p>
+<hr>
+<h2>10. Why This Design is Rare (and Strong)</h2>
+<h3>Most Apps:</h3>
+<ul>
+<li>Mix everything (no distinction)</li>
+<li>Overload content (too many options)</li>
+<li>Remove authorship (pre-made content)</li>
+</ul>
+<h3>waQup:</h3>
+<ul>
+<li>Separates functions (clear hierarchy)</li>
+<li>Respects psychological layers (depth awareness)</li>
+<li>Gives ownership back to the user (self-authorship)</li>
+</ul>
+<h3>This Creates:</h3>
+<ul>
+<li>Higher trust (clear purpose)</li>
+<li>Deeper retention (meaningful progression)</li>
+<li>Emotional loyalty (identity-level connection)</li>
+<li>Ethical monetization (value-based pricing)</li>
+</ul>
+<hr>
+<h2>11. Open Questions</h2>
+<ol>
+<li><strong>Credit costs</strong>: Should affirmations cost 0.5 credits or 1 credit?</li>
+<li><strong>Tag limits</strong>: Is 10 tags per item sufficient?</li>
+<li><strong>Type transitions</strong>: Can users convert affirmations → meditations → rituals?</li>
+<li><strong>Pack types</strong>: Can packs contain mixed types or single type only?</li>
+<li><strong>Search</strong>: Should search prioritize by type or relevance?</li>
 </ol>
 <hr>
 <h2>Summary</h2>
-<p>The credits system is a <strong>resource management tool</strong> that:</p>
+<p>The three content types form a <strong>hierarchical system</strong>:</p>
 <ul>
-<li>Aligns costs with value creation</li>
-<li>Enables intentional choice</li>
-<li>Avoids manipulation</li>
-<li>Scales economically</li>
-<li>Maintains waQup’s anti-gamification principles</li>
+<li><strong>Affirmations</strong>: Cognitive re-patterning (shallow → medium)</li>
+<li><strong>Guided Meditations</strong>: State induction (medium)</li>
+<li><strong>Rituals</strong>: Identity encoding (deepest)</li>
 </ul>
-<p><strong>Core Principle</strong>: Practice is free, creation is sacred.</p>
+<p>They are <strong>not interchangeable</strong> and serve different psychological purposes.</p>
+<p>The taxonomy system supports:</p>
+<ul>
+<li>Type-based organization</li>
+<li>Flexible tagging</li>
+<li>User-defined collections</li>
+<li>Clear depth progression</li>
+</ul>
+<p>This creates a <strong>coherent, meaningful system</strong> that respects psychological layers and user autonomy.</p>
 
             </div>
         </main>
