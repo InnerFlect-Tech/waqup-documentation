@@ -212,12 +212,33 @@ function generateSidebar(currentPagePath) {
         
         // Get current page path - extract from URL
         const currentPath = window.location.pathname;
-        // Remove leading slash and 'docs/' if present
-        let cleanPath = currentPath.replace(/^\/+/, '').replace(/^docs\//, '');
+        const currentHref = window.location.href;
+        
+        // For file:// protocol, extract the actual file path
+        let cleanPath;
+        if (currentHref.startsWith('file://')) {
+            // Extract path after file://
+            const filePath = currentHref.replace('file://', '');
+            // Get just the filename and relative path from docs/
+            const docsIndex = filePath.indexOf('/docs/');
+            if (docsIndex !== -1) {
+                cleanPath = filePath.substring(docsIndex + 6); // +6 for '/docs/'
+            } else {
+                // Fallback to pathname method
+                cleanPath = currentPath.replace(/^\/+/, '').replace(/^docs\//, '');
+            }
+        } else {
+            // For HTTP/HTTPS, use pathname
+            cleanPath = currentPath.replace(/^\/+/, '').replace(/^docs\//, '');
+        }
+        
         // If empty or just 'index.html', use root
         if (!cleanPath || cleanPath === 'index.html' || cleanPath.endsWith('/')) {
             cleanPath = 'index.html';
         }
+        
+        console.log('Current URL:', currentHref);
+        console.log('Cleaned path:', cleanPath);
         
         // Generate and inject sidebar
         try {
