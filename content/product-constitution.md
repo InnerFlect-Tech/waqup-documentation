@@ -3,11 +3,11 @@
 **Domain**: WHAT waQup is (identity, invariants, boundaries)
 
 **Related SSOT Documents**:
-- [System Architecture](./waqup_system_architecture.html): HOW waQup is built
-- [Value & Growth Economy](./waqup_value_and_growth_economy.html): HOW value circulates
-- [Scientific Foundations](./waqup_scientific_foundations.html): WHY waQup works
-- [Conversational & Ritual System](./waqup_conversational_and_ritual_system.html): HOW humans interact
-- [AI Voice & Ethics](./waqup_ai_voice_and_ethics.html): HOW waQup speaks
+- [System Architecture](./system-architecture.html): HOW waQup is built
+- [Value & Growth Economy](./value-and-growth-economy.html): HOW value circulates
+- [Scientific Foundations](./scientific-foundations.html): WHY waQup works
+- [Conversational & Ritual System](./conversational-and-ritual-system.html): HOW humans interact
+- [AI Voice & Ethics](./ai-voice-and-ethics.html): HOW waQup speaks
 
 ---
 

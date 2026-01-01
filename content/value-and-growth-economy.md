@@ -3,9 +3,9 @@
 **Domain**: HOW value, rewards, tokens, and growth circulate (economic + energetic system)
 
 **Related SSOT Documents**:
-- [Product Constitution](./waqup_product_constitution.html): WHAT waQup is
-- [System Architecture](./waqup_system_architecture.html): HOW waQup is built
-- [Conversational & Ritual System](./waqup_conversational_and_ritual_system.html): HOW humans interact
+- [Product Constitution](./product-constitution.html): WHAT waQup is
+- [System Architecture](./system-architecture.html): HOW waQup is built
+- [Conversational & Ritual System](./conversational-and-ritual-system.html): HOW humans interact
 
 ---
 

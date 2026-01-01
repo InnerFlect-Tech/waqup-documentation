@@ -3,9 +3,9 @@
 **Domain**: HOW waQup speaks and behaves ethically (tone, voice, moral boundaries)
 
 **Related SSOT Documents**:
-- [Product Constitution](./waqup_product_constitution.html): WHAT waQup is
-- [System Architecture](./waqup_system_architecture.html): HOW waQup is built
-- [Scientific Foundations](./waqup_scientific_foundations.html): WHY waQup works
+- [Product Constitution](./product-constitution.html): WHAT waQup is
+- [System Architecture](./system-architecture.html): HOW waQup is built
+- [Scientific Foundations](./scientific-foundations.html): WHY waQup works
 
 ---
 

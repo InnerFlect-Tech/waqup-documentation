@@ -57,24 +57,8 @@ const MAIN_DOCS = [
 
 // Group sub-documents by category (reference/archived documents)
 // Maps markdown filenames to their group
-const SUB_DOC_GROUPS = {
-  'Archived — System Architecture': [
-    '01-architecture-overview.md',
-    '03-data-flow.md',
-    '05-api-flow.md'
-  ],
-  'Archived — User Experience': [
-    '02-features-workflows.md',
-    '04-user-journey.md',
-    'WAQUP_CONTENT_TYPES_AND_TAXONOMY.md'
-  ],
-  'Archived — Business': [
-    'WAQUP_CREDITS_SYSTEM.md'
-  ],
-  'Archived — Planning': [
-    '06-development-timeline.md'
-  ]
-};
+// Note: These files don't currently exist but structure is kept for future use
+const SUB_DOC_GROUPS = {};
 
 // Get all markdown files
 const allFiles = fs.readdirSync(contentDir)
@@ -113,10 +97,9 @@ function generateNav(currentFile) {
   
   // Main documents grouped by category
   for (const file of mainDocs) {
-    const baseName = file.replace('.md', '');
-    const docConfig = MAIN_DOCS.find(doc => doc.file === baseName);
+    const docConfig = MAIN_DOCS.find(doc => doc.markdownFile === file);
     const group = docConfig?.group || 'Other';
-    const slug = baseName.toLowerCase();
+    const slug = docConfig?.slug || file.replace('.md', '').toLowerCase();
     
     // Add group header if group changed
     if (group !== currentGroup) {

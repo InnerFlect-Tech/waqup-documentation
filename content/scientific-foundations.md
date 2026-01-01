@@ -3,9 +3,9 @@
 **Domain**: WHY waQup works (scientific & psychological grounding)
 
 **Related SSOT Documents**:
-- [Product Constitution](./waqup_product_constitution.html): WHAT waQup is
-- [Conversational & Ritual System](./waqup_conversational_and_ritual_system.html): HOW humans interact
-- [AI Voice & Ethics](./waqup_ai_voice_and_ethics.html): HOW waQup speaks
+- [Product Constitution](./product-constitution.html): WHAT waQup is
+- [Conversational & Ritual System](./conversational-and-ritual-system.html): HOW humans interact
+- [AI Voice & Ethics](./ai-voice-and-ethics.html): HOW waQup speaks
 
 ---
 
