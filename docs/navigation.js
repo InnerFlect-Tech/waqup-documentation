@@ -119,12 +119,9 @@ function generateSidebar(currentPagePath) {
     if (cleanHomePath.startsWith('/')) {
         cleanHomePath = cleanHomePath.substring(1);
     }
-    // Ensure it's relative (starts with ./ if not empty and not already relative)
-    if (cleanHomePath && !cleanHomePath.startsWith('./') && !cleanHomePath.startsWith('../')) {
-        // For root, use './' to ensure it's relative to current directory
-        if (cleanHomePath === 'index.html') {
-            cleanHomePath = './index.html';
-        }
+    // For root level, always use ./ to ensure it's relative to current directory
+    if (depth === 0 && cleanHomePath && !cleanHomePath.startsWith('./') && !cleanHomePath.startsWith('../')) {
+        cleanHomePath = './' + cleanHomePath;
     }
     
     let html = `
