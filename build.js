@@ -44,33 +44,35 @@ if (!fs.existsSync(outputDir)) {
 }
 
 // Define main documents with display order and grouping
+// Maps markdown filename to slug, order, group, and description
 const MAIN_DOCS = [
-  { file: 'WAQUP_PRODUCT_CONSTITUTION', order: 1, group: 'Foundation', description: 'Core identity and principles' },
-  { file: 'WAQUP_SCIENTIFIC_FOUNDATIONS', order: 2, group: 'Foundation', description: 'Research basis and psychological grounding' },
-  { file: 'WAQUP_CONVERSATIONAL_AND_RITUAL_SYSTEM', order: 3, group: 'User Experience', description: 'How humans interact with the platform' },
-  { file: 'WAQUP_AI_VOICE_AND_ETHICS', order: 4, group: 'User Experience', description: 'Voice guidelines and ethical principles' },
-  { file: 'WAQUP_SYSTEM_ARCHITECTURE', order: 5, group: 'Technical', description: 'System design, APIs, and infrastructure' },
-  { file: 'WAQUP_VALUE_AND_GROWTH_ECONOMY', order: 6, group: 'Business', description: 'Credits, tokens, and economic model' },
-  { file: 'WAQUP_ROADMAP_AND_RELEASES', order: 7, group: 'Planning', description: 'Development timeline and releases' }
+  { markdownFile: 'product-constitution.md', slug: 'product-constitution', order: 1, group: 'Foundation', description: 'Core identity and principles' },
+  { markdownFile: 'scientific-foundations.md', slug: 'scientific-foundations', order: 2, group: 'Foundation', description: 'Research basis and psychological grounding' },
+  { markdownFile: 'conversational-and-ritual-system.md', slug: 'conversational-and-ritual-system', order: 3, group: 'User Experience', description: 'How humans interact with the platform' },
+  { markdownFile: 'ai-voice-and-ethics.md', slug: 'ai-voice-and-ethics', order: 4, group: 'User Experience', description: 'Voice guidelines and ethical principles' },
+  { markdownFile: 'system-architecture.md', slug: 'system-architecture', order: 5, group: 'Technical', description: 'System design, APIs, and infrastructure' },
+  { markdownFile: 'value-and-growth-economy.md', slug: 'value-and-growth-economy', order: 6, group: 'Business', description: 'Credits, tokens, and economic model' },
+  { markdownFile: 'roadmap-and-releases.md', slug: 'roadmap-and-releases', order: 7, group: 'Planning', description: 'Development timeline and releases' }
 ];
 
 // Group sub-documents by category (reference/archived documents)
+// Maps markdown filenames to their group
 const SUB_DOC_GROUPS = {
   'Archived — System Architecture': [
-    '01-architecture-overview',
-    '03-data-flow',
-    '05-api-flow'
+    '01-architecture-overview.md',
+    '03-data-flow.md',
+    '05-api-flow.md'
   ],
   'Archived — User Experience': [
-    '02-features-workflows',
-    '04-user-journey',
-    'WAQUP_CONTENT_TYPES_AND_TAXONOMY'
+    '02-features-workflows.md',
+    '04-user-journey.md',
+    'WAQUP_CONTENT_TYPES_AND_TAXONOMY.md'
   ],
   'Archived — Business': [
-    'WAQUP_CREDITS_SYSTEM'
+    'WAQUP_CREDITS_SYSTEM.md'
   ],
   'Archived — Planning': [
-    '06-development-timeline'
+    '06-development-timeline.md'
   ]
 };
 
@@ -84,8 +86,7 @@ const mainDocs = [];
 const subDocs = [];
 
 allFiles.forEach(file => {
-  const baseName = file.replace('.md', '');
-  const isMainDoc = MAIN_DOCS.some(doc => doc.file === baseName);
+  const isMainDoc = MAIN_DOCS.some(doc => doc.markdownFile === file);
   if (isMainDoc) {
     mainDocs.push(file);
   } else {
@@ -95,8 +96,8 @@ allFiles.forEach(file => {
 
 // Sort main docs by order
 mainDocs.sort((a, b) => {
-  const aDoc = MAIN_DOCS.find(doc => doc.file === a.replace('.md', ''));
-  const bDoc = MAIN_DOCS.find(doc => doc.file === b.replace('.md', ''));
+  const aDoc = MAIN_DOCS.find(doc => doc.markdownFile === a);
+  const bDoc = MAIN_DOCS.find(doc => doc.markdownFile === b);
   return (aDoc?.order || 999) - (bDoc?.order || 999);
 });
 
@@ -112,8 +113,10 @@ function generateNav(currentFile) {
   
   // Main documents grouped by category
   for (const file of mainDocs) {
-    const docConfig = MAIN_DOCS.find(doc => doc.file === file.replace('.md', ''));
+    const baseName = file.replace('.md', '');
+    const docConfig = MAIN_DOCS.find(doc => doc.file === baseName);
     const group = docConfig?.group || 'Other';
+    const slug = baseName.toLowerCase();
     
     // Add group header if group changed
     if (group !== currentGroup) {
@@ -124,7 +127,6 @@ function generateNav(currentFile) {
       currentGroup = group;
     }
     
-    const slug = file.replace('.md', '').toLowerCase();
     const title = extractTitle(fs.readFileSync(path.join(contentDir, file), 'utf-8')) || file.replace('.md', '').replace(/_/g, ' ');
     const isActive = file === currentFile;
     nav += `<li><a href="${slug}.html" class="${isActive ? 'active' : ''}">${title}</a></li>`;
@@ -141,15 +143,14 @@ function generateNav(currentFile) {
     
     for (const [groupName, groupFiles] of Object.entries(SUB_DOC_GROUPS)) {
       const groupSubDocs = subDocs.filter(file => {
-        const baseName = file.replace('.md', '');
-        return groupFiles.includes(baseName);
+        return groupFiles.includes(file);
       });
       
       if (groupSubDocs.length > 0) {
         nav += `<li class="nav-subgroup"><span class="nav-subgroup-title">${groupName}</span><ul class="nav-subgroup-items">`;
         
         for (const file of groupSubDocs) {
-          const slug = file.replace('.md', '').toLowerCase();
+          const slug = file.replace('.md', '').toLowerCase().replace(/_/g, '-');
           const title = extractTitle(fs.readFileSync(path.join(contentDir, file), 'utf-8')) || file.replace('.md', '').replace(/-/g, ' ').replace(/_/g, ' ');
           const isActive = file === currentFile;
           nav += `<li><a href="${slug}.html" class="${isActive ? 'active' : ''}">${title}</a></li>`;
@@ -162,14 +163,13 @@ function generateNav(currentFile) {
     // Handle any remaining sub-docs not in groups
     const groupedSubDocs = Object.values(SUB_DOC_GROUPS).flat();
     const remainingSubDocs = subDocs.filter(file => {
-      const baseName = file.replace('.md', '');
-      return !groupedSubDocs.includes(baseName);
+      return !groupedSubDocs.includes(file);
     });
     
     if (remainingSubDocs.length > 0) {
       nav += '<li class="nav-subgroup"><span class="nav-subgroup-title">Other</span><ul class="nav-subgroup-items">';
       for (const file of remainingSubDocs) {
-        const slug = file.replace('.md', '').toLowerCase();
+        const slug = file.replace('.md', '').toLowerCase().replace(/_/g, '-');
         const title = extractTitle(fs.readFileSync(path.join(contentDir, file), 'utf-8')) || file.replace('.md', '').replace(/-/g, ' ').replace(/_/g, ' ');
         const isActive = file === currentFile;
         nav += `<li><a href="${slug}.html" class="${isActive ? 'active' : ''}">${title}</a></li>`;
@@ -188,7 +188,9 @@ for (const file of [...mainDocs, ...subDocs]) {
   const html = md.render(content);
   const title = extractTitle(content) || file.replace('.md', '').replace(/-/g, ' ').replace(/_/g, ' ');
   
-  const pageSlug = file.replace('.md', '').toLowerCase();
+  // Use slug from MAIN_DOCS if it's a main doc, otherwise generate from filename
+  const docConfig = MAIN_DOCS.find(doc => doc.markdownFile === file);
+  const pageSlug = docConfig?.slug || file.replace('.md', '').toLowerCase().replace(/_/g, '-');
   const outputPath = path.join(outputDir, `${pageSlug}.html`);
   
   // Generate hierarchical navigation
@@ -224,9 +226,9 @@ const indexHtml = template
       
       <div class="documentation-grid">
         ${mainDocs.map(file => {
-          const docConfig = MAIN_DOCS.find(doc => doc.file === file.replace('.md', ''));
+          const docConfig = MAIN_DOCS.find(doc => doc.markdownFile === file);
           const title = extractTitle(fs.readFileSync(path.join(contentDir, file), 'utf-8')) || file.replace('.md', '').replace(/_/g, ' ');
-          const slug = file.replace('.md', '').toLowerCase();
+          const slug = docConfig?.slug || file.replace('.md', '').toLowerCase().replace(/_/g, '-');
           const group = docConfig?.group || 'Other';
           const description = docConfig?.description || `View detailed documentation for ${title.toLowerCase()}.`;
           return `
