@@ -101,15 +101,17 @@ const navigationStructure = {
 // Generate sidebar navigation HTML
 function generateSidebar(currentPagePath) {
     // Calculate relative path depth
+    let depth, basePath, homePath;
+    
     // Handle root index.html specially
     if (currentPagePath === 'index.html' || currentPagePath === '' || currentPagePath.endsWith('/')) {
-        const depth = 0;
-        const basePath = '';
-        const homePath = 'index.html';
+        depth = 0;
+        basePath = '';
+        homePath = 'index.html';
     } else {
-        const depth = currentPagePath.split('/').length - 2; // Subtract filename and current folder
-        const basePath = depth === 0 ? '' : '../'.repeat(depth);
-        const homePath = depth === 0 ? 'index.html' : '../'.repeat(depth) + 'index.html';
+        depth = currentPagePath.split('/').length - 2; // Subtract filename and current folder
+        basePath = depth === 0 ? '' : '../'.repeat(depth);
+        homePath = depth === 0 ? 'index.html' : '../'.repeat(depth) + 'index.html';
     }
     
     let html = `
@@ -175,8 +177,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Generate and inject sidebar
-        const sidebarHTML = generateSidebar(cleanPath);
-        sidebar.innerHTML = sidebarHTML;
+        try {
+            const sidebarHTML = generateSidebar(cleanPath);
+            sidebar.innerHTML = sidebarHTML;
+        } catch (error) {
+            console.error('Error generating sidebar:', error);
+            // Fallback: show basic sidebar
+            sidebar.innerHTML = '<div class="sidebar-header"><h1><a href="index.html">waQup</a></h1><p>Documentation</p></div><nav><p style="padding: 20px; color: red;">Navigation error - check console</p></nav>';
+        }
     }
 });
 
