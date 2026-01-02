@@ -184,20 +184,28 @@ body {
     margin: 0;
 }
 /* Ensure parent links are always clickable */
+.nav-group-items > li {
+    position: relative;
+}
+
 .nav-group-items > li > a {
     position: relative;
-    z-index: 2;
+    z-index: 10;
     pointer-events: auto;
+    display: block;
 }
 
 .nav-subgroup-items {
     position: relative;
     z-index: 1;
+    margin-top: 0;
     pointer-events: auto;
 }
 
 .nav-subgroup-items a {
     pointer-events: auto;
+    position: relative;
+    z-index: 1;
 }
 
 
@@ -735,17 +743,26 @@ pre {
 }
 }
 
+.nav-group-items > li {
+    position: relative;
+}
+
 .nav-group-items > li > a {
     position: relative;
-    z-index: 2;
+    z-index: 10;
     pointer-events: auto;
+    display: block;
 }
 
 .nav-subgroup-items {
     position: relative;
-    z-index: 0;
+    z-index: 1;
+    margin-top: 0;
+    pointer-events: auto;
 }
 
 .nav-subgroup-items a {
     pointer-events: auto;
+    position: relative;
+    z-index: 1;
 }
