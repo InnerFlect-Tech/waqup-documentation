@@ -244,8 +244,21 @@ function generateSidebar(currentPagePath) {
                 cleanPath = currentPath.replace(/^\/+/, '').replace(/^docs\//, '');
             }
         } else {
-            // For HTTP/HTTPS, use pathname
-            cleanPath = currentPath.replace(/^\/+/, '').replace(/^docs\//, '');
+            // For HTTP/HTTPS (GitHub Pages), extract path after repository name
+            // URL format: https://user.github.io/repo-name/path/to/file.html
+            // pathname: /repo-name/path/to/file.html
+            cleanPath = currentPath.replace(/^\/+/, '');
+            
+            // Remove repository name prefix (e.g., 'waqup-documentation/')
+            // Try to detect repo name from pathname
+            const pathParts = cleanPath.split('/');
+            if (pathParts.length > 1 && pathParts[0] !== 'docs') {
+                // First part is likely repo name, remove it
+                cleanPath = pathParts.slice(1).join('/');
+            }
+            
+            // Also remove 'docs/' if present
+            cleanPath = cleanPath.replace(/^docs\//, '');
         }
         
         // If empty or just 'index.html', use root
@@ -254,6 +267,7 @@ function generateSidebar(currentPagePath) {
         }
         
         console.log('Current URL:', currentHref);
+        console.log('Pathname:', currentPath);
         console.log('Cleaned path:', cleanPath);
         
         // Generate and inject sidebar
