@@ -236,6 +236,8 @@ function generateSidebar(currentPagePath) {
 // Auto-generate sidebar on page load
 // Use multiple initialization strategies to ensure it works
 (function() {
+    'use strict';
+    
     function initSidebar() {
         const sidebar = document.querySelector('.sidebar');
         if (!sidebar) {
