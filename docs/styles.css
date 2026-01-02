@@ -190,11 +190,12 @@ body {
 
 .nav-group-items > li > a {
     position: relative;
-    z-index: 10;
-    pointer-events: auto;
+    z-index: 100;
+    pointer-events: auto !important;
     display: block;
     /* Ensure parent link stays clickable above subfolder list */
     background: transparent;
+    cursor: pointer;
 }
 
 .nav-subgroup-items {
@@ -205,6 +206,7 @@ body {
     pointer-events: auto;
     /* Ensure subfolder list doesn't overlap parent link */
     padding-top: 0;
+    margin-left: 0;
 }
 
 .nav-subgroup-items a {
@@ -754,11 +756,12 @@ pre {
 
 .nav-group-items > li > a {
     position: relative;
-    z-index: 10;
-    pointer-events: auto;
+    z-index: 100;
+    pointer-events: auto !important;
     display: block;
     /* Ensure parent link stays clickable above subfolder list */
     background: transparent;
+    cursor: pointer;
 }
 
 .nav-subgroup-items {
@@ -769,6 +772,7 @@ pre {
     pointer-events: auto;
     /* Ensure subfolder list doesn't overlap parent link */
     padding-top: 0;
+    margin-left: 0;
 }
 
 .nav-subgroup-items a {
