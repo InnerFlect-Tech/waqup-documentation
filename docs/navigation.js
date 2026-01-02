@@ -142,17 +142,30 @@ function generateSidebar(currentPagePath) {
 <li class="nav-group"><span class="nav-group-title">${group.title}</span><ul class="nav-group-items">`;
         
         group.items.forEach(item => {
-            // Ensure path doesn't start with / and is properly relative
-            let itemPath = basePath + item.path;
+            // Build path correctly based on current depth
+            // item.path is relative to docs/ root (e.g., '02-scientific-foundations/index.html')
+            // basePath is relative to current file (e.g., '../' for depth 1)
+            let itemPath;
+            
+            if (depth === 0) {
+                // At root level, use item.path as-is
+                itemPath = item.path;
+            } else {
+                // At subfolder level, need to go up to root, then to item
+                // item.path is already relative to root, so just prepend basePath
+                itemPath = basePath + item.path;
+            }
+            
             // Remove any double slashes
             itemPath = itemPath.replace(/\/+/g, '/');
             // Ensure it doesn't start with /
             if (itemPath.startsWith('/')) {
                 itemPath = itemPath.substring(1);
             }
+            
             // For root level, use relative paths without ./ for GitHub Pages compatibility
             // file:// protocol works with ./ but GitHub Pages HTTP needs paths without ./
-            const isFileProtocol = window.location.protocol === 'file:';
+            const isFileProtocol = typeof window !== 'undefined' && window.location.protocol === 'file:';
             if (depth === 0 && !itemPath.startsWith('./') && !itemPath.startsWith('../')) {
                 // Only add ./ for file:// protocol, not for HTTP/HTTPS (GitHub Pages)
                 if (isFileProtocol) {
