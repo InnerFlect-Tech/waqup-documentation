@@ -11,13 +11,18 @@
                 const currentUrl = window.location.href.split('#')[0];
                 const linkUrl = this.href.split('#')[0];
 
-                // If clicking the same page or active link, prevent default and scroll to top
-                if (linkUrl === currentUrl || this.classList.contains('active')) {
+                // If clicking the exact same page, prevent default and scroll to top
+                // BUT: allow navigation if it's a parent link (even if marked active)
+                // Parent links can be active when on subfolders, but should still navigate
+                if (linkUrl === currentUrl) {
                     e.preventDefault();
                     // Scroll to top immediately
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     return false;
                 }
+                
+                // If it's an active link but NOT the same URL, allow navigation
+                // This handles the case where parent link is active but we're on a subfolder
 
                 // For other links, scroll to top after navigation
                 // This will happen on the new page load
