@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="waQup - Voice-first ritual creation platform documentation">
+    <title>Product Constitution</title>
+    <script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#2563eb',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: 'transparent',
+                lineColor: '#475569',
+                secondaryColor: '#f8fafc',
+                tertiaryColor: '#f1f5f9',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                textColor: '#1e293b',
+                border1: 'transparent',
+                border2: 'transparent',
+                noteBkgColor: '#fef3c7',
+                noteTextColor: '#78350f',
+                noteBorderColor: '#f59e0b',
+                actorBorder: 'transparent',
+                actorBkg: '#dbeafe',
+                actorTextColor: '#1e293b',
+                actorLineColor: '#475569',
+                signalColor: '#1e293b',
+                signalTextColor: '#1e293b',
+                labelBoxBkgColor: '#dbeafe',
+                labelBoxBorderColor: 'transparent',
+                labelTextColor: '#1e293b',
+                loopTextColor: '#1e293b',
+                activationBorderColor: 'transparent',
+                activationBkgColor: '#dbeafe',
+                sequenceNumberColor: '#ffffff',
+                sectionBkgColor: '#f8fafc',
+                altSectionBkgColor: '#f1f5f9',
+                sectionBkgColor2: '#e2e8f0',
+                excludeBkgColor: '#fee2e2',
+                excludeBorderColor: 'transparent',
+                critBorderColor: 'transparent',
+                critBkgColor: '#fee2e2',
+                doneBkgColor: '#dbeafe',
+                doneBorderColor: 'transparent',
+                taskBorderColor: 'transparent',
+                taskBkgColor: '#dbeafe',
+                taskTextLightColor: '#ffffff',
+                taskTextColor: '#1e293b',
+                taskTextDarkColor: '#1e293b',
+                taskTextOutsideColor: '#475569',
+                taskTextClickableColor: '#2563eb',
+                activeTaskBorderColor: 'transparent',
+                activeTaskBkgColor: '#bfdbfe',
+                gridColor: '#e2e8f0',
+                doneTaskBkgColor: '#dbeafe',
+                doneTaskBorderColor: 'transparent',
+                critBorderColor: 'transparent',
+                critBkgColor: '#fee2e2',
+                todayLineColor: '#dc2626',
+                labelColor: '#1e293b',
+                errorBkgColor: '#fee2e2',
+                errorTextColor: '#991b1b'
+            },
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20
+            },
+            sequence: {
+                diagramMarginX: 50,
+                diagramMarginY: 10,
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                bottomMarginAdj: 1,
+                useMaxWidth: true,
+                rightAngles: false,
+                showSequenceNumbers: false
+            },
+            gantt: {
+                titleTopMargin: 25,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75,
+                gridLineStartPadding: 35,
+                fontSize: 11,
+                fontFamily: 'inherit',
+                numberSectionStyles: 4,
+                axisFormat: '%Y-%m-%d',
+                useMaxWidth: true
+            }
+        });
+        
+        // Remove borders from Mermaid diagrams after they render - ULTRA aggressive approach
+        function removeMermaidBorders() {
+            document.querySelectorAll('.mermaid svg').forEach(svg => {
+                // Remove stroke from all rect, polygon, circle, and ellipse elements
+                svg.querySelectorAll('rect, polygon, circle, ellipse').forEach(shape => {
+                    // Skip if it's part of a path or line
+                    const parent = shape.closest('g');
+                    if (parent && (parent.classList.contains('edgePath') || parent.classList.contains('flowchart-link'))) {
+                        return;
+                    }
+                    // Check if it's actually a shape (has fill) and not a line
+                    const fill = shape.getAttribute('fill');
+                    if (fill === 'none' || fill === 'transparent') {
+                        // Might be a line, skip it
+                        return;
+                    }
+                    // ULTRA aggressively remove stroke - ALL methods
+                    shape.removeAttribute('stroke');
+                    shape.setAttribute('stroke', 'none');
+                    shape.setAttribute('stroke-width', '0');
+                    shape.setAttribute('stroke-opacity', '0');
+                    shape.style.stroke = 'none';
+                    shape.style.strokeWidth = '0';
+                    shape.style.strokeOpacity = '0';
+                    shape.style.border = 'none';
+                    // Force override with inline style
+                    const currentStyle = shape.getAttribute('style') || '';
+                    shape.setAttribute('style', currentStyle + ' stroke: none !important; stroke-width: 0 !important; stroke-opacity: 0 !important;');
+                });
+            });
+        }
+        
+        // Run multiple times to catch all rendered diagrams
+        function runBorderRemoval() {
+            removeMermaidBorders();
+            setTimeout(removeMermaidBorders, 100);
+            setTimeout(removeMermaidBorders, 300);
+            setTimeout(removeMermaidBorders, 500);
+            setTimeout(removeMermaidBorders, 1000);
+            setTimeout(removeMermaidBorders, 2000);
+            setTimeout(removeMermaidBorders, 3000);
+        }
+        
+        // Continuous border removal using requestAnimationFrame
+        function continuousBorderRemoval() {
+            removeMermaidBorders();
+            requestAnimationFrame(continuousBorderRemoval);
+        }
+        
+        // Start continuous removal after a short delay
+        setTimeout(() => {
+            // Run for 5 seconds continuously
+            let count = 0;
+            const interval = setInterval(() => {
+                removeMermaidBorders();
+                count++;
+                if (count > 50) { // Stop after ~5 seconds (50 * 100ms)
+                    clearInterval(interval);
+                }
+            }, 100);
+        }, 500);
+        
+        // Run after Mermaid renders
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                runBorderRemoval();
+            });
+        } else {
+            runBorderRemoval();
+        }
+        
+        // Also use MutationObserver to catch dynamically rendered diagrams
+        const observer = new MutationObserver((mutations) => {
+            let shouldRun = false;
+            mutations.forEach((mutation) => {
+                if (mutation.addedNodes.length > 0) {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === 1 && (node.classList?.contains('mermaid') || node.querySelector?.('.mermaid'))) {
+                            shouldRun = true;
+                        }
+                    });
+                }
+            });
+            if (shouldRun) {
+                removeMermaidBorders();
+                setTimeout(removeMermaidBorders, 100);
+                setTimeout(removeMermaidBorders, 500);
+            }
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'stroke', 'stroke-width']
+        });
+    </script>
+        <link rel="stylesheet" href="../styles.css">
+        <script src="../script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <!-- Sidebar generated by navigation.js -->
+        </aside>
+        <main class="main-content">
+            <div class="content-wrapper">
+                <h1>Product Constitution</h1>
+<p><strong>Domain</strong>: WHAT waQup is (identity, invariants, boundaries)</p>
+<p><strong>Related SSOT Documents</strong>:</p>
+<ul>
+<li><a href="../05-system-architecture/index.html">System Architecture</a>: HOW waQup is built</li>
+<li><a href="../06-value-and-growth-economy/index.html">Value &amp; Growth Economy</a>: HOW value circulates</li>
+<li><a href="../02-scientific-foundations/index.html">Scientific Foundations</a>: WHY waQup works</li>
+<li><a href="../03-conversational-and-ritual-system/index.html">Conversational &amp; Ritual System</a>: HOW humans interact</li>
+<li><a href="../04-ai-voice-and-ethics/index.html">AI Voice &amp; Ethics</a>: HOW waQup speaks</li>
+</ul>
+<hr>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#core-identity">Core Identity</a></li>
+<li><a href="#core-principles">Core Principles</a></li>
+<li><a href="#what-waqup-does">What waQup Does</a></li>
+<li><a href="#what-waqup-never-does">What waQup Never Does</a></li>
+<li><a href="#boundaries">Boundaries</a></li>
+<li><a href="#invariants-non-negotiable">Invariants</a></li>
+<li><a href="#scope">Scope</a></li>
+<li><a href="#evolution-principles">Evolution Principles</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+<hr>
+<h2 id="core-identity">Core Identity</h2>
+<p>waQup is a <strong>voice-first ritual creation platform</strong> that enables intentional self-authorship through three depths of subconscious engagement:</p>
+<ol>
+<li><strong>Affirmations</strong> → cognitive re-patterning</li>
+<li><strong>Guided Meditations</strong> → state induction</li>
+<li><strong>Rituals</strong> → identity encoding</li>
+</ol>
+<p>waQup is <strong>not</strong> a meditation app, therapy tool, or social network. It is a <strong>tool for encoding identity-level change</strong> through personalized, voice-guided practices.</p>
+<hr>
+<h2 id="core-principles">Core Principles</h2>
+<h3 id="1-practice-is-free-creation-is-sacred">1. Practice is Free, Creation is Sacred</h3>
+<ul>
+<li><strong>Unlimited replay</strong> of all created content</li>
+<li><strong>Credits consumed</strong> only for creation/transformation</li>
+<li>No subscription pressure or "use it or lose it" mechanics</li>
+<li>Value is created at the moment of encoding, not passive consumption</li>
+</ul>
+<h3 id="2-no-gamification">2. No Gamification</h3>
+<ul>
+<li>No streaks, badges, or achievements</li>
+<li>No comparison with other users</li>
+<li>No external rewards or punishments</li>
+<li>Users return for <strong>intrinsic value</strong>, not external motivation</li>
+</ul>
+<h3 id="3-user-autonomy">3. User Autonomy</h3>
+<ul>
+<li>Users control their practice</li>
+<li>No pressure to return</li>
+<li>No consequences for not practicing</li>
+<li>Easy exit (export, delete account)</li>
+<li>Respect for user agency</li>
+</ul>
+<h3 id="4-voice-first-design">4. Voice-First Design</h3>
+<ul>
+<li>All core interactions via voice</li>
+<li>Text and visual interfaces are secondary</li>
+<li>Audio is primary delivery mechanism</li>
+<li>Supports nervous system regulation through voice prosody</li>
+</ul>
+<h3 id="5-conversation-over-forms">5. Conversation Over Forms</h3>
+<ul>
+<li>All content creation happens through dialogue</li>
+<li>Natural, adaptive conversation flow</li>
+<li>No static forms or configuration screens</li>
+<li>Context-aware personalization</li>
+</ul>
+<h3 id="6-three-depths-not-interchangeable">6. Three Depths, Not Interchangeable</h3>
+<ul>
+<li>Affirmations, Guided Meditations, and Rituals serve different psychological purposes</li>
+<li>They are <strong>not interchangeable</strong></li>
+<li>Users progress naturally from shallow → deep</li>
+<li>Each type has distinct structure and purpose</li>
+</ul>
+<hr>
+<h2 id="what-waqup-does">What waQup Does</h2>
+<ul>
+<li>Creates personalized voice-guided content (affirmations, meditations, rituals)</li>
+<li>Supports embodied practice through conversation</li>
+<li>Provides marketplace for creator content</li>
+<li>Enables habit formation through return loops</li>
+<li>Recognizes contribution through tokens (non-speculative)</li>
+<li>Manages AI resource consumption through credits</li>
+<li>Offers unlimited replay of all created content</li>
+</ul>
+<hr>
+<h2 id="what-waqup-never-does">What waQup Never Does</h2>
+<ul>
+<li><strong>Gamifies practice</strong> (no streaks, badges, leaderboards)</li>
+<li><strong>Creates dependency</strong> (no withdrawal mechanics, no FOMO)</li>
+<li><strong>Manipulates users</strong> (no urgency, pressure, dark patterns)</li>
+<li><strong>Claims medical benefits</strong> (not a therapy tool, not medical advice)</li>
+<li><strong>Tracks users invasively</strong> (minimal data collection, privacy-first)</li>
+<li><strong>Creates social comparison</strong> (not a social network, no public profiles)</li>
+<li><strong>Forces engagement</strong> (no reminders, no pressure to return)</li>
+<li><strong>Expires credits</strong> (credits never expire, no FOMO)</li>
+</ul>
+<hr>
+<h2 id="boundaries">Boundaries</h2>
+<h3 id="what-waqup-is">What waQup Is</h3>
+<ul>
+<li>A <strong>tool</strong> for self-authorship and identity encoding</li>
+<li>A <strong>platform</strong> for intentional creation</li>
+<li>A <strong>marketplace</strong> for creator content</li>
+<li>A <strong>resource management system</strong> for AI generation</li>
+</ul>
+<h3 id="what-waqup-is-not">What waQup Is Not</h3>
+<ul>
+<li>A <strong>therapy tool</strong> (does not claim medical benefits)</li>
+<li>A <strong>social network</strong> (no social comparison, no public profiles)</li>
+<li>A <strong>meditation app</strong> (broader than meditation, includes identity work)</li>
+<li>A <strong>subscription service</strong> (credits-based, not time-based)</li>
+<li>A <strong>gamification platform</strong> (no rewards, streaks, or achievements)</li>
+</ul>
+<hr>
+<h2 id="invariants-non-negotiable">Invariants (Non-Negotiable)</h2>
+<p>These principles <strong>cannot change</strong> without fundamentally altering waQup's identity:</p>
+<ol>
+<li><strong>Practice is free</strong> (unlimited replay)</li>
+<li><strong>No gamification</strong> (intrinsic motivation only)</li>
+<li><strong>User autonomy</strong> (no manipulation, no pressure)</li>
+<li><strong>Voice-first</strong> (audio is primary delivery)</li>
+<li><strong>Three depths</strong> (affirmations, meditations, rituals are distinct)</li>
+<li><strong>Conversation-based creation</strong> (no forms)</li>
+<li><strong>Credits never expire</strong> (no FOMO)</li>
+<li><strong>Ethical data handling</strong> (minimal collection, user control)</li>
+</ol>
+<hr>
+<h2 id="scope">Scope</h2>
+<h3 id="in-scope">In Scope</h3>
+<ul>
+<li>Voice-guided content creation (affirmations, meditations, rituals)</li>
+<li>Personalized audio generation</li>
+<li>Content library and playback</li>
+<li>Creator marketplace</li>
+<li>Credit-based resource management</li>
+<li>Token/reward system (non-speculative)</li>
+<li>User autonomy and privacy</li>
+</ul>
+<h3 id="out-of-scope">Out of Scope</h3>
+<ul>
+<li>Medical/therapy claims</li>
+<li>Social networking features</li>
+<li>Gamification mechanics</li>
+<li>Subscription-based pricing</li>
+<li>Time-based restrictions</li>
+<li>Public user profiles</li>
+<li>Social comparison features</li>
+</ul>
+<hr>
+<h2 id="evolution-principles">Evolution Principles</h2>
+<p>When considering new features or changes:</p>
+<ol>
+<li><strong>Does it respect user autonomy?</strong> (no manipulation)</li>
+<li><strong>Does it maintain anti-gamification?</strong> (no external rewards)</li>
+<li><strong>Does it preserve voice-first design?</strong> (audio is primary)</li>
+<li><strong>Does it honor the three depths?</strong> (types remain distinct)</li>
+<li><strong>Does it align with ethical principles?</strong> (privacy, consent, transparency)</li>
+</ol>
+<p>If any answer is "no," the feature <strong>cannot be added</strong> without violating waQup's constitution.</p>
+<hr>
+<h2 id="summary">Summary</h2>
+<p>waQup is a <strong>voice-first ritual creation platform</strong> that enables intentional self-authorship through three depths of subconscious engagement. It prioritizes user autonomy, avoids gamification, and respects psychological layers. Practice is free, creation is sacred, and users maintain full control over their journey.</p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

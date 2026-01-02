@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="waQup - Voice-first ritual creation platform documentation">
+    <title>Scientific Foundations</title>
+    <script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#2563eb',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: 'transparent',
+                lineColor: '#475569',
+                secondaryColor: '#f8fafc',
+                tertiaryColor: '#f1f5f9',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                textColor: '#1e293b',
+                border1: 'transparent',
+                border2: 'transparent',
+                noteBkgColor: '#fef3c7',
+                noteTextColor: '#78350f',
+                noteBorderColor: '#f59e0b',
+                actorBorder: 'transparent',
+                actorBkg: '#dbeafe',
+                actorTextColor: '#1e293b',
+                actorLineColor: '#475569',
+                signalColor: '#1e293b',
+                signalTextColor: '#1e293b',
+                labelBoxBkgColor: '#dbeafe',
+                labelBoxBorderColor: 'transparent',
+                labelTextColor: '#1e293b',
+                loopTextColor: '#1e293b',
+                activationBorderColor: 'transparent',
+                activationBkgColor: '#dbeafe',
+                sequenceNumberColor: '#ffffff',
+                sectionBkgColor: '#f8fafc',
+                altSectionBkgColor: '#f1f5f9',
+                sectionBkgColor2: '#e2e8f0',
+                excludeBkgColor: '#fee2e2',
+                excludeBorderColor: 'transparent',
+                critBorderColor: 'transparent',
+                critBkgColor: '#fee2e2',
+                doneBkgColor: '#dbeafe',
+                doneBorderColor: 'transparent',
+                taskBorderColor: 'transparent',
+                taskBkgColor: '#dbeafe',
+                taskTextLightColor: '#ffffff',
+                taskTextColor: '#1e293b',
+                taskTextDarkColor: '#1e293b',
+                taskTextOutsideColor: '#475569',
+                taskTextClickableColor: '#2563eb',
+                activeTaskBorderColor: 'transparent',
+                activeTaskBkgColor: '#bfdbfe',
+                gridColor: '#e2e8f0',
+                doneTaskBkgColor: '#dbeafe',
+                doneTaskBorderColor: 'transparent',
+                critBorderColor: 'transparent',
+                critBkgColor: '#fee2e2',
+                todayLineColor: '#dc2626',
+                labelColor: '#1e293b',
+                errorBkgColor: '#fee2e2',
+                errorTextColor: '#991b1b'
+            },
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20
+            },
+            sequence: {
+                diagramMarginX: 50,
+                diagramMarginY: 10,
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                bottomMarginAdj: 1,
+                useMaxWidth: true,
+                rightAngles: false,
+                showSequenceNumbers: false
+            },
+            gantt: {
+                titleTopMargin: 25,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75,
+                gridLineStartPadding: 35,
+                fontSize: 11,
+                fontFamily: 'inherit',
+                numberSectionStyles: 4,
+                axisFormat: '%Y-%m-%d',
+                useMaxWidth: true
+            }
+        });
+        
+        // Remove borders from Mermaid diagrams after they render - ULTRA aggressive approach
+        function removeMermaidBorders() {
+            document.querySelectorAll('.mermaid svg').forEach(svg => {
+                // Remove stroke from all rect, polygon, circle, and ellipse elements
+                svg.querySelectorAll('rect, polygon, circle, ellipse').forEach(shape => {
+                    // Skip if it's part of a path or line
+                    const parent = shape.closest('g');
+                    if (parent && (parent.classList.contains('edgePath') || parent.classList.contains('flowchart-link'))) {
+                        return;
+                    }
+                    // Check if it's actually a shape (has fill) and not a line
+                    const fill = shape.getAttribute('fill');
+                    if (fill === 'none' || fill === 'transparent') {
+                        // Might be a line, skip it
+                        return;
+                    }
+                    // ULTRA aggressively remove stroke - ALL methods
+                    shape.removeAttribute('stroke');
+                    shape.setAttribute('stroke', 'none');
+                    shape.setAttribute('stroke-width', '0');
+                    shape.setAttribute('stroke-opacity', '0');
+                    shape.style.stroke = 'none';
+                    shape.style.strokeWidth = '0';
+                    shape.style.strokeOpacity = '0';
+                    shape.style.border = 'none';
+                    // Force override with inline style
+                    const currentStyle = shape.getAttribute('style') || '';
+                    shape.setAttribute('style', currentStyle + ' stroke: none !important; stroke-width: 0 !important; stroke-opacity: 0 !important;');
+                });
+            });
+        }
+        
+        // Run multiple times to catch all rendered diagrams
+        function runBorderRemoval() {
+            removeMermaidBorders();
+            setTimeout(removeMermaidBorders, 100);
+            setTimeout(removeMermaidBorders, 300);
+            setTimeout(removeMermaidBorders, 500);
+            setTimeout(removeMermaidBorders, 1000);
+            setTimeout(removeMermaidBorders, 2000);
+            setTimeout(removeMermaidBorders, 3000);
+        }
+        
+        // Continuous border removal using requestAnimationFrame
+        function continuousBorderRemoval() {
+            removeMermaidBorders();
+            requestAnimationFrame(continuousBorderRemoval);
+        }
+        
+        // Start continuous removal after a short delay
+        setTimeout(() => {
+            // Run for 5 seconds continuously
+            let count = 0;
+            const interval = setInterval(() => {
+                removeMermaidBorders();
+                count++;
+                if (count > 50) { // Stop after ~5 seconds (50 * 100ms)
+                    clearInterval(interval);
+                }
+            }, 100);
+        }, 500);
+        
+        // Run after Mermaid renders
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                runBorderRemoval();
+            });
+        } else {
+            runBorderRemoval();
+        }
+        
+        // Also use MutationObserver to catch dynamically rendered diagrams
+        const observer = new MutationObserver((mutations) => {
+            let shouldRun = false;
+            mutations.forEach((mutation) => {
+                if (mutation.addedNodes.length > 0) {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === 1 && (node.classList?.contains('mermaid') || node.querySelector?.('.mermaid'))) {
+                            shouldRun = true;
+                        }
+                    });
+                }
+            });
+            if (shouldRun) {
+                removeMermaidBorders();
+                setTimeout(removeMermaidBorders, 100);
+                setTimeout(removeMermaidBorders, 500);
+            }
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'stroke', 'stroke-width']
+        });
+    </script>
+        <link rel="stylesheet" href="../../styles.css">
+        <script src="../../script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <!-- Sidebar generated by navigation.js -->
+        </aside>
+        <main class="main-content">
+            <div class="content-wrapper">
+                <a href="../index.html" class="back-link">← Back to Roadmap & Releases</a>
+                
+                <h1>Phases</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#development-phases">Development Phases</a></li>
+<li><a href="#phase-1-core-mvp-months-1-4">Phase 1: Core MVP</a></li>
+<li><a href="#phase-2-personalization-months-5-6">Phase 2: Personalization</a></li>
+<li><a href="#phase-3-marketplace-foundation-months-7-8">Phase 3: Marketplace Foundation</a></li>
+<li><a href="#phase-4-marketplace-growth-months-9-10">Phase 4: Marketplace Growth</a></li>
+<li><a href="#phase-5-ecosystem-months-11-12">Phase 5: Ecosystem</a></li>
+<li><a href="#post-launch-roadmap">Post-Launch Roadmap</a></li>
+<li><a href="#development-principles">Development Principles</a></li>
+<li><a href="#risk-mitigation">Risk Mitigation</a></li>
+<li><a href="#success-metrics">Success Metrics</a></li>
+<li><a href="#open-questions">Open Questions</a></li>
+</ul>
+<hr>
+<h2 id="overview">Overview</h2>
+<p>This roadmap outlines the development phases for waQup, from initial MVP to a sustainable marketplace platform. The timeline is organized into phases that build upon each other, ensuring core functionality is solid before expanding into marketplace features.</p>
+<h2 id="development-phases">Development Phases</h2>
+<div class="mermaid-container"><div class="mermaid">gantt
+    title waQup Development Roadmap
+    dateFormat  YYYY-MM-DD
+    section Phase 1: Core MVP
+    Authentication & User System    :2024-01-01, 4w
+    Conversation Service            :2024-01-15, 6w
+    Ritual Generation (LLM)        :2024-02-01, 6w
+    Audio Generation (TTS)         :2024-02-15, 4w
+    Ritual Library & Playback       :2024-03-01, 4w
+    Mobile App (iOS/Android)       :2024-03-15, 8w
+    
+    section Phase 2: Personalization
+    User Preferences System         :2024-05-01, 3w
+    Voice Selection & Customization :2024-05-15, 4w
+    Advanced Personalization        :2024-06-01, 4w
+    Return Loop Optimization        :2024-06-15, 3w
+    
+    section Phase 3: Marketplace Foundation
+    Creator Onboarding             :2024-07-01, 4w
+    Pack Creation Tools            :2024-07-15, 6w
+    Catalog & Discovery            :2024-08-01, 6w
+    Payment Integration (Stripe)   :2024-08-15, 4w
+    
+    section Phase 4: Marketplace Growth
+    Search & Recommendations        :2024-09-01, 6w
+    Creator Analytics              :2024-09-15, 4w
+    Reviews & Ratings              :2024-10-01, 3w
+    Subscription Management        :2024-10-15, 4w
+    
+    section Phase 5: Ecosystem
+    Token/Reward System            :2024-11-01, 6w
+    Advanced Discovery             :2024-11-15, 4w
+    Creator Tools Enhancement      :2024-12-01, 4w
+    Platform Analytics             :2024-12-15, 3w</div></div>
+<h2 id="phase-1-core-mvp-months-1-4">Phase 1: Core MVP (Months 1-4)</h2>
+<h3 id="goal">Goal</h3>
+<p>Build the foundational voice-first ritual creation and practice system.</p>
+<h3 id="key-features">Key Features</h3>
+<strong>1. Authentication & User System (Weeks 1-4)</strong>
+<ul>
+<li>User registration and login</li>
+<li>JWT authentication</li>
+<li>User profile management</li>
+<li>Basic preferences storage</li>
+</ul>
+<strong>2. Conversation Service (Weeks 2-7)</strong>
+<ul>
+<li>WebSocket-based real-time conversation</li>
+<li>State machine implementation</li>
+<li>Intent extraction and context gathering</li>
+<li>Conversation history storage</li>
+</ul>
+<strong>3. Ritual Generation (Weeks 5-10)</strong>
+<ul>
+<li>LLM integration (OpenAI/Anthropic)</li>
+<li>Ritual text generation</li>
+<li>Personalization logic</li>
+<li>Ritual storage in database</li>
+</ul>
+<strong>4. Audio Generation (Weeks 7-10)</strong>
+<ul>
+<li>TTS integration (ElevenLabs/PlayHT)</li>
+<li>Audio file generation</li>
+<li>S3 storage integration</li>
+<li>CDN distribution setup</li>
+</ul>
+<strong>5. Ritual Library & Playback (Weeks 11-14)</strong>
+<ul>
+<li>Ritual library management</li>
+<li>Audio playback (Web Audio API)</li>
+<li>Practice event tracking</li>
+<li>Basic return loop</li>
+</ul>
+<strong>6. Mobile App (Weeks 12-19)</strong>
+<ul>
+<li>React Native setup</li>
+<li>Core UI components</li>
+<li>Conversation interface</li>
+<li>Audio playback</li>
+<li>Ritual library</li>
+</ul>
+<h3 id="success-criteria">Success Criteria</h3>
+<ul>
+<li>Users can create rituals through conversation</li>
+<li>Rituals are generated as personalized audio</li>
+<li>Users can save and replay rituals</li>
+<li>Mobile app functional on iOS and Android</li>
+<li>Core user journey complete</li>
+</ul>
+<h3 id="technical-milestones">Technical Milestones</h3>
+<ul>
+<li>API Gateway operational</li>
+<li>Core services deployed</li>
+<li>Database schema implemented</li>
+<li>Basic monitoring and logging</li>
+<li>CI/CD pipeline established</li>
+</ul>
+<h2 id="phase-2-personalization-months-5-6">Phase 2: Personalization (Months 5-6)</h2>
+<h3 id="goal">Goal</h3>
+<p>Enhance personalization and optimize the return loop experience.</p>
+<h3 id="key-features">Key Features</h3>
+<strong>1. User Preferences System (Weeks 17-19)</strong>
+<ul>
+<li>Voice preferences</li>
+<li>Pace preferences</li>
+<li>Tone preferences</li>
+<li>Practice goals (user-defined)</li>
+</ul>
+<strong>2. Voice Selection & Customization (Weeks 20-23)</strong>
+<ul>
+<li>Multiple voice options</li>
+<li>Voice preview functionality</li>
+<li>Custom voice characteristics</li>
+<li>Voice switching in rituals</li>
+</ul>
+<strong>3. Advanced Personalization (Weeks 24-27)</strong>
+<ul>
+<li>Context-aware personalization</li>
+<li>Practice history integration</li>
+<li>Adaptive ritual structure</li>
+<li>Personalized recommendations</li>
+</ul>
+<strong>4. Return Loop Optimization (Weeks 28-30)</strong>
+<ul>
+<li>Improved library interface</li>
+<li>Practice history visualization</li>
+<li>Ritual organization (tags, folders)</li>
+<li>Export functionality</li>
+</ul>
+<h3 id="success-criteria">Success Criteria</h3>
+<ul>
+<li>Users can customize voice and preferences</li>
+<li>Personalization improves ritual relevance</li>
+<li>Return loop supports habit formation</li>
+<li>User satisfaction increases</li>
+</ul>
+<h3 id="technical-milestones">Technical Milestones</h3>
+<ul>
+<li>Preference system integrated</li>
+<li>Voice selection UI/UX polished</li>
+<li>Personalization algorithms refined</li>
+<li>Performance optimizations</li>
+</ul>
+<h2 id="phase-3-marketplace-foundation-months-7-8">Phase 3: Marketplace Foundation (Months 7-8)</h2>
+<h3 id="goal">Goal</h3>
+<p>Build the foundation for creator marketplace.</p>
+<h3 id="key-features">Key Features</h3>
+<strong>1. Creator Onboarding (Weeks 29-32)</strong>
+<ul>
+<li>Creator registration</li>
+<li>Creator profile setup</li>
+<li>Verification process</li>
+<li>Creator dashboard</li>
+</ul>
+<strong>2. Pack Creation Tools (Weeks 30-35)</strong>
+<ul>
+<li>Pack creation interface</li>
+<li>Ritual organization in packs</li>
+<li>Pricing setup (free, one-time, subscription)</li>
+<li>Pack publishing workflow</li>
+</ul>
+<strong>3. Catalog & Discovery (Weeks 33-38)</strong>
+<ul>
+<li>Pack catalog interface</li>
+<li>Basic search functionality</li>
+<li>Category browsing</li>
+<li>Pack detail pages</li>
+</ul>
+<strong>4. Payment Integration (Weeks 36-39)</strong>
+<ul>
+<li>Stripe integration</li>
+<li>Checkout flow</li>
+<li>Subscription management</li>
+<li>Revenue distribution</li>
+</ul>
+<h3 id="success-criteria">Success Criteria</h3>
+<ul>
+<li>Creators can publish packs</li>
+<li>Users can discover and purchase packs</li>
+<li>Payment processing works smoothly</li>
+<li>Basic marketplace operational</li>
+</ul>
+<h3 id="technical-milestones">Technical Milestones</h3>
+<ul>
+<li>Creator service implemented</li>
+<li>Catalog service with search</li>
+<li>Stripe integration complete</li>
+<li>Payment webhooks handling</li>
+</ul>
+<h2 id="phase-4-marketplace-growth-months-9-10">Phase 4: Marketplace Growth (Months 9-10)</h2>
+<h3 id="goal">Goal</h3>
+<p>Enhance marketplace discovery and creator tools.</p>
+<h3 id="key-features">Key Features</h3>
+<strong>1. Search & Recommendations (Weeks 39-44)</strong>
+<ul>
+<li>Advanced search (Elasticsearch)</li>
+<li>Personalized recommendations</li>
+<li>Trending algorithms</li>
+<li>Filter and sort options</li>
+</ul>
+<strong>2. Creator Analytics (Weeks 40-43)</strong>
+<ul>
+<li>Pack performance metrics</li>
+<li>Revenue tracking</li>
+<li>User engagement data</li>
+<li>Creator dashboard enhancements</li>
+</ul>
+<strong>3. Reviews & Ratings (Weeks 45-47)</strong>
+<ul>
+<li>User review system</li>
+<li>Rating display</li>
+<li>Review moderation</li>
+<li>Creator feedback</li>
+</ul>
+<strong>4. Subscription Management (Weeks 46-49)</strong>
+<ul>
+<li>Subscription dashboard</li>
+<li>Cancel/upgrade flows</li>
+<li>Billing history</li>
+<li>Renewal notifications</li>
+</ul>
+<h3 id="success-criteria">Success Criteria</h3>
+<ul>
+<li>Users can effectively discover packs</li>
+<li>Creators have insights into performance</li>
+<li>Reviews help users make decisions</li>
+<li>Subscription management is smooth</li>
+</ul>
+<h3 id="technical-milestones">Technical Milestones</h3>
+<ul>
+<li>Elasticsearch integration</li>
+<li>Recommendation algorithms</li>
+<li>Analytics dashboard</li>
+<li>Review system implemented</li>
+</ul>
+<h2 id="phase-5-ecosystem-months-11-12">Phase 5: Ecosystem (Months 11-12)</h2>
+<h3 id="goal">Goal</h3>
+<p>Build token/reward system and enhance platform ecosystem.</p>
+<h3 id="key-features">Key Features</h3>
+<strong>1. Token/Reward System (Weeks 49-54)</strong>
+<ul>
+<li>Token distribution logic</li>
+<li>Reward calculation</li>
+<li>Token balance tracking</li>
+<li>Reward redemption (premium features)</li>
+</ul>
+<strong>2. Advanced Discovery (Weeks 50-53)</strong>
+<ul>
+<li>Curated collections</li>
+<li>Creator following</li>
+<li>Personalized feed</li>
+<li>Discovery algorithms refinement</li>
+</ul>
+<strong>3. Creator Tools Enhancement (Weeks 54-57)</strong>
+<ul>
+<li>Advanced pack editing</li>
+<li>Bulk operations</li>
+<li>Creator collaboration tools</li>
+<li>Enhanced analytics</li>
+</ul>
+<strong>4. Platform Analytics (Weeks 55-57)</strong>
+<ul>
+<li>Platform-wide metrics</li>
+<li>User growth tracking</li>
+<li>Marketplace health indicators</li>
+<li>Business intelligence dashboard</li>
+</ul>
+<h3 id="success-criteria">Success Criteria</h3>
+<ul>
+<li>Token system recognizes contribution</li>
+<li>Discovery supports organic growth</li>
+<li>Creators have advanced tools</li>
+<li>Platform metrics inform decisions</li>
+</ul>
+<h3 id="technical-milestones">Technical Milestones</h3>
+<ul>
+<li>Reward service implemented</li>
+<li>Advanced discovery features</li>
+<li>Creator tools enhanced</li>
+<li>Analytics platform operational</li>
+</ul>
+<h2 id="post-launch-roadmap">Post-Launch Roadmap</h2>
+<h3 id="year-2-priorities">Year 2 Priorities</h3>
+<strong>Q1: Internationalization</strong>
+<ul>
+<li>Multi-language support</li>
+<li>Localized TTS voices</li>
+<li>Currency conversion</li>
+<li>Regional payment methods</li>
+</ul>
+<strong>Q2: Advanced Features</strong>
+<ul>
+<li>Ritual sequences</li>
+<li>Group practices (optional)</li>
+<li>Advanced personalization</li>
+<li>Biometric integration (with consent)</li>
+</ul>
+<strong>Q3: Platform Expansion</strong>
+<ul>
+<li>Web app enhancements</li>
+<li>Desktop app (Electron)</li>
+<li>API for third-party integrations</li>
+<li>White-label solutions</li>
+</ul>
+<strong>Q4: Community Building</strong>
+<ul>
+<li>Creator community features</li>
+<li>User forums (optional)</li>
+<li>Educational resources</li>
+<li>Certification programs</li>
+</ul>
+<h2 id="development-principles">Development Principles</h2>
+<h3 id="iterative-development">Iterative Development</h3>
+<ul>
+<li>Build MVP first, then iterate</li>
+<li>User feedback drives priorities</li>
+<li>Continuous improvement mindset</li>
+<li>Data-informed decisions</li>
+</ul>
+<h3 id="quality-first">Quality First</h3>
+<ul>
+<li>Comprehensive testing (unit, integration, E2E)</li>
+<li>Code reviews for all changes</li>
+<li>Performance monitoring</li>
+<li>Security audits</li>
+</ul>
+<h3 id="user-centric">User-Centric</h3>
+<ul>
+<li>User research informs features</li>
+<li>Regular user testing</li>
+<li>Feedback loops integrated</li>
+<li>Respect for user autonomy</li>
+</ul>
+<h3 id="regenerative-growth">Regenerative Growth</h3>
+<ul>
+<li>Sustainable development pace</li>
+<li>No rush to market</li>
+<li>Trust-based feature releases</li>
+<li>Long-term thinking</li>
+</ul>
+<h2 id="risk-mitigation">Risk Mitigation</h2>
+<h3 id="technical-risks">Technical Risks</h3>
+<ul>
+<li><strong>LLM/TTS Costs</strong>: Monitor usage, optimize calls, consider alternatives</li>
+<li><strong>Scalability</strong>: Design for scale from start, load testing</li>
+<li><strong>Audio Quality</strong>: Test TTS providers, fallback options</li>
+<li><strong>Mobile Performance</strong>: Optimize audio playback, battery usage</li>
+</ul>
+<h3 id="product-risks">Product Risks</h3>
+<ul>
+<li><strong>User Adoption</strong>: Focus on core value, word-of-mouth growth</li>
+<li><strong>Creator Engagement</strong>: Provide value, sustainable economics</li>
+<li><strong>Market Fit</strong>: Validate assumptions, iterate based on feedback</li>
+<li><strong>Competition</strong>: Focus on unique value proposition</li>
+</ul>
+<h3 id="business-risks">Business Risks</h3>
+<ul>
+<li><strong>Revenue Model</strong>: Validate pricing, creator economics</li>
+<li><strong>Regulatory</strong>: GDPR compliance, medical claims boundaries</li>
+<li><strong>Dependency</strong>: Avoid over-reliance on external services</li>
+<li><strong>Sustainability</strong>: Ensure regenerative economics</li>
+</ul>
+<h2 id="success-metrics">Success Metrics</h2>
+<h3 id="phase-1-mvp">Phase 1 (MVP)</h3>
+<ul>
+<li>1,000+ users create rituals</li>
+<li>10,000+ rituals generated</li>
+<li>5,000+ practice sessions</li>
+<li>< 200ms API response time (p95) for standard endpoints</li>
+</ul>
+<h3 id="phase-2-personalization">Phase 2 (Personalization)</h3>
+<ul>
+<li>50%+ users customize preferences</li>
+<li>30%+ improvement in ritual relevance</li>
+<li>40%+ return rate (users practicing regularly)</li>
+</ul>
+<h3 id="phase-3-marketplace-foundation">Phase 3 (Marketplace Foundation)</h3>
+<ul>
+<li>50+ creators onboarded</li>
+<li>100+ packs published</li>
+<li>1,000+ pack purchases</li>
+<li>$10,000+ creator revenue</li>
+</ul>
+<h3 id="phase-4-marketplace-growth">Phase 4 (Marketplace Growth)</h3>
+<ul>
+<li>10,000+ active users</li>
+<li>500+ packs available</li>
+<li>4.5+ average pack rating</li>
+<li>$50,000+ monthly creator revenue</li>
+</ul>
+<h3 id="phase-5-ecosystem">Phase 5 (Ecosystem)</h3>
+<ul>
+<li>100,000+ active users</li>
+<li>1,000+ creators</li>
+<li>Sustainable token circulation</li>
+<li>Platform profitability</li>
+</ul>
+<h2 id="open-questions">Open Questions</h2>
+<ol>
+<li><strong>Timeline Flexibility</strong>: Should phases be adjusted based on early user feedback?</li>
+<li><strong>Feature Prioritization</strong>: Which marketplace features are most critical?</li>
+<li><strong>International Expansion</strong>: When should we prioritize multi-language support?</li>
+<li><strong>Creator Incentives</strong>: What additional tools do creators need most?</li>
+<li><strong>Token System</strong>: Should token system launch earlier or later?</li>
+<li><strong>Platform Expansion</strong>: When should we consider web/desktop apps?</li>
+<li><strong>Partnerships</strong>: Should we pursue partnerships with wellness platforms?</li>
+<li><strong>Research</strong>: When should we invest in scientific validation studies?</li>
+</ol>
+            </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
