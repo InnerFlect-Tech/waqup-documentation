@@ -109,7 +109,10 @@ function generateSidebar(currentPagePath) {
         basePath = '';
         homePath = 'index.html';
     } else {
-        depth = currentPagePath.split('/').length - 2; // Subtract filename and current folder
+        // Calculate depth: number of directories (subtract 1 for filename)
+        // e.g., '02-scientific-foundations/index.html' -> ['02-scientific-foundations', 'index.html'] -> depth 1
+        // e.g., '02-scientific-foundations/core-principles/index.html' -> depth 2
+        depth = currentPagePath.split('/').length - 1;
         basePath = depth === 0 ? '' : '../'.repeat(depth);
         homePath = depth === 0 ? 'index.html' : '../'.repeat(depth) + 'index.html';
     }
