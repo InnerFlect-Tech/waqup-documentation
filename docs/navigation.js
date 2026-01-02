@@ -252,12 +252,18 @@ function generateSidebar(currentPagePath) {
             // Remove repository name prefix (e.g., 'waqup-documentation/')
             // Try to detect repo name from pathname
             const pathParts = cleanPath.split('/');
-            if (pathParts.length > 1 && pathParts[0] !== 'docs') {
-                // First part is likely repo name, remove it
-                cleanPath = pathParts.slice(1).join('/');
+            if (pathParts.length > 1) {
+                // Check if first part looks like a repo name (not 'docs')
+                // Repo names typically don't match our folder structure patterns
+                const firstPart = pathParts[0];
+                // If it's not 'docs' and not a numbered folder (01-, 02-, etc.), it's likely repo name
+                if (firstPart !== 'docs' && !/^\d{2}-/.test(firstPart)) {
+                    // First part is likely repo name, remove it
+                    cleanPath = pathParts.slice(1).join('/');
+                }
             }
             
-            // Also remove 'docs/' if present
+            // Also remove 'docs/' if present (shouldn't be needed for GitHub Pages with /docs source)
             cleanPath = cleanPath.replace(/^docs\//, '');
         }
         
