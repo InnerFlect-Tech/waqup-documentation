@@ -262,7 +262,7 @@ body {
     font-style: italic;
 }
 
-/* Main Content */
+/* Main Content - Consistent spacing across all pages */
 .main-content {
     background: var(--bg-primary);
     padding: 48px 64px;
@@ -275,6 +275,16 @@ body {
 .content-wrapper {
     max-width: 1000px;
     margin: 0 auto;
+    padding: 0;
+}
+
+/* Ensure consistent spacing for all content sections */
+.content-wrapper > *:first-child {
+    margin-top: 0;
+}
+
+.content-wrapper > *:last-child {
+    margin-bottom: 0;
 }
 
 h1 {
@@ -697,6 +707,11 @@ html {
 .main-content {
     padding: 32px 24px;
     height: auto;
+}
+
+.content-wrapper {
+    max-width: 100%;
+    padding: 0;
 }
 
 h1 {
