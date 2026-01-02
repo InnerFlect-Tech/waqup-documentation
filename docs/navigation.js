@@ -325,12 +325,22 @@ function generateSidebar(currentPagePath) {
         }
     }
     
-    // Run when DOM is ready
-    if (document.readyState === 'loading') {
+    // Multiple initialization strategies to ensure sidebar loads
+    // Strategy 1: If DOM is already loaded, run immediately
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        initSidebar();
+    } else if (document.readyState === 'loading') {
+        // Strategy 2: Wait for DOMContentLoaded
         document.addEventListener('DOMContentLoaded', initSidebar);
     } else {
-        // DOM is already ready
+        // Strategy 3: Fallback - run immediately if state is unknown
         initSidebar();
     }
+    
+    // Strategy 4: Fallback - run after a short delay (handles edge cases)
+    setTimeout(initSidebar, 100);
+    
+    // Strategy 5: Run when window loads (final fallback)
+    window.addEventListener('load', initSidebar);
 })();
 
