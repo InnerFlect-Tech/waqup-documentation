@@ -119,9 +119,14 @@ function generateSidebar(currentPagePath) {
     if (cleanHomePath.startsWith('/')) {
         cleanHomePath = cleanHomePath.substring(1);
     }
-    // For root level, always use ./ to ensure it's relative to current directory
+    // For root level, use relative paths - ./ for file://, plain relative for HTTP/HTTPS
+    const isFileProtocol = typeof window !== 'undefined' && window.location.protocol === 'file:';
     if (depth === 0 && cleanHomePath && !cleanHomePath.startsWith('./') && !cleanHomePath.startsWith('../')) {
-        cleanHomePath = './' + cleanHomePath;
+        // Only add ./ for file:// protocol, not for HTTP/HTTPS (GitHub Pages)
+        if (isFileProtocol) {
+            cleanHomePath = './' + cleanHomePath;
+        }
+        // For HTTP/HTTPS, keep as-is (relative path without ./)
     }
     
     let html = `
@@ -145,14 +150,20 @@ function generateSidebar(currentPagePath) {
             if (itemPath.startsWith('/')) {
                 itemPath = itemPath.substring(1);
             }
-            // For root level, ensure it starts with ./ to make it explicitly relative
+            // For root level, use relative paths without ./ for GitHub Pages compatibility
+            // file:// protocol works with ./ but GitHub Pages HTTP needs paths without ./
+            const isFileProtocol = window.location.protocol === 'file:';
             if (depth === 0 && !itemPath.startsWith('./') && !itemPath.startsWith('../')) {
-                itemPath = './' + itemPath;
+                // Only add ./ for file:// protocol, not for HTTP/HTTPS (GitHub Pages)
+                if (isFileProtocol) {
+                    itemPath = './' + itemPath;
+                }
+                // For HTTP/HTTPS, keep as-is (relative path without ./)
             }
             
             // Debug: log the generated path (remove in production)
             if (depth === 0) {
-                console.log(`Generated link for ${item.name}: ${itemPath}`);
+                console.log(`Generated link for ${item.name}: ${itemPath} (protocol: ${window.location.protocol})`);
             }
             
             const isActive = currentPagePath.includes(item.id);
@@ -172,9 +183,14 @@ function generateSidebar(currentPagePath) {
                     if (subfolderPath.startsWith('/')) {
                         subfolderPath = subfolderPath.substring(1);
                     }
-                    // For root level, ensure it starts with ./ to make it explicitly relative
+                    // For root level, use relative paths without ./ for GitHub Pages compatibility
+                    const isFileProtocol = window.location.protocol === 'file:';
                     if (depth === 0 && !subfolderPath.startsWith('./') && !subfolderPath.startsWith('../')) {
-                        subfolderPath = './' + subfolderPath;
+                        // Only add ./ for file:// protocol, not for HTTP/HTTPS (GitHub Pages)
+                        if (isFileProtocol) {
+                            subfolderPath = './' + subfolderPath;
+                        }
+                        // For HTTP/HTTPS, keep as-is (relative path without ./)
                     }
                     
                     const isSubfolderActive = currentPagePath === subfolder.path || currentPagePath.endsWith(subfolder.path);
