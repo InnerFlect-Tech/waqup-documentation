@@ -177,6 +177,9 @@ function generateSidebar(currentPagePath) {
                 // For HTTP/HTTPS, keep as-is (relative path without ./)
             }
             
+            // Debug: log parent link paths
+            console.log(`Parent link "${item.name}": href="${itemPath}" (depth: ${depth}, basePath: "${basePath}")`);
+            
             // Debug: log the generated path (remove in production)
             if (depth === 0) {
                 console.log(`Generated link for ${item.name}: ${itemPath} (protocol: ${window.location.protocol})`);
