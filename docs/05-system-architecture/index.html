@@ -212,24 +212,35 @@
         </aside>
         <main class="main-content">
             <div class="content-wrapper">
-        <h1>System Architecture</h1>
-<h2 id="table-of-contents">Table of Contents</h2>
-<ul>
-<li><a href="#architecture-overview">Architecture Overview</a></li>
-<li><a href="#system-architecture">System Architecture</a></li>
-<li><a href="#technology-stack">Technology Stack</a></li>
-<li><a href="#core-services-architecture">Core Services Architecture</a></li>
-<li><a href="#data-flow">Data Flow</a></li>
-<li><a href="#api-flow">API Flow</a></li>
-<li><a href="#data-architecture">Data Architecture</a></li>
-<li><a href="#security-architecture">Security Architecture</a></li>
-<li><a href="#scalability-strategy">Scalability Strategy</a></li>
-<li><a href="#deployment-architecture">Deployment Architecture</a></li>
-<li><a href="#observability">Observability</a></li>
-</ul>
-<hr>
-<h2 id="architecture-overview">Architecture Overview</h2>
-<p>> This section covers the high-level system architecture. For detailed data flows, see <a href="#data-flow">Data Flow</a>. For API specifications, see <a href="#api-flow">API Flow</a>.</p>
+                <h1>System Architecture</h1>
+                <p class="lead">High-level system architecture, services, data flows, and technical infrastructure.</p>
+                
+                <hr>
+                
+                <h2 id="documentation-sections">Documentation Sections</h2>
+                
+                <h3 id="apis-and-libraries"><a href="./apis-and-libraries/index.html">APIs & Libraries</a></h3>
+                <p>Complete documentation of all external APIs, libraries, and technology stack decisions. Includes TTS comparison (OpenAI vs ElevenLabs), LLM choices, mobile app libraries, cost optimization strategies, and iPhone app considerations.</p>
+                
+                <h3 id="core-architecture-and-apis"><a href="./core-architecture-and-apis/index.html">Core Architecture & APIs</a></h3>
+                <p>Detailed system architecture, service definitions, API endpoints, and data flow patterns.</p>
+                
+                <h3 id="data-systems"><a href="./data-systems/index.html">Data Systems</a></h3>
+                <p>Database schemas, data models, storage strategies, and data management patterns.</p>
+                
+                <h3 id="security"><a href="./security/index.html">Security</a></h3>
+                <p>Security architecture, authentication, authorization, data protection, and compliance.</p>
+                
+                <h3 id="deployment"><a href="./deployment/index.html">Deployment</a></h3>
+                <p>Deployment architecture, CI/CD pipelines, containerization, and infrastructure setup.</p>
+                
+                <h3 id="scalability"><a href="./scalability/index.html">Scalability</a></h3>
+                <p>Scaling strategies, performance optimization, load balancing, and capacity planning.</p>
+                
+                <hr>
+                
+                <h2 id="architecture-overview">Architecture Overview</h2>
+                <p>This section covers the high-level system architecture. For detailed APIs and libraries, see <a href="./apis-and-libraries/index.html">APIs & Libraries</a>. For detailed data flows, see <a href="./core-architecture-and-apis/index.html#data-flow">Core Architecture & APIs</a>.</p>
 <h2 id="system-architecture">System Architecture</h2>
 <p>waQup is built as a cloud-native, microservices-oriented platform optimized for voice-first interactions, real-time conversation, and audio generation/streaming. The system prioritizes low-latency voice interactions, reliable audio delivery, and scalable ritual generation.</p>
 <h2 id="high-level-architecture-diagram">High-Level Architecture Diagram</h2>

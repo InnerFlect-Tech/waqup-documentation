@@ -56,6 +56,7 @@ const navigationStructure = {
                     name: 'System Architecture',
                     path: '05-system-architecture/index.html',
                     subfolders: [
+                        { name: 'APIs & Libraries', path: '05-system-architecture/apis-and-libraries/index.html' },
                         { name: 'Core Architecture And Apis', path: '05-system-architecture/core-architecture-and-apis/index.html' },
                         { name: 'Data Systems', path: '05-system-architecture/data-systems/index.html' },
                         { name: 'Security', path: '05-system-architecture/security/index.html' },
@@ -73,6 +74,7 @@ const navigationStructure = {
                     name: 'Value & Growth Economy',
                     path: '06-value-and-growth-economy/index.html',
                     subfolders: [
+                        { name: 'Pricing', path: '06-value-and-growth-economy/pricing/index.html' },
                         { name: 'Credits System', path: '06-value-and-growth-economy/credits-system/index.html' },
                         { name: 'Token Reward System', path: '06-value-and-growth-economy/token-reward-system/index.html' },
                         { name: 'Marketplace Economics', path: '06-value-and-growth-economy/marketplace-economics/index.html' }

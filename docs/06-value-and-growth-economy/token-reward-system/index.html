@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="waQup - Voice-first ritual creation platform documentation">
-    <title>Scientific Foundations</title>
+    <meta name="description" content="waQup Token Reward System Documentation">
+    <title>Token Reward System - waQup Documentation</title>
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ 
@@ -147,12 +147,6 @@
             setTimeout(removeMermaidBorders, 3000);
         }
         
-        // Continuous border removal using requestAnimationFrame
-        function continuousBorderRemoval() {
-            removeMermaidBorders();
-            requestAnimationFrame(continuousBorderRemoval);
-        }
-        
         // Start continuous removal after a short delay
         setTimeout(() => {
             // Run for 5 seconds continuously
@@ -215,323 +209,202 @@
                 <a href="../index.html" class="back-link">Back to Value & Growth Economy</a>
                 
                 <h1>Token Reward System</h1>
-<h2 id="table-of-contents">Table of Contents</h2>
-<ul>
-<li><a href="#credits-system">Credits System</a></li>
-<li><a href="#tokenreward-system">Token/Reward System</a></li>
-<li><a href="#marketplace-economics">Marketplace Economics</a></li>
-<li><a href="#revenue-distribution">Revenue Distribution</a></li>
-</ul>
-<hr>
-<h2 id="credits-system">Credits System</h2>
-<h3 id="1-why-credits-not-pure-subscription">1. Why Credits (Not Pure Subscription)</h3>
-<p>Credits fit waQup because <strong>value is created at the moment of ritual creation, not in passive listening</strong>.</p>
-<p>A ritual is an act of <strong>encoding</strong> → that is where effort, attention, and meaning happen.</p>
-<p>So we price:</p>
-<ul>
-<li><strong>Creation</strong> (encoding)</li>
-<li><strong>Transformation</strong> (deep change)</li>
-</ul>
-<p>Not time.</p>
-<strong>Credits</strong>:
-<ul>
-<li>Feel intentional</li>
-<li>Reduce churn</li>
-<li>Avoid "I'm paying but not using it" guilt</li>
-<li>Match ritual psychology (scarcity + choice)</li>
-<li>Align infrastructure costs (AI only when needed)</li>
-</ul>
-<hr>
-<h3 id="2-what-credits-are-definition">2. What Credits Are (Definition)</h3>
-<strong>A credit = one irreversible act of creation or deep change.</strong>
-<p>Credits are consumed when the user creates or transforms something meaningful.</p>
-<strong>Not</strong> when they listen.
-<strong>Core Principle</strong>: Practice is free, creation is sacred.
-<hr>
-<h3 id="3-what-costs-credits-core-rules">3. What Costs Credits (Core Rules)</h3>
-<h3 id="consumes-credits">Consumes Credits</h3>
-<strong>By Content Type</strong> (see Content Types & Taxonomy document):
-<ul>
-<li><strong>Affirmations</strong>: 0.5 credits (lighter AI processing, shorter content)</li>
-<li><strong>Guided Meditations</strong>: 1 credit (standard AI processing)</li>
-<li><strong>Rituals</strong>: 1 credit (full AI processing, highest value)</li>
-</ul>
-<strong>Other Actions</strong>:
-<ul>
-<li>Clone + deeply modify existing content (see thresholds below)</li>
-<li>Generate hypnosis / NLP-structured content (1 credit)</li>
-</ul>
-<strong>Optional extra credit</strong>:
-<ul>
-<li>Use premium voices (+0.5 credit, or clarify if included in base)</li>
-</ul>
-<h3 id="does-not-cost-credits">Does NOT Cost Credits</h3>
-<ul>
-<li>Listening / replaying (unlimited)</li>
-<li>Daily practice (unlimited)</li>
-<li>Offline usage (unlimited)</li>
-<li>Using own voice (if feature exists)</li>
-<li>Editing text manually (minor tweaks)</li>
-<li>Minor tweaks (duration, pace, tags)</li>
-</ul>
-<h3 id="modification-thresholds">Modification Thresholds</h3>
-<strong>Free (No Credit)</strong>:
-<ul>
-<li>Manual text editing</li>
-<li>Changing duration</li>
-<li>Adjusting pace/tone settings</li>
-<li>Adding/removing tags</li>
-<li>Organizing in folders</li>
-<li>Exporting rituals</li>
-</ul>
-<strong>1 Credit (Deep Modification)</strong>:
-<ul>
-<li>Changing practice type (breath work → movement)</li>
-<li>Changing intent (calming → energizing)</li>
-<li>Restructuring ritual requiring LLM regeneration</li>
-<li>Changing core ritual structure</li>
-<li>Any modification requiring AI regeneration</li>
-</ul>
-<hr>
-<h3 id="4-credit-packs-simple-humane">4. Credit Packs (Simple, Humane)</h3>
-<h3 id="example-packs-illustrative">Example Packs (Illustrative)</h3>
-<ul>
-<li><strong>Starter</strong>: 3 credits → €9 (€3/credit)</li>
-<li><strong>Seeker</strong>: 10 credits → €25 (€2.50/credit)</li>
-<li><strong>Architect</strong>: 30 credits → €60 (€2/credit)</li>
-</ul>
-<strong>Psychology</strong>:
-<ul>
-<li>Small entry point</li>
-<li>No pressure</li>
-<li>Higher packs feel like commitment, not upsell</li>
-<li>Bulk discount rewards intentional use</li>
-</ul>
-<h3 id="credit-properties">Credit Properties</h3>
-<ul>
-<li><strong>Never expire</strong> (no FOMO, no manipulation)</li>
-<li><strong>Personal</strong> (non-transferable, except future gifting feature)</li>
-<li><strong>Refundable</strong> (on system errors, see error handling)</li>
-<li><strong>Transparent</strong> (always visible balance, clear costs)</li>
-</ul>
-<hr>
-<h3 id="5-free-tier-important">5. Free Tier (Important)</h3>
-<p>Free users get:</p>
-<ul>
-<li><strong>1 ritual credit</strong> (one-time, to experience creation)</li>
-<li><strong>Full replay access</strong> (unlimited listening)</li>
-<li><strong>Basic structure only</strong> (standard voices, standard features)</li>
-</ul>
-<p>This lets them:</p>
-<ul>
-<li>Feel the power</li>
-<li>Encode once</li>
-<li>Understand the system</li>
-<li>Experience value before paywall</li>
-</ul>
-<p>Then the paywall feels <strong>natural, not coercive</strong>.</p>
-<hr>
-<h3 id="6-error-handling-refunds">6. Error Handling & Refunds</h3>
-<h3 id="credit-refund-policy">Credit Refund Policy</h3>
-<p>Credits are <strong>refunded</strong> when:</p>
-<ul>
-<li>Ritual generation fails due to system error</li>
-<li>Audio generation fails after text generation</li>
-<li>User cancels before ritual completion</li>
-<li>LLM/TTS service unavailable</li>
-<li>Any technical failure preventing completion</li>
-</ul>
-<p>Credits are <strong>consumed</strong> when:</p>
-<ul>
-<li>Ritual successfully generated and saved</li>
-<li>User confirms ritual completion</li>
-<li>Ritual appears in library</li>
-</ul>
-<strong>Principle</strong>: User only pays for successful value delivery.
-<hr>
-<h3 id="7-credit-balance-visibility">7. Credit Balance & Visibility</h3>
-<h3 id="balance-display">Balance Display</h3>
-<ul>
-<li>Always visible in UI (non-intrusive, calm)</li>
-<li>Shown before consumption: "This will use 1 credit. You have 5 remaining."</li>
-<li>Transaction history available (credits used, credits purchased, refunds)</li>
-<li>No pressure messaging (no "low balance" warnings)</li>
-</ul>
-<h3 id="purchase-flow">Purchase Flow</h3>
-<ul>
-<li>Clear pricing before purchase</li>
-<li>No hidden fees</li>
-<li>Immediate credit availability</li>
-<li>Simple checkout (Stripe integration)</li>
-</ul>
-<hr>
-<h3 id="8-premium-voices">8. Premium Voices</h3>
-<strong>Standard voices</strong>: Included in ritual creation credit (1 credit covers creation + standard voice)
-<strong>Premium voices</strong>:
-<ul>
-<li>Option A: +0.5 credit per ritual</li>
-<li>Option B: Included in base credit (preferred for simplicity)</li>
-</ul>
-<strong>Recommendation</strong>: Include in base credit to maintain simplicity and avoid decision fatigue.
-<hr>
-<h3 id="9-marketplace-relationship">9. Marketplace Relationship</h3>
-<h3 id="creator-packs">Creator Packs</h3>
-<ul>
-<li>Purchased separately (direct payment or credits)</li>
-<li>Credits can be used to purchase packs (1 credit = €3 value, or separate pricing)</li>
-<li>Creator revenue: Separate from user credits (creators receive payment, not credits)</li>
-</ul>
-<h3 id="credit-usage-for-marketplace">Credit Usage for Marketplace</h3>
-<ul>
-<li>Users can use credits to purchase packs</li>
-<li>Credit value: €3 per credit (or market rate)</li>
-<li>Credits supplement, don't replace direct payment</li>
-</ul>
-<hr>
-<h3 id="10-internal-logic-systemic-not-cosmetic">10. Internal Logic (Systemic, Not Cosmetic)</h3>
-<p>Credits align:</p>
-<strong>User Psychology</strong> → "What is worth encoding now?"
-<ul>
-<li>Intentional choice</li>
-<li>Scarcity creates meaning</li>
-<li>No infinite scrolling</li>
-</ul>
-<strong>Infrastructure Cost</strong> → AI + processing only when needed
-<ul>
-<li>Pay for what you use</li>
-<li>Predictable costs</li>
-<li>Scales with usage</li>
-</ul>
-<strong>Retention</strong> → Rituals stay forever
-<ul>
-<li>No subscription pressure</li>
-<li>No "use it or lose it"</li>
-<li>Credits never expire</li>
-</ul>
-<strong>Ethics</strong> → No addiction loops
-<ul>
-<li>No streaks</li>
-<li>No pressure</li>
-<li>No manipulation</li>
-<li>No FOMO</li>
-</ul>
-<p>This avoids:</p>
-<ul>
-<li>Infinite content scrolling</li>
-<li>Meditation gamification</li>
-<li>Streak anxiety</li>
-<li>Subscription fatigue</li>
-</ul>
-<hr>
-<h3 id="11-economic-scalability">11. Economic Scalability</h3>
-<p>From a business view:</p>
-<ul>
-<li><strong>Near-zero marginal cost</strong> per replay</li>
-<li><strong>Credits purchased upfront</strong> (cash flow)</li>
-<li><strong>No refund pressure</strong> ("I forgot to cancel")</li>
-<li><strong>Works globally</strong> (no subscription fatigue)</li>
-<li><strong>Predictable revenue</strong> per engaged user</li>
-<li><strong>Credits = cash flow + clarity</strong></li>
-</ul>
-<hr>
-<h3 id="12-long-term-extensibility">12. Long-Term Extensibility</h3>
-<p>Credits later can unlock:</p>
-<ul>
-<li><strong>Creator rituals</strong> (revenue share)</li>
-<li><strong>Couple rituals</strong> (2 credits)</li>
-<li><strong>Trauma-safe guided work</strong> (higher credit, 2 credits)</li>
-<li><strong>Therapist-generated rituals</strong> (premium, 2 credits)</li>
-<li><strong>Custom voice models</strong> (premium, 2 credits)</li>
-<li><strong>Ritual sequences</strong> (multiple rituals, proportional credits)</li>
-</ul>
-<p>Same system. No redesign.</p>
-<hr>
-<h3 id="13-anti-gamification-safeguards">13. Anti-Gamification Safeguards</h3>
-<h3 id="what-credits-are-not">What Credits Are NOT</h3>
-<ul>
-<li>Not a reward system (no "earn credits by practicing")</li>
-<li>Not a loyalty program (no "more credits for streaks")</li>
-<li>Not a social comparison tool (no leaderboards)</li>
-<li>Not a manipulation mechanism (no FOMO, urgency)</li>
-</ul>
-<h3 id="what-credits-are">What Credits ARE</h3>
-<ul>
-<li>Resource management tool</li>
-<li>Cost allocation mechanism</li>
-<li>Intentional choice enabler</li>
-<li>Infrastructure cost alignment</li>
-</ul>
-<hr>
-<h3 id="14-implementation-notes">14. Implementation Notes</h3>
-<h3 id="credit-management-service">Credit Management Service</h3>
-<ul>
-<li>Tracks credit balance per user</li>
-<li>Validates credit availability before consumption</li>
-<li>Processes refunds on errors</li>
-<li>Records transaction history</li>
-<li>Integrates with Payment Service for purchases</li>
-</ul>
-<h3 id="api-integration">API Integration</h3>
-<ul>
-<li>Check credit balance before ritual creation</li>
-<li>Consume credit on successful completion</li>
-<li>Refund credit on failure</li>
-<li>Track credit transactions</li>
-</ul>
-<h3 id="uiux-principles">UI/UX Principles</h3>
-<ul>
-<li>Calm, non-intrusive balance display</li>
-<li>Clear cost communication before action</li>
-<li>No pressure messaging</li>
-<li>Transparent transaction history</li>
-<li>Simple purchase flow</li>
-</ul>
-<hr>
-<h3 id="15-content-type-credit-costs">15. Content Type Credit Costs</h3>
-<h3 id="rationale">Rationale</h3>
-<ul>
-<li><strong>Affirmations (0.5 credits)</strong>: Shorter, simpler AI processing, lighter content</li>
-<li><strong>Guided Meditations (1 credit)</strong>: Standard processing, medium complexity</li>
-<li><strong>Rituals (1 credit)</strong>: Full processing, highest value, but same cost = intentional choice</li>
-</ul>
-<strong>Alternative Consideration</strong>: All cost 1 credit for simplicity and intentionality (recommended for Phase 1, can adjust based on usage data).
-<hr>
-<h3 id="16-open-questions">16. Open Questions</h3>
-<ol>
-<li><strong>Affirmation credit cost</strong>: 0.5 credits (lighter) or 1 credit (simplicity)?</li>
-<li><strong>Premium voice pricing</strong>: Include in base credit or +0.5 credit?</li>
-<li><strong>Credit gifting</strong>: When to implement? What are the mechanics?</li>
-<li><strong>Marketplace credit value</strong>: Fixed €3/credit or variable?</li>
-<li><strong>Bulk discounts</strong>: Should larger packs have better per-credit pricing?</li>
-<li><strong>Type transitions</strong>: Should converting affirmations → meditations → rituals cost credits?</li>
-</ol>
-<hr>
-<h3 id="summary">Summary</h3>
-<p>The credits system is a <strong>resource management tool</strong> that:</p>
-<ul>
-<li>Aligns costs with value creation</li>
-<li>Enables intentional choice</li>
-<li>Avoids manipulation</li>
-<li>Scales economically</li>
-<li>Maintains waQup's anti-gamification principles</li>
-</ul>
-<strong>Core Principle</strong>: Practice is free, creation is sacred.
-<h2 id="tokenreward-system">Token/Reward System</h2>
-<h3 id="7-tokenreward-system">7. Token/Reward System</h3>
-<p>Non-speculative recognition system for user and creator contributions. Tokens represent value exchange, not investment.</p>
-<strong>Reward Types</strong>:
-<ul>
-<li>Practice tokens (for regular engagement)</li>
-<li>Creator tokens (for quality packs)</li>
-<li>Referral tokens (for word-of-mouth)</li>
-<li>Feedback tokens (for constructive feedback)</li>
-</ul>
-<strong>Note</strong>: For detailed token mechanics, distribution rules, and economic model, see Value & Growth Economy document.
-<h2 id="marketplace-economics">Marketplace Economics</h2>
-<em>Marketplace economics details to be added.</em>
-<h2 id="revenue-distribution">Revenue Distribution</h2>
-<em>Revenue distribution details to be added.</em>
-            </div>
+                <p class="lead">Non-speculative recognition system for user and creator contributions. Tokens represent value exchange, not investment.</p>
+                
+                <hr>
+                
+                <h2 id="overview">Overview</h2>
+                <p>The Token Reward System is a <strong>non-speculative recognition mechanism</strong> that acknowledges user and creator contributions to the waQup ecosystem. Unlike credits (which are purchased), tokens are <strong>earned</strong> through meaningful engagement and contribution.</p>
+                
+                <p><strong>Core Principle:</strong> Tokens recognize value creation, not consumption. They are a form of acknowledgment, not currency.</p>
+                
+                <p><strong>Key Distinction:</strong> Tokens are separate from credits. Credits are purchased and consumed for creation. Tokens are earned and represent recognition of contribution.</p>
+                
+                <hr>
+                
+                <h2 id="token-types">Token Types</h2>
+                
+                <h3 id="practice-tokens">Practice Tokens</h3>
+                <p><strong>Purpose:</strong> Recognize regular, meaningful engagement with created rituals.</p>
+                <ul>
+                    <li><strong>Earned through:</strong> Consistent practice, completion of ritual sequences</li>
+                    <li><strong>Not earned through:</strong> Mindless scrolling, passive listening</li>
+                    <li><strong>Value:</strong> Recognition of commitment to personal growth</li>
+                </ul>
+                
+                <h3 id="creator-tokens">Creator Tokens</h3>
+                <p><strong>Purpose:</strong> Recognize creators who publish high-quality packs in the marketplace.</p>
+                <ul>
+                    <li><strong>Earned through:</strong> Publishing quality packs, positive user feedback, pack sales</li>
+                    <li><strong>Value:</strong> Recognition of contribution to the ecosystem</li>
+                    <li><strong>Note:</strong> Separate from revenue (creators receive payment, tokens are recognition)</li>
+                </ul>
+                
+                <h3 id="referral-tokens">Referral Tokens</h3>
+                <p><strong>Purpose:</strong> Recognize users who bring others to waQup through word-of-mouth.</p>
+                <ul>
+                    <li><strong>Earned through:</strong> Successful referrals (when referred user creates first ritual)</li>
+                    <li><strong>Value:</strong> Recognition of community building</li>
+                    <li><strong>Note:</strong> Not a commission system, purely recognition</li>
+                </ul>
+                
+                <h3 id="feedback-tokens">Feedback Tokens</h3>
+                <p><strong>Purpose:</strong> Recognize users who provide constructive feedback that improves the platform.</p>
+                <ul>
+                    <li><strong>Earned through:</strong> Detailed feedback, bug reports, feature suggestions</li>
+                    <li><strong>Value:</strong> Recognition of contribution to platform improvement</li>
+                </ul>
+                
+                <hr>
+                
+                <h2 id="token-properties">Token Properties</h2>
+                
+                <h3 id="non-speculative">Non-Speculative</h3>
+                <ul>
+                    <li><strong>Not an investment:</strong> Tokens have no monetary value</li>
+                    <li><strong>Not tradeable:</strong> Tokens cannot be sold or exchanged</li>
+                    <li><strong>Not convertible:</strong> Tokens cannot be converted to credits</li>
+                    <li><strong>Purpose:</strong> Recognition only, not currency</li>
+                </ul>
+                
+                <h3 id="recognition-only">Recognition Only</h3>
+                <ul>
+                    <li><strong>Visual acknowledgment:</strong> Tokens appear in user profile</li>
+                    <li><strong>No privileges:</strong> Tokens don't unlock features or content</li>
+                    <li><strong>No pressure:</strong> No leaderboards or comparisons</li>
+                    <li><strong>Personal value:</strong> Recognition of contribution, not competition</li>
+                </ul>
+                
+                <h3 id="anti-gamification">Anti-Gamification Safeguards</h3>
+                <ul>
+                    <li><strong>No streaks:</strong> Tokens not earned through daily login</li>
+                    <li><strong>No pressure:</strong> No "earn more tokens" messaging</li>
+                    <li><strong>No manipulation:</strong> Tokens are passive recognition</li>
+                    <li><strong>No FOMO:</strong> No time-limited token earning</li>
+                </ul>
+                
+                <hr>
+                
+                <h2 id="token-distribution">Token Distribution</h2>
+                
+                <h3 id="distribution-principles">Distribution Principles</h3>
+                <ul>
+                    <li><strong>Meaningful contribution:</strong> Tokens recognize genuine value creation</li>
+                    <li><strong>No manipulation:</strong> Distribution is transparent and fair</li>
+                    <li><strong>No pressure:</strong> Users don't need to "earn" tokens</li>
+                    <li><strong>Recognition, not reward:</strong> Tokens acknowledge contribution, not incentivize behavior</li>
+                </ul>
+                
+                <h3 id="distribution-mechanics">Distribution Mechanics</h3>
+                <p><strong>Note:</strong> Detailed distribution rules and mechanics to be defined during implementation. The system will be designed to recognize meaningful contribution without creating gamification pressure.</p>
+                
+                <hr>
+                
+                <h2 id="token-display">Token Display</h2>
+                
+                <h3 id="user-profile">User Profile</h3>
+                <ul>
+                    <li><strong>Token count:</strong> Visible but not prominent</li>
+                    <li><strong>Token types:</strong> Breakdown by type (practice, creator, referral, feedback)</li>
+                    <li><strong>No comparison:</strong> No leaderboards or social comparison</li>
+                    <li><strong>Personal value:</strong> Recognition of individual contribution</li>
+                </ul>
+                
+                <h3 id="ui-principles">UI Principles</h3>
+                <ul>
+                    <li><strong>Calm display:</strong> Tokens shown without pressure or urgency</li>
+                    <li><strong>No notifications:</strong> No "You earned a token!" popups</li>
+                    <li><strong>Passive recognition:</strong> Tokens appear naturally, not announced</li>
+                    <li><strong>No manipulation:</strong> UI doesn't encourage token earning</li>
+                </ul>
+                
+                <hr>
+                
+                <h2 id="relationship-to-credits">Relationship to Credits</h2>
+                
+                <p><strong>Key Distinction:</strong> Tokens and credits serve different purposes:</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Credits</th>
+                            <th>Tokens</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Acquisition</strong></td>
+                            <td>Purchased</td>
+                            <td>Earned</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Purpose</strong></td>
+                            <td>Creation and transformation</td>
+                            <td>Recognition of contribution</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Value</strong></td>
+                            <td>Monetary (€)</td>
+                            <td>Recognition only</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Usage</strong></td>
+                            <td>Consumed for creation</td>
+                            <td>Displayed for recognition</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Convertible</strong></td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p><strong>Principle:</strong> Credits enable creation. Tokens recognize contribution. They are separate systems that serve different purposes.</p>
+                
+                <hr>
+                
+                <h2 id="future-considerations">Future Considerations</h2>
+                
+                <h3 id="potential-extensions">Potential Extensions</h3>
+                <ul>
+                    <li><strong>Token badges:</strong> Visual badges for different token milestones (if desired)</li>
+                    <li><strong>Creator recognition:</strong> Special recognition for top creators (without leaderboards)</li>
+                    <li><strong>Community features:</strong> Tokens could enable community features (TBD)</li>
+                </ul>
+                
+                <h3 id="open-questions">Open Questions</h3>
+                <ol>
+                    <li><strong>Token display:</strong> How prominently should tokens be displayed?</li>
+                    <li><strong>Distribution rules:</strong> What are the exact criteria for earning each token type?</li>
+                    <li><strong>Token limits:</strong> Should there be limits on token earning?</li>
+                    <li><strong>Token expiration:</strong> Should tokens expire or persist indefinitely?</li>
+                    <li><strong>Community features:</strong> Should tokens enable any community features?</li>
+                </ol>
+                
+                <hr>
+                
+                <h2 id="summary">Summary</h2>
+                
+                <p>The Token Reward System is a <strong>non-speculative recognition mechanism</strong> that:</p>
+                <ul>
+                    <li><strong>Recognizes contribution</strong> - Acknowledges meaningful engagement and contribution</li>
+                    <li><strong>Avoids gamification</strong> - No pressure, no manipulation, no competition</li>
+                    <li><strong>Separate from credits</strong> - Recognition system, not currency</li>
+                    <li><strong>Maintains ethics</strong> - Transparent, fair, respectful</li>
+                </ul>
+                
+                <p><strong>Core Principle:</strong> Tokens recognize value creation, not consumption. They are acknowledgment, not reward.</p>
+                
+                <hr>
+                
+                <h2 id="related-documentation">Related Documentation</h2>
+                <ul>
+                    <li><a href="../pricing/index.html">Pricing</a> - Credit packs and pricing structure</li>
+                    <li><a href="../credits-system/index.html">Credits System</a> - Detailed credits documentation</li>
+                    <li><a href="../marketplace-economics/index.html">Marketplace Economics</a> - Creator economics and marketplace</li>
+                </ul>
             </div>
         </main>
     </div>

@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="waQup - Voice-first ritual creation platform documentation">
-    <title>Scientific Foundations</title>
+    <meta name="description" content="waQup State Machine Documentation">
+    <title>State Machine - waQup Documentation</title>
     <script type="module">
-        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ 
             startOnLoad: true,
             theme: 'base',
@@ -201,9 +201,9 @@
             attributeFilter: ['style', 'stroke', 'stroke-width']
         });
     </script>
-    <link rel="stylesheet" href="../../styles.css">
-    <script src="../../script.js"></script>
-    <script src="../../navigation.js"></script>
+        <link rel="stylesheet" href="../../styles.css">
+        <script src="../../script.js"></script>
+        <script src="../../navigation.js"></script>
 </head>
 <body>
     <div class="container">
@@ -215,997 +215,299 @@
                 <a href="../index.html" class="back-link">Back to Conversational & Ritual System</a>
                 
                 <h1>State Machine</h1>
-<h2 id="table-of-contents">Table of Contents</h2>
-<ul>
-<li><a href="#content-types--taxonomy">Content Types & Taxonomy</a></li>
-<li><a href="#features--workflows">Features & Workflows</a></li>
-<li><a href="#user-journey">User Journey</a></li>
-<li><a href="#state-machine--conversation-flow">State Machine & Conversation Flow</a></li>
-</ul>
-<hr>
-<h2 id="content-types-taxonomy">Content Types & Taxonomy</h2>
-<h2 id="core-principle-three-depths-not-interchangeable">Core Principle: Three Depths, Not Interchangeable</h2>
-<p>waQup is built on <strong>three different depths of subconscious engagement</strong>.</p>
-<p>They are <strong>not interchangeable</strong>.</p>
-<p>Think of them as <strong>layers</strong>:</p>
-<ol>
-<li><strong>Affirmations</strong> → cognitive re-patterning (shallow → medium)</li>
-<li><strong>Guided Meditations</strong> → state induction (medium)</li>
-<li><strong>Rituals</strong> → identity encoding (deepest)</li>
-</ol>
-<p>Most apps confuse these. waQup separates them <strong>on purpose</strong>.</p>
-<hr>
-<h2 id="1-affirmations-micro-reprogramming">1. Affirmations (Micro-Reprogramming)</h2>
-<h3 id="what-affirmations-are-in-waqup">What Affirmations Are in waQup</h3>
-<p>Affirmations are <strong>precise linguistic encodings</strong> designed to:</p>
-<ul>
-<li>Bypass resistance</li>
-<li>Avoid negation errors</li>
-<li>Align language with felt identity</li>
-</ul>
-<p>They are <strong>not</strong>:</p>
-<ul>
-<li>Positive thinking</li>
-<li>Wishful statements</li>
-<li>Surface motivation</li>
-</ul>
-<p>They are <strong>syntax-correct instructions to the subconscious</strong>.</p>
-<h3 id="how-they-work-psychologically">How They Work Psychologically</h3>
-<ol>
-<li>The brain responds to present-tense identity language</li>
-<li>Repetition builds neural familiarity</li>
-<li>Familiarity reduces threat</li>
-<li>Reduced threat allows adoption</li>
-</ol>
-<strong>Example</strong>:
-<ul>
-<li>❌ "I am becoming calm"</li>
-<li>✅ "I am calm and present in my body"</li>
-</ul>
-<h3 id="in-the-app">In the App</h3>
-<strong>Characteristics</strong>:
-<ul>
-<li>Can exist alone (standalone affirmations)</li>
-<li>Can be listened to daily (lightweight, repeatable)</li>
-<li>Can be recorded in:</li>
-<li>User's voice</li>
-<li>Selected voice</li>
-<li>Fast generation (less AI processing)</li>
-<li>Shorter duration (1-5 minutes)</li>
-</ul>
-<strong>Depth</strong>: Shallow → Medium
-<strong>Use Cases</strong>: Habits, mindset, focus, confidence, daily reinforcement
-<strong>Credit Cost</strong>: 0.5 credits (lighter AI processing)
-<strong>Structure</strong>:
-<ul>
-<li>Core affirmation statements (3-7 statements)</li>
-<li>Present-tense identity language</li>
-<li>Repetition pattern</li>
-<li>Optional: brief grounding</li>
-</ul>
-<hr>
-<h2 id="2-guided-meditations-state-imagery">2. Guided Meditations (State + Imagery)</h2>
-<h3 id="what-guided-meditations-are">What Guided Meditations Are</h3>
-<p>Guided meditations are <strong>state-induction journeys</strong>.</p>
-<p>They use:</p>
-<ul>
-<li>Breath</li>
-<li>Attention direction</li>
-<li>Imagery</li>
-<li>Pacing</li>
-<li>Silence</li>
-</ul>
-<p>Their purpose is <strong>not identity change, but state access</strong>.</p>
-<h3 id="how-they-work-psychologically">How They Work Psychologically</h3>
-<ol>
-<li>Slow the nervous system</li>
-<li>Shift brainwave dominance</li>
-<li>Increase suggestibility</li>
-<li>Open access to emotional material</li>
-</ol>
-<p>They <strong>prepare the terrain, but don't rewrite the map</strong>.</p>
-<h3 id="in-the-app">In the App</h3>
-<strong>Characteristics</strong>:
-<ul>
-<li>Can be generic (relaxation, grounding, presence)</li>
-<li>Can be semi-personalized</li>
-<li>Can be listened to without credits (once created)</li>
-<li>Can include affirmations inside them</li>
-<li>Medium duration (5-20 minutes)</li>
-<li>Moderate AI processing</li>
-</ul>
-<strong>Depth</strong>: Medium
-<strong>Use Cases</strong>: Regulation, stress, clarity, emotional access, nervous system regulation
-<strong>Credit Cost</strong>: 1 credit (standard AI processing)
-<strong>Structure</strong>:
-<ul>
-<li>Grounding / arrival</li>
-<li>Breath work</li>
-<li>Attention direction</li>
-<li>Imagery / visualization</li>
-<li>Optional: embedded affirmations</li>
-<li>Closure / return</li>
-</ul>
-<hr>
-<h2 id="3-rituals-identity-encoding-the-core">3. Rituals (Identity Encoding — The Core)</h2>
-<h3 id="what-rituals-are-this-is-key">What Rituals Are (This is Key)</h3>
-<p>A waQup ritual is a <strong>structured act of self-authorship</strong>.</p>
-<p>It combines:</p>
-<ul>
-<li>Reflection</li>
-<li>Intention</li>
-<li>Language</li>
-<li>Voice</li>
-<li>Repetition</li>
-<li>Emotional imprint</li>
-</ul>
-<strong>Rituals are not content. They are events.</strong>
-<h3 id="what-makes-rituals-different">What Makes Rituals Different</h3>
-<p>Rituals:</p>
-<ul>
-<li>Are <strong>created, not consumed</strong></li>
-<li>Include <strong>context</strong> (why this matters)</li>
-<li>Encode <strong>identity-level language</strong></li>
-<li>Are tied to a <strong>moment in life</strong></li>
-</ul>
-<p>This is why they are <strong>rare — and powerful</strong>.</p>
-<h3 id="structure-of-a-ritual-simplified">Structure of a Ritual (Simplified)</h3>
-<p>A ritual typically includes:</p>
-<ol>
-<li><strong>Grounding / arrival</strong> (nervous system regulation)</li>
-<li><strong>Context</strong> (what is changing, why this matters)</li>
-<li><strong>Core affirmations</strong> (personalized, identity-level)</li>
-<li><strong>Emotional anchoring</strong> (felt sense integration)</li>
-<li><strong>Closure / integration</strong> (commitment to new identity)</li>
-</ol>
-<p>This structure is what makes it <strong>stick</strong>.</p>
-<h3 id="in-the-app">In the App</h3>
-<strong>Characteristics</strong>:
-<ul>
-<li>Ritual creation consumes credits (highest cost)</li>
-<li>Ritual playback is unlimited (free)</li>
-<li>Rituals can evolve over time</li>
-<li>Rituals become part of the user's inner archive</li>
-<li>Longer duration (10-30 minutes)</li>
-<li>Highest AI processing (full personalization)</li>
-</ul>
-<strong>Depth</strong>: Deep
-<strong>Use Cases</strong>: Identity shifts, transitions, trauma-safe re-framing, life thresholds, major changes
-<strong>Credit Cost</strong>: 1 credit (full AI processing, highest value)
-<strong>Structure</strong>:
-<ul>
-<li>Grounding / arrival</li>
-<li>Context (personalized, why this matters)</li>
-<li>Core affirmations (identity-level, personalized)</li>
-<li>Emotional anchoring (felt sense)</li>
-<li>Closure / integration (commitment)</li>
-</ul>
-<hr>
-<h2 id="4-how-the-three-work-together-system-logic">4. How the Three Work Together (System Logic)</h2>
-<h3 id="typical-user-journey">Typical User Journey</h3>
-<ol>
-<li><strong>User starts with affirmations</strong> (lightweight, daily)</li>
-<li><strong>When resistance appears</strong> → uses guided meditation (state access)</li>
-<li><strong>When something truly matters</strong> → creates a ritual (identity encoding)</li>
-</ol>
-<strong>Affirmations repeat</strong>
-<strong>Meditations open</strong>
-<strong>Rituals encode</strong>
-<h3 id="internal-hierarchy">Internal Hierarchy</h3>
-<ul>
-<li><strong>Affirmations</strong> = statements (cognitive layer)</li>
-<li><strong>Guided meditations</strong> = states (nervous system layer)</li>
-<li><strong>Rituals</strong> = identity contracts (deepest layer)</li>
-</ul>
-<p>waQup doesn't force one path — it offers <strong>depth when needed</strong>.</p>
-<hr>
-<h2 id="5-taxonomy-system">5. Taxonomy System</h2>
-<h3 id="primary-classification-content-type">Primary Classification: Content Type</h3>
-<strong>Required field</strong>: <code>content_type</code> (enum)
-<ul>
-<li><code>affirmation</code></li>
-<li><code>guided_meditation</code></li>
-<li><code>ritual</code></li>
-</ul>
-<h3 id="secondary-classification-tags">Secondary Classification: Tags</h3>
-<strong>Tags</strong> are flexible, user-defined, and system-suggested.
-<h4 id="system-tags-predefined">System Tags (Predefined)</h4>
-<strong>By Use Case</strong>:
-<ul>
-<li><code>habits</code> (affirmations)</li>
-<li><code>mindset</code> (affirmations)</li>
-<li><code>focus</code> (affirmations)</li>
-<li><code>confidence</code> (affirmations)</li>
-<li><code>regulation</code> (meditations)</li>
-<li><code>stress</code> (meditations)</li>
-<li><code>clarity</code> (meditations)</li>
-<li><code>emotional-access</code> (meditations)</li>
-<li><code>identity-shift</code> (rituals)</li>
-<li><code>transition</code> (rituals)</li>
-<li><code>trauma-safe</code> (rituals)</li>
-<li><code>life-threshold</code> (rituals)</li>
-</ul>
-<strong>By Practice Type</strong> (for rituals and meditations):
-<ul>
-<li><code>breath-work</code></li>
-<li><code>body-scanning</code></li>
-<li><code>movement</code></li>
-<li><code>sensory-awareness</code></li>
-<li><code>visualization</code></li>
-<li><code>combination</code></li>
-</ul>
-<strong>By Time/Context</strong>:
-<ul>
-<li><code>morning</code></li>
-<li><code>evening</code></li>
-<li><code>before-sleep</code></li>
-<li><code>anxiety</code></li>
-<li><code>calming</code></li>
-<li><code>energizing</code></li>
-<li><code>grounding</code></li>
-</ul>
-<strong>By Depth</strong> (system-assigned):
-<ul>
-<li><code>shallow</code> (affirmations)</li>
-<li><code>medium</code> (meditations, some affirmations)</li>
-<li><code>deep</code> (rituals)</li>
-</ul>
-<h4 id="user-tags-custom">User Tags (Custom)</h4>
-<p>Users can add custom tags:</p>
-<ul>
-<li>Personal context tags</li>
-<li>Life event tags</li>
-<li>Emotional state tags</li>
-<li>Any meaningful categorization</li>
-</ul>
-<strong>Tag Rules</strong>:
-<ul>
-<li>Maximum 10 tags per content item</li>
-<li>Tags are lowercase, hyphenated</li>
-<li>System suggests tags based on content analysis</li>
-<li>Users can remove/add tags freely</li>
-</ul>
-<h3 id="tertiary-classification-collections">Tertiary Classification: Collections</h3>
-<strong>Collections</strong> are user-organized groups:
-<ul>
-<li>Folders (user-created)</li>
-<li>Packs (creator-published)</li>
-<li>Sequences (multiple items in order)</li>
-</ul>
-<hr>
-<h2 id="6-database-schema">6. Database Schema</h2>
-<h3 id="content-items-table">Content Items Table</h3>
-<pre><code>CREATE TABLE content_items (
-<p>id UUID PRIMARY KEY,</p>
-<p>user_id UUID REFERENCES users(id),</p>
-<p>content_type ENUM('affirmation', 'guided_meditation', 'ritual') NOT NULL,</p>
-<p>-- Core fields</p>
-<p>title VARCHAR(255) NOT NULL,</p>
-<p>content_text TEXT NOT NULL,</p>
-<p>audio_url VARCHAR(500),</p>
-<p>audio_duration INTEGER, -- seconds</p>
-<p>-- Type-specific fields</p>
-<p>structure JSONB, -- type-specific structure</p>
-<p>context JSONB, -- creation context, personalization</p>
-<p>-- Metadata</p>
-<p>tags TEXT[], -- array of tag strings</p>
-<p>depth VARCHAR(20), -- shallow, medium, deep (system-assigned)</p>
-<p>-- Voice</p>
-<p>voice_id UUID REFERENCES voices(id),</p>
-<p>voice_type VARCHAR(50), -- 'user', 'standard', 'premium'</p>
-<p>-- Timestamps</p>
-<p>created_at TIMESTAMP NOT NULL,</p>
-<p>last_played_at TIMESTAMP,</p>
-<p>play_count INTEGER DEFAULT 0,</p>
-<p>-- Organization</p>
-<p>folder_id UUID REFERENCES folders(id),</p>
-<p>pack_id UUID REFERENCES ritual_packs(id), -- if part of pack</p>
-<p>-- Status</p>
-<p>status VARCHAR(20) DEFAULT 'active', -- active, archived, deleted</p>
-<p>-- Indexes</p>
-<p>INDEX idx_user_content_type (user_id, content_type),</p>
-<p>INDEX idx_tags (tags),</p>
-<p>INDEX idx_depth (depth)</p>
-<p>);</code></pre>
-<h3 id="tags-table-normalized">Tags Table (Normalized)</h3>
-<pre><code>CREATE TABLE tags (
-<p>id UUID PRIMARY KEY,</p>
-<p>name VARCHAR(100) UNIQUE NOT NULL,</p>
-<p>category VARCHAR(50), -- 'use-case', 'practice-type', 'time-context', 'custom'</p>
-<p>usage_count INTEGER DEFAULT 0,</p>
-<p>created_at TIMESTAMP DEFAULT NOW()</p>
-<p>);</p>
-<p>CREATE TABLE content_item_tags (</p>
-<p>content_item_id UUID REFERENCES content_items(id),</p>
-<p>tag_id UUID REFERENCES tags(id),</p>
-<p>PRIMARY KEY (content_item_id, tag_id)</p>
-<p>);</code></pre>
-<hr>
-<h2 id="7-api-design">7. API Design</h2>
-<h3 id="filtering-by-type">Filtering by Type</h3>
-<strong>GET /api/v1/content</strong>
-<pre><code>Query Parameters:
-<ul>
-<li>content_type: "affirmation" | "guided_meditation" | "ritual" | null (all)</li>
-<li>tags: string[] (filter by tags)</li>
-<li>depth: "shallow" | "medium" | "deep" | null (all)</li>
-<li>folder_id: uuid (optional)</li>
-<li>pack_id: uuid (optional)</li>
-</ul>
-<p>Response:</p>
-<p>{</p>
-<p>"content_items": [</p>
-<p>{</p>
-<p>"id": "uuid",</p>
-<p>"content_type": "ritual",</p>
-<p>"title": "Evening Calm",</p>
-<p>"depth": "deep",</p>
-<p>"tags": ["evening", "calming", "transition"],</p>
-<p>"duration": 600,</p>
-<p>"created_at": "2024-01-01T00:00:00Z"</p>
-<p>}</p>
-<p>],</p>
-<p>"pagination": {...}</p>
-<p>}</code></pre>
-<h3 id="type-specific-creation">Type-Specific Creation</h3>
-<strong>POST /api/v1/content/create</strong>
-<pre><code>Request:
-<p>{</p>
-<p>"content_type": "affirmation" | "guided_meditation" | "ritual",</p>
-<p>"intent": "I need calm",</p>
-<p>"context": {...},</p>
-<p>"preferences": {...}</p>
-<p>}</p>
-<p>Response:</p>
-<p>{</p>
-<p>"content_item_id": "uuid",</p>
-<p>"content_type": "ritual",</p>
-<p>"status": "generating",</p>
-<p>"estimated_time": 30</p>
-<p>}</code></pre>
-<hr>
-<h2 id="8-user-interface-organization">8. User Interface Organization</h2>
-<h3 id="library-view-options">Library View Options</h3>
-<ol>
-<li><strong>By Type</strong> (default):</li>
-</ol>
-<ul>
-<li>Affirmations tab</li>
-<li>Guided Meditations tab</li>
-<li>Rituals tab</li>
-</ul>
-<ol>
-<li><strong>By Tags</strong>:</li>
-</ol>
-<ul>
-<li>Filter by tag</li>
-<li>See all types with matching tag</li>
-</ul>
-<ol>
-<li><strong>By Depth</strong>:</li>
-</ol>
-<ul>
-<li>Shallow (affirmations)</li>
-<li>Medium (meditations)</li>
-<li>Deep (rituals)</li>
-</ul>
-<ol>
-<li><strong>By Collection</strong>:</li>
-</ol>
-<ul>
-<li>Folders</li>
-<li>Packs</li>
-<li>Sequences</li>
-</ul>
-<h3 id="creation-flow">Creation Flow</h3>
-<strong>Step 1</strong>: User selects content type
-<ul>
-<li>"Create Affirmation" (lightweight)</li>
-<li>"Create Guided Meditation" (state access)</li>
-<li>"Create Ritual" (deep encoding)</li>
-</ul>
-<strong>Step 2</strong>: Conversation adapts to type
-<ul>
-<li>Affirmations: Focus on statements, identity language</li>
-<li>Meditations: Focus on state, imagery, breath</li>
-<li>Rituals: Focus on context, meaning, identity shift</li>
-</ul>
-<hr>
-<h2 id="9-credits-integration">9. Credits Integration</h2>
-<h3 id="credit-costs-by-type">Credit Costs by Type</h3>
-<ul>
-<li><strong>Affirmations</strong>: 0.5 credits (lighter processing)</li>
-<li><strong>Guided Meditations</strong>: 1 credit (standard processing)</li>
-<li><strong>Rituals</strong>: 1 credit (full processing, highest value)</li>
-</ul>
-<strong>Rationale</strong>:
-<ul>
-<li>Affirmations are shorter, simpler</li>
-<li>Meditations are standard length</li>
-<li>Rituals are full personalization (but same credit = intentional choice)</li>
-</ul>
-<strong>Alternative</strong>: All cost 1 credit (simplicity, intentionality)
-<hr>
-<h2 id="10-why-this-design-is-rare-and-strong">10. Why This Design is Rare (and Strong)</h2>
-<h3 id="most-apps">Most Apps:</h3>
-<ul>
-<li>Mix everything (no distinction)</li>
-<li>Overload content (too many options)</li>
-<li>Remove authorship (pre-made content)</li>
-</ul>
-<h3 id="waqup">waQup:</h3>
-<ul>
-<li>Separates functions (clear hierarchy)</li>
-<li>Respects psychological layers (depth awareness)</li>
-<li>Gives ownership back to the user (self-authorship)</li>
-</ul>
-<h3 id="this-creates">This Creates:</h3>
-<ul>
-<li>Higher trust (clear purpose)</li>
-<li>Deeper retention (meaningful progression)</li>
-<li>Emotional loyalty (identity-level connection)</li>
-<li>Ethical monetization (value-based pricing)</li>
-</ul>
-<hr>
-<h2 id="11-open-questions">11. Open Questions</h2>
-<ol>
-<li><strong>Credit costs</strong>: Should affirmations cost 0.5 credits or 1 credit?</li>
-<li><strong>Tag limits</strong>: Is 10 tags per item sufficient?</li>
-<li><strong>Type transitions</strong>: Can users convert affirmations → meditations → rituals?</li>
-<li><strong>Pack types</strong>: Can packs contain mixed types or single type only?</li>
-<li><strong>Search</strong>: Should search prioritize by type or relevance?</li>
-</ol>
-<hr>
-<h2 id="summary">Summary</h2>
-<p>The three content types form a <strong>hierarchical system</strong>:</p>
-<ul>
-<li><strong>Affirmations</strong>: Cognitive re-patterning (shallow → medium)</li>
-<li><strong>Guided Meditations</strong>: State induction (medium)</li>
-<li><strong>Rituals</strong>: Identity encoding (deepest)</li>
-</ul>
-<p>They are <strong>not interchangeable</strong> and serve different psychological purposes.</p>
-<p>The taxonomy system supports:</p>
-<ul>
-<li>Type-based organization</li>
-<li>Flexible tagging</li>
-<li>User-defined collections</li>
-<li>Clear depth progression</li>
-</ul>
-<p>This creates a <strong>coherent, meaningful system</strong> that respects psychological layers and user autonomy.</p>
-<h2 id="features-workflows">Features & Workflows</h2>
-<h2 id="core-features">Core Features</h2>
-<h3 id="1-voice-first-content-creation">1. Voice-First Content Creation</h3>
-<p>Users create personalized content (affirmations, guided meditations, or rituals) through guided conversation, not forms. The system uses natural language dialogue to understand intent, gather context, and generate customized practices.</p>
-<strong>Three Content Types</strong> (see Content Types & Taxonomy document):
-<ul>
-<li><strong>Affirmations</strong>: Cognitive re-patterning (0.5 credits)</li>
-<li><strong>Guided Meditations</strong>: State induction (1 credit)</li>
-<li><strong>Rituals</strong>: Identity encoding (1 credit)</li>
-</ul>
-<strong>Key Characteristics</strong>:
-<ul>
-<li>Conversational interface (no forms or configuration screens)</li>
-<li>Natural language understanding</li>
-<li>Adaptive dialogue flow (adapts to content type)</li>
-<li>Real-time conversation via WebSocket</li>
-<li>Credit-based creation (cost varies by type, see Credits System document)</li>
-<li>Type selection before creation (user chooses depth)</li>
-</ul>
-<h3 id="2-embodied-practice-content">2. Embodied Practice Content</h3>
-<p>All content types (affirmations, guided meditations, rituals) engage the body, though to different depths. Rituals and guided meditations emphasize embodied practice more than affirmations.</p>
-<strong>Practice Types</strong> (for meditations and rituals):
-<ul>
-<li>Breath work (various techniques)</li>
-<li>Body scanning and awareness</li>
-<li>Gentle movement and stretching</li>
-<li>Sensory awareness practices</li>
-<li>Combination practices</li>
-</ul>
-<strong>Note</strong>: Affirmations focus on linguistic encoding; meditations and rituals include embodied practice.
-<h3 id="3-personalized-audio-generation">3. Personalized Audio Generation</h3>
-<p>Rituals are generated as personalized audio files using LLM for text generation and TTS for voice synthesis.</p>
-<strong>Personalization Elements</strong>:
-<ul>
-<li>Voice selection (user preference)</li>
-<li>Pace (slower for calming, moderate for energy)</li>
-<li>Tone (warm, supportive, matches intent)</li>
-<li>Ritual structure (adapted to duration and practice type)</li>
-</ul>
-<h3 id="4-content-library-return-loops">4. Content Library & Return Loops</h3>
-<p>Users save content (affirmations, guided meditations, rituals) and return to practice them regularly. No gamification—users return for intrinsic value.</p>
-<strong>Library Features</strong>:
-<ul>
-<li>Save unlimited personal content (all types)</li>
-<li>Organize by type (affirmations, meditations, rituals)</li>
-<li>Organize by tags (flexible tagging system)</li>
-<li>Organize in folders (user-created collections)</li>
-<li>Track practice history (for reference, not gamification)</li>
-<li>Export content (text and audio)</li>
-<li>Offline playback support</li>
-<li><strong>Unlimited replay</strong> (practice is free, no credit consumption)</li>
-</ul>
-<strong>Library Organization</strong>:
-<ul>
-<li>Filter by content type</li>
-<li>Filter by tags</li>
-<li>Filter by depth (shallow, medium, deep)</li>
-<li>Browse by collection (folders, packs, sequences)</li>
-</ul>
-<h3 id="5-marketplace-creator-ecosystem">5. Marketplace & Creator Ecosystem</h3>
-<p>Facilitators/creators publish ritual packs and custom voices. Users discover, purchase, and subscribe to creator content.</p>
-<strong>Marketplace Features</strong>:
-<ul>
-<li>Browse and search ritual packs</li>
-<li>One-time purchases and subscriptions</li>
-<li>Creator profiles and follow functionality</li>
-<li>Personalized recommendations</li>
-<li>Reviews and ratings</li>
-</ul>
-<h3 id="6-credits-system">6. Credits System</h3>
-<p>Resource management system for AI generation. Credits enable intentional creation while managing infrastructure costs.</p>
-<strong>Key Principles</strong>:
-<ul>
-<li>Credits consumed only for creation/transformation (not practice)</li>
-<li>Credits never expire (no FOMO)</li>
-<li>Practice is free (unlimited replay)</li>
-<li>Transparent costs and balance</li>
-</ul>
-<strong>Note</strong>: For detailed credits mechanics, consumption rules, and pricing, see Credits System document.
-<h3 id="7-tokenreward-system">7. Token/Reward System</h3>
-<p>Non-speculative recognition system for user and creator contributions. Tokens represent value exchange, not investment.</p>
-<strong>Reward Types</strong>:
-<ul>
-<li>Practice tokens (for regular engagement)</li>
-<li>Creator tokens (for quality packs)</li>
-<li>Referral tokens (for word-of-mouth)</li>
-<li>Feedback tokens (for constructive feedback)</li>
-</ul>
-<strong>Note</strong>: For detailed token mechanics, distribution rules, and economic model, see Value & Growth Economy document.
-<h2 id="ritual-creation-workflow">Ritual Creation Workflow</h2>
-<div class="mermaid-container"><div class="mermaid">sequenceDiagram
-    participant User
-    participant Conversation Service
-    participant Ritual Gen Service
-    participant LLM
-    participant Audio Gen Service
-    participant TTS
-    participant Ritual Library
-
-    User->>Conversation Service: Initiate ritual creation
-    Conversation Service->>User: Greet & ask intent
-    User->>Conversation Service: Share intent ("I need calm")
-    Conversation Service->>User: Ask about context
-    User->>Conversation Service: Share context (time, location, duration)
-    Conversation Service->>User: Ask about practice details
-    User->>Conversation Service: Share preferences (breath work, gentle)
-    Conversation Service->>Ritual Gen Service: Generate ritual
-    Ritual Gen Service->>Credit Service: Check credit availability
-    Credit Service-->>Ritual Gen Service: Credit available
-    Ritual Gen Service->>LLM: Call with intent + context
-    LLM-->>Ritual Gen Service: Return ritual text
-    Ritual Gen Service->>User: Present ritual summary
-    User->>Conversation Service: Confirm ritual
-    Conversation Service->>Audio Gen Service: Generate audio
-    Audio Gen Service->>Credit Service: Consume credit (on success)
-    Audio Gen Service->>TTS: Synthesize voice
-    TTS-->>Audio Gen Service: Return audio file
-    Audio Gen Service->>Ritual Library: Store ritual + audio
-    Ritual Library-->>User: Ritual ready to practice</div></div>
-<h3 id="workflow-states">Workflow States</h3>
-<ol>
-<li><strong>Greeting</strong>: System welcomes user and explains the process</li>
-<li><strong>Intent Discovery</strong>: System asks what kind of practice would support the user</li>
-<li><strong>Context Gathering</strong>: System asks about time, location, duration, current state</li>
-<li><strong>Practice Details</strong>: System asks about practice type, body engagement, intensity, guidance style</li>
-<li><strong>Personalization</strong>: System applies voice, pace, tone, and structure preferences</li>
-<li><strong>Confirmation</strong>: System presents ritual summary for user approval</li>
-<li><strong>Generation</strong>: System generates ritual text (LLM) and audio (TTS)</li>
-<li><strong>Complete</strong>: Ritual is saved and ready to practice</li>
-</ol>
-<strong>Note</strong>: For detailed state machine implementation and conversational system architecture, see Conversational & Ritual System document.
-<h2 id="return-loop-workflow">Return Loop Workflow</h2>
-<div class="mermaid-container"><div class="mermaid">sequenceDiagram
-    participant User
-    participant Ritual Library
-    participant Audio Service
-    participant CDN
-
-    User->>Ritual Library: Open library
-    Ritual Library->>User: Display saved rituals
-    User->>Ritual Library: Select ritual
-    Ritual Library->>User: Show ritual details
-    User->>Ritual Library: Start practice
-    Ritual Library->>Audio Service: Request audio URL
-    Audio Service->>CDN: Get pre-signed URL
-    CDN-->>Audio Service: Return audio URL
-    Audio Service-->>Ritual Library: Return URL
-    Ritual Library->>User: Start playback
-    User->>Ritual Library: Complete practice
-    Ritual Library->>Ritual Library: Record practice event
-    Ritual Library->>User: Return to library</div></div>
-<h3 id="return-loop-states">Return Loop States</h3>
-<ol>
-<li><strong>Library</strong>: User views saved rituals</li>
-<li><strong>Ritual Selection</strong>: User selects a ritual to practice</li>
-<li><strong>Preview</strong>: User reviews ritual details</li>
-<li><strong>Personalization Check</strong>: System checks if update needed (optional)</li>
-<li><strong>Playing</strong>: Audio playback begins</li>
-<li><strong>Paused</strong>: User can pause and resume</li>
-<li><strong>Complete</strong>: Practice finished, return to library</li>
-</ol>
-<h2 id="marketplace-workflow">Marketplace Workflow</h2>
-<div class="mermaid-container"><div class="mermaid">sequenceDiagram
-    participant User
-    participant Catalog Service
-    participant Creator Service
-    participant Payment Service
-    participant Stripe
-    participant Ritual Library
-
-    User->>Catalog Service: Browse ritual packs
-    Catalog Service->>User: Display packs (search/recommendations)
-    User->>Catalog Service: View pack details
-    Catalog Service->>User: Show pack info, price, creator
-    User->>Payment Service: Purchase/Subscribe
-    Payment Service->>Stripe: Process payment
-    Stripe-->>Payment Service: Payment confirmed
-    Payment Service->>Ritual Library: Grant access to pack
-    Ritual Library->>User: Pack available in library
-    User->>Ritual Library: Practice pack rituals</div></div>
-<h3 id="creator-publishing-workflow">Creator Publishing Workflow</h3>
-<div class="mermaid-container"><div class="mermaid">sequenceDiagram
-    participant Creator
-    participant Creator Service
-    participant Ritual Gen Service
-    participant Audio Gen Service
-    participant Catalog Service
-
-    Creator->>Creator Service: Create ritual pack
-    Creator->>Creator Service: Add rituals to pack
-    Creator->>Creator Service: Set pricing (free/paid/subscription)
-    Creator->>Creator Service: Publish pack
-    Creator Service->>Catalog Service: Index pack for discovery
-    Catalog Service->>Catalog Service: Make pack searchable
-    Catalog Service-->>Creator: Pack published</div></div>
-<h2 id="user-journey">User Journey</h2>
-<h2 id="overview">Overview</h2>
-<p>The waQup user journey is designed to be calm, trust-based, and regenerative. Users discover value through embodied practice, build habits through return loops, and engage with creators in a sustainable marketplace. No manipulation, no gamification, no dependency creation.</p>
-<h2 id="new-user-onboarding-journey">New User Onboarding Journey</h2>
-<div class="mermaid-container"><div class="mermaid">journey
-    title New User Onboarding
-    section Discovery
-      Discovers waQup: 3: User
-      Reads about voice-first rituals: 4: User
-      Decides to try: 5: User
-    section First Experience
-      Opens app: 4: User
-      Sees simple interface: 5: User
-      Chooses content type: 4: User
-      Creates first content: 5: User
-      Practices content: 5: User
-      Feels value: 5: User
-    section Engagement
-      Returns to practice: 5: User
-      Creates affirmations: 4: User
-      Uses guided meditations: 4: User
-      Creates rituals: 4: User
-      Explores marketplace: 4: User
-      Builds habit: 5: User</div></div>
-<h2 id="content-creation-journey-three-types">Content Creation Journey (Three Types)</h2>
-<h3 id="typical-progression-through-types">Typical Progression Through Types</h3>
-<div class="mermaid-container"><div class="mermaid">journey
-    title User Progression Through Content Types
-    section Starting Point
-      Creates affirmation: 5: User
-      Practices daily: 5: User
-      Feels resistance: 3: User
-    section Deepening
-      Uses guided meditation: 5: User
-      Accesses deeper state: 5: User
-      Feels ready for change: 5: User
-    section Encoding
-      Creates ritual: 5: User
-      Experiences identity shift: 5: User
-      Integrates change: 5: User</div></div>
-<strong>Progression Logic</strong>:
-<ul>
-<li><strong>Affirmations repeat</strong> (daily, lightweight)</li>
-<li><strong>Meditations open</strong> (when resistance appears)</li>
-<li><strong>Rituals encode</strong> (when something truly matters)</li>
-</ul>
-<h2 id="ritual-creation-journey-deepest-type">Ritual Creation Journey (Deepest Type)</h2>
-<div class="mermaid-container"><div class="mermaid">stateDiagram-v2
-    [*] --> DiscoverNeed: User feels need<br/>for practice
-    DiscoverNeed --> OpenApp: Opens waQup
-    OpenApp --> StartCreation: Clicks "Create Ritual"
-    StartCreation --> Greeting: System greets
-    Greeting --> ShareIntent: User shares intent<br/>"I need calm"
-    ShareIntent --> ShareContext: System asks context<br/>User shares details
-    ShareContext --> ShareDetails: System asks preferences<br/>User shares practice type
-    ShareDetails --> ReviewSummary: System presents summary
-    ReviewSummary --> Confirm: User confirms
-    ReviewSummary --> Modify: User requests changes
-    Modify --> ShareDetails: Return to details
-    Confirm --> Generating: System generates
-    Generating --> Complete: Ritual ready
-    Complete --> PracticeNow: User practices immediately
-    Complete --> SaveForLater: User saves for later
-    PracticeNow --> ExperienceValue: User experiences value
-    SaveForLater --> [*]
-    ExperienceValue --> ReturnLoop: User wants to return</div></div>
-<h3 id="journey-stages">Journey Stages</h3>
-<strong>1. Type Selection</strong>
-<ul>
-<li>User recognizes need for practice (stress, focus, sleep, etc.)</li>
-<li>Opens waQup app</li>
-<li>Sees three options: "Create Affirmation", "Create Guided Meditation", "Create Ritual"</li>
-<li>System explains depth difference (optional, first-time users)</li>
-<li>User chooses based on need and depth desired</li>
-<li>No pressure, no urgency</li>
-</ul>
-<strong>2. Discovery & Intent</strong>
-<ul>
-<li>System greets warmly</li>
-<li>Asks open-ended question: "What kind of practice would support you right now?"</li>
-<li>User shares intent naturally</li>
-<li>System adapts questions based on content type selected</li>
-<li>No forms, no configuration screens</li>
-</ul>
-<strong>3. Conversation Flow (Type-Specific)</strong>
-<ul>
-<li><strong>Affirmations</strong>: Focus on statements, identity language, repetition</li>
-<li><strong>Guided Meditations</strong>: Focus on state, imagery, breath, nervous system</li>
-<li><strong>Rituals</strong>: Focus on context, meaning, identity shift, emotional anchoring</li>
-<li>System adapts questions based on responses and type</li>
-<li>No forms, no configuration screens</li>
-</ul>
-<strong>4. Personalization</strong>
-<ul>
-<li>System gathers context (time, location, duration)</li>
-<li>System learns preferences (practice type, intensity, guidance style)</li>
-<li>System applies personalization (voice, pace, tone)</li>
-<li>User feels heard and understood</li>
-</ul>
-<strong>5. Generation & Delivery</strong>
-<ul>
-<li>System generates personalized content (type-specific structure)</li>
-<li>System synthesizes audio with chosen voice</li>
-<li>Content appears in library (organized by type)</li>
-<li>User can practice immediately or save for later</li>
-</ul>
-<strong>6. First Practice</strong>
-<ul>
-<li>User starts audio playback</li>
-<li>Voice guides through practice (type-appropriate)</li>
-<li>User experiences value (affirmation: cognitive shift, meditation: state access, ritual: identity encoding)</li>
-<li>Practice completes naturally</li>
-<li>No pressure, no gamification</li>
-</ul>
-<h2 id="return-loop-journey">Return Loop Journey</h2>
-<div class="mermaid-container"><div class="mermaid">journey
-    title Daily Return Loop
-    section Morning
-      Wakes up: 3: User
-      Feels need for practice: 4: User
-      Opens waQup: 4: User
-      Sees saved rituals: 5: User
-    section Practice
-      Selects ritual: 4: User
-      Starts practice: 5: User
-      Practices ritual: 5: User
-      Feels regulated: 5: User
-    section After Practice
-      Completes practice: 5: User
-      Returns to library: 4: User
-      No pressure to return: 5: User
-      Returns when needed: 5: User</div></div>
-<h3 id="return-loop-characteristics">Return Loop Characteristics</h3>
-<strong>No Gamification</strong>:
-<ul>
-<li>No streaks displayed</li>
-<li>No badges or achievements</li>
-<li>No "X day streak" notifications</li>
-<li>No comparison with others</li>
-</ul>
-<strong>Intrinsic Motivation</strong>:
-<ul>
-<li>Users return because practice serves them</li>
-<li>Value comes from embodied experience</li>
-<li>No external rewards or punishments</li>
-<li>Natural habit formation</li>
-</ul>
-<strong>User Autonomy</strong>:
-<ul>
-<li>Users control when to practice</li>
-<li>No reminders or pressure</li>
-<li>No consequences for not practicing</li>
-<li>Easy to pause and resume</li>
-</ul>
-<h2 id="marketplace-discovery-journey">Marketplace Discovery Journey</h2>
-<div class="mermaid-container"><div class="mermaid">flowchart TD
-    Start([User Wants<br/>More Content]) --> Browse[Browse Marketplace]
-    Browse --> Search[Search by Keyword<br/>or Browse Categories]
-    Search --> Results[See Pack Results<br/>Personalized Recommendations]
-    Results --> ViewPack[View Pack Details<br/>Creator, Price, Rituals]
-    ViewPack --> Decision{User Decision}
-    Decision -->|Free Pack| AddFree[Add to Library<br/>Immediate Access]
-    Decision -->|Paid Pack| Purchase[Purchase/Subscribe<br/>Stripe Checkout]
-    Decision -->|Not Interested| Browse
-    Purchase --> Access[Pack Added to Library<br/>Access Granted]
-    AddFree --> Practice[Practice Pack Rituals]
-    Access --> Practice
-    Practice --> Value[Experience Value<br/>from Creator Content]
-    Value --> Return[Return to Practice<br/>Build Habit]
-    Return --> Explore[Explore More Packs<br/>Follow Creators]</div></div>
-<h3 id="marketplace-journey-stages">Marketplace Journey Stages</h3>
-<strong>1. Discovery</strong>
-<ul>
-<li>User wants more variety or expertise</li>
-<li>Browses marketplace or searches</li>
-<li>Sees personalized recommendations</li>
-<li>No pressure, no FOMO</li>
-</ul>
-<strong>2. Exploration</strong>
-<ul>
-<li>Views pack details (description, creator, rituals)</li>
-<li>Reads reviews and ratings</li>
-<li>Considers value proposition</li>
-<li>Makes informed decision</li>
-</ul>
-<strong>3. Purchase/Subscription</strong>
-<ul>
-<li>Clear pricing (no hidden costs)</li>
-<li>Simple checkout process</li>
-<li>Transparent terms</li>
-<li>Immediate access after payment</li>
-</ul>
-<strong>4. Practice & Value</strong>
-<ul>
-<li>Pack rituals available in library</li>
-<li>User practices and experiences value</li>
-<li>Returns to practice regularly</li>
-<li>Builds relationship with creator</li>
-</ul>
-<strong>5. Engagement</strong>
-<ul>
-<li>User may follow creator</li>
-<li>User may explore more packs</li>
-<li>User may provide feedback</li>
-<li>Sustainable, trust-based relationship</li>
-</ul>
-<h2 id="creator-journey">Creator Journey</h2>
-<div class="mermaid-container"><div class="mermaid">journey
-    title Creator Publishing Journey
-    section Onboarding
-      Discovers waQup: 4: Creator
-      Registers as creator: 4: Creator
-      Learns platform: 5: Creator
-    section Creation
-      Creates ritual pack: 5: Creator
-      Sets pricing: 4: Creator
-      Publishes pack: 5: Creator
-    section Growth
-      Pack discovered: 5: Creator
-      Users purchase: 5: Creator
-      Receives revenue: 5: Creator
-      Builds audience: 5: Creator
-    section Sustainability
-      Creates more packs: 4: Creator
-      Earns sustainable income: 5: Creator
-      Builds reputation: 5: Creator</div></div>
-<h3 id="creator-journey-stages">Creator Journey Stages</h3>
-<strong>1. Onboarding</strong>
-<ul>
-<li>Creator discovers waQup marketplace</li>
-<li>Registers as creator account</li>
-<li>Learns platform tools and guidelines</li>
-<li>Understands value proposition</li>
-</ul>
-<strong>2. Pack Creation</strong>
-<ul>
-<li>Creator creates ritual pack</li>
-<li>Adds rituals with expertise</li>
-<li>Sets pricing (free, one-time, subscription)</li>
-<li>Publishes pack</li>
-</ul>
-<strong>3. Discovery & Sales</strong>
-<ul>
-<li>Pack appears in marketplace</li>
-<li>Users discover through search/recommendations</li>
-<li>Users purchase or subscribe</li>
-<li>Creator receives revenue share (see Value & Growth Economy document for revenue distribution details)</li>
-</ul>
-<strong>4. Growth & Sustainability</strong>
-<ul>
-<li>Creator builds audience</li>
-<li>Receives feedback and reviews</li>
-<li>Creates more packs</li>
-<li>Builds sustainable income stream</li>
-</ul>
-<h2 id="user-journey-principles">User Journey Principles</h2>
-<h3 id="trust-based">Trust-Based</h3>
-<ul>
-<li>No manipulation or dark patterns</li>
-<li>Transparent pricing and terms</li>
-<li>Clear value proposition</li>
-<li>Honest communication</li>
-</ul>
-<h3 id="regenerative">Regenerative</h3>
-<ul>
-<li>Value circulates to all participants (see Value & Growth Economy document)</li>
-<li>Creators earn sustainable income</li>
-<li>Users receive genuine value</li>
-<li>Platform grows organically</li>
-</ul>
-<h3 id="user-autonomy">User Autonomy</h3>
-<ul>
-<li>Users control their practice</li>
-<li>No pressure or dependency</li>
-<li>Easy exit (export, delete)</li>
-<li>Respect for user agency</li>
-</ul>
-<h3 id="calm-supportive">Calm & Supportive</h3>
-<ul>
-<li>No urgency or FOMO</li>
-<li>No comparison or competition</li>
-<li>Supportive, not pushy</li>
-<li>Respects user's pace</li>
-</ul>
-<h2 id="journey-metrics-non-gamified">Journey Metrics (Non-Gamified)</h2>
-<h3 id="health-indicators">Health Indicators</h3>
-<ul>
-<li><strong>Return Rate</strong>: Users who return to practice (intrinsic value)</li>
-<li><strong>Practice Frequency</strong>: Natural practice patterns</li>
-<li><strong>Ritual Creation</strong>: Users creating multiple rituals</li>
-<li><strong>Marketplace Engagement</strong>: Users discovering and purchasing packs</li>
-<li><strong>Creator Revenue</strong>: Sustainable income for creators</li>
-</ul>
-<h3 id="what-we-dont-track">What We Don't Track</h3>
-<ul>
-<li>Streaks or consecutive days</li>
-<li>Comparison with other users</li>
-<li>Engagement scores or gamification metrics</li>
-<li>Manipulative conversion funnels</li>
-<li>Dependency indicators</li>
-</ul>
-<h2 id="journey-touchpoints">Journey Touchpoints</h2>
-<h3 id="key-moments">Key Moments</h3>
-<ol>
-<li><strong>First Content Creation</strong>: User experiences conversational creation (affirmation, meditation, or ritual)</li>
-<li><strong>First Practice</strong>: User experiences embodied value</li>
-<li><strong>Type Progression</strong>: User naturally progresses from affirmations → meditations → rituals</li>
-<li><strong>First Return</strong>: User naturally returns for practice</li>
-<li><strong>First Pack Purchase</strong>: User discovers creator value</li>
-<li><strong>Habit Formation</strong>: User builds sustainable practice across all types</li>
-</ol>
-<h3 id="support-points">Support Points</h3>
-<ul>
-<li>Clear onboarding (no overwhelming tutorials)</li>
-<li>Helpful conversation guidance</li>
-<li>Transparent marketplace information</li>
-<li>Easy ritual export and sharing</li>
-<li>Simple account management</li>
-</ul>
-<h2 id="journey-optimization">Journey Optimization</h2>
-<h3 id="focus-areas">Focus Areas</h3>
-<ul>
-<li><strong>Conversation Quality</strong>: Natural, adaptive dialogue</li>
-<li><strong>Ritual Personalization</strong>: Accurate intent understanding</li>
-<li><strong>Audio Quality</strong>: Natural, prosodically appropriate voices</li>
-<li><strong>Marketplace Discovery</strong>: Effective search and recommendations</li>
-<li><strong>Creator Tools</strong>: Easy publishing and analytics</li>
-</ul>
-<h3 id="anti-patterns-to-avoid">Anti-Patterns to Avoid</h3>
-<ul>
-<li>Adding gamification to increase engagement</li>
-<li>Creating urgency or FOMO</li>
-<li>Manipulating user behavior</li>
-<li>Extracting value without providing value</li>
-<li>Creating dependency through withdrawal mechanics</li>
-</ul>
-<h2 id="state-machine-conversation-flow">State Machine & Conversation Flow</h2>
-<em>State machine details to be added.</em>
-            </div>
+                <p class="lead">Complete state machine documentation with all states, transitions, and state definitions.</p>
+                
+                <hr>
+                
+                <h2 id="overview">Overview</h2>
+                <p>The conversational system uses a state machine to manage user interactions during content creation. The state machine adapts its flow based on the selected content type (affirmation, guided meditation, or ritual).</p>
+                
+                <hr>
+                
+                <h2 id="complete-state-diagram">Complete State Diagram</h2>
+                <div class="mermaid-container"><div class="mermaid">stateDiagram-v2
+    [*] --> Idle: User opens app
+    Idle --> TypeSelection: User clicks Create
+    TypeSelection --> AffirmationFlow: Selects Affirmation
+    TypeSelection --> MeditationFlow: Selects Meditation
+    TypeSelection --> RitualFlow: Selects Ritual
+    
+    state AffirmationFlow {
+        [*] --> Greeting
+        Greeting --> IntentGathering: User responds
+        IntentGathering --> StatementCollection: Intent received
+        StatementCollection --> VoiceSelection: Statements complete
+        VoiceSelection --> Review: Voice selected
+        Review --> Confirmed: User confirms
+        Review --> StatementCollection: User modifies
+        Confirmed --> Generating
+        Generating --> Complete
+    }
+    
+    state MeditationFlow {
+        [*] --> Greeting
+        Greeting --> IntentGathering: User responds
+        IntentGathering --> DurationSelection: Intent received
+        DurationSelection --> PracticeTypeSelection: Duration selected
+        PracticeTypeSelection --> ImageryGathering: Practice type selected
+        ImageryGathering --> VoiceSelection: Imagery provided/skipped
+        VoiceSelection --> Review: Voice selected
+        Review --> Confirmed: User confirms
+        Review --> DurationSelection: User modifies
+        Confirmed --> Generating
+        Generating --> Complete
+    }
+    
+    state RitualFlow {
+        [*] --> Greeting
+        Greeting --> IntentGathering: User responds
+        IntentGathering --> ContextGathering: Intent received
+        ContextGathering --> DurationSelection: Context complete
+        DurationSelection --> PracticeTypeSelection: Duration selected
+        PracticeTypeSelection --> IdentityLanguageGathering: Practice type selected
+        IdentityLanguageGathering --> EmotionalAnchoringGathering: Identity statements complete
+        EmotionalAnchoringGathering --> VoiceSelection: Emotional goal provided
+        VoiceSelection --> Review: Voice selected
+        Review --> Confirmed: User confirms
+        Review --> ContextGathering: User modifies
+        Confirmed --> Generating
+        Generating --> Complete
+    }
+    
+    Complete --> Idle: Return to library
+    Complete --> Practice: Start practice
+    Practice --> Idle: Practice complete
+                </div></div>
+                
+                <hr>
+                
+                <h2 id="state-definitions">State Definitions</h2>
+                
+                <h3 id="idle">Idle</h3>
+                <p><strong>Description:</strong> Initial state when user opens the app or returns to the main interface.</p>
+                <p><strong>Actions:</strong> None</p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>user_clicks_create</code> → <code>TypeSelection</code></li>
+</ul>
+                
+                <h3 id="type-selection">TypeSelection</h3>
+                <p><strong>Description:</strong> User selects which content type to create (affirmation, guided meditation, or ritual).</p>
+                <p><strong>Actions:</strong> Display three options with brief explanations</p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>selects_affirmation</code> → <code>AffirmationFlow.Greeting</code></li>
+                    <li><code>selects_meditation</code> → <code>MeditationFlow.Greeting</code></li>
+                    <li><code>selects_ritual</code> → <code>RitualFlow.Greeting</code></li>
+</ul>
+                
+                <h3 id="greeting">Greeting</h3>
+                <p><strong>Description:</strong> System greets user and explains the creation process. Content varies based on selected type.</p>
+                <p><strong>Actions:</strong> Send greeting message, explain process</p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>user_responds</code> → <code>IntentGathering</code></li>
+</ul>
+                
+                <h3 id="intent-gathering">IntentGathering</h3>
+                <p><strong>Description:</strong> System asks what the user wants to create. Question adapts to content type.</p>
+                <p><strong>Questions Asked:</strong></p>
+                <ul>
+                    <li><strong>Affirmations:</strong> "What do you want to affirm or strengthen?"</li>
+                    <li><strong>Meditations:</strong> "What state would you like to access?"</li>
+                    <li><strong>Rituals:</strong> "What is changing in your life right now?"</li>
+</ul>
+                <p><strong>Data Saved:</strong> <code>intent: string</code></p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>intent_received</code> → Next state (varies by type)</li>
+</ul>
+                
+                <h3 id="context-gathering">ContextGathering</h3>
+                <p><strong>Description:</strong> <strong>Rituals only.</strong> System asks why this change matters and what the deeper meaning is.</p>
+                <p><strong>Questions Asked:</strong></p>
+                <ul>
+                    <li>"Why does this matter to you?"</li>
+                    <li>"What's the deeper meaning or significance?"</li>
+</ul>
+                <p><strong>Data Saved:</strong> <code>context: jsonb</code> {<code>why_matters: string</code>, <code>deeper_meaning: string</code>, <code>life_moment: string</code>}</p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>context_complete</code> → <code>DurationSelection</code></li>
+</ul>
+                
+                <h3 id="statement-collection">StatementCollection</h3>
+                <p><strong>Description:</strong> <strong>Affirmations only.</strong> System asks for 3-7 specific affirmation statements.</p>
+                <p><strong>Questions Asked:</strong></p>
+                <ul>
+                    <li>"What specific statements feel true for you? Share 3-7 statements in present tense."</li>
+</ul>
+                <p><strong>Data Saved:</strong> <code>statements: string[]</code></p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>statements_complete</code> → <code>VoiceSelection</code></li>
+</ul>
+                
+                <h3 id="duration-selection">DurationSelection</h3>
+                <p><strong>Description:</strong> <strong>Meditations and Rituals only.</strong> System asks for preferred duration.</p>
+                <p><strong>Questions Asked:</strong></p>
+                <ul>
+                    <li><strong>Meditations:</strong> "How long would you like this meditation? (5-20 minutes)"</li>
+                    <li><strong>Rituals:</strong> "How long would you like this ritual? (10-30 minutes)"</li>
+</ul>
+                <p><strong>Data Saved:</strong> <code>duration_preference: integer</code></p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>duration_selected</code> → <code>PracticeTypeSelection</code></li>
+</ul>
+                
+                <h3 id="practice-type-selection">PracticeTypeSelection</h3>
+                <p><strong>Description:</strong> <strong>Meditations and Rituals only.</strong> System asks what practice type to include.</p>
+                <p><strong>Questions Asked:</strong></p>
+                <ul>
+                    <li>"What practice type? Breath work, body scanning, visualization, or combination?"</li>
+</ul>
+                <p><strong>Data Saved:</strong> <code>practice_type: 'breath-work' | 'body-scanning' | 'visualization' | 'combination'</code></p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>practice_type_selected</code> → Next state (varies by type)</li>
+</ul>
+                
+                <h3 id="imagery-gathering">ImageryGathering</h3>
+                <p><strong>Description:</strong> <strong>Meditations only.</strong> System asks for specific imagery or visualization preferences.</p>
+                <p><strong>Questions Asked:</strong></p>
+                <ul>
+                    <li>"Any specific imagery or visualization you'd like included?"</li>
+</ul>
+                <p><strong>Data Saved:</strong> <code>imagery: string | null</code></p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>imagery_provided_or_skipped</code> → <code>VoiceSelection</code></li>
+</ul>
+                
+                <h3 id="identity-language-gathering">IdentityLanguageGathering</h3>
+                <p><strong>Description:</strong> <strong>Rituals only.</strong> System asks for identity-level language that resonates.</p>
+                <p><strong>Questions Asked:</strong></p>
+                <ul>
+                    <li>"What identity-level language resonates with you? How do you want to speak to yourself?"</li>
+</ul>
+                <p><strong>Data Saved:</strong> <code>identity_statements: string[]</code></p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>identity_statements_complete</code> → <code>EmotionalAnchoringGathering</code></li>
+</ul>
+                
+                <h3 id="emotional-anchoring-gathering">EmotionalAnchoringGathering</h3>
+                <p><strong>Description:</strong> <strong>Rituals only.</strong> System asks what emotional state to anchor.</p>
+                <p><strong>Questions Asked:</strong></p>
+<ul>
+                    <li>"What emotional state do you want to anchor? What do you want to feel?"</li>
+</ul>
+                <p><strong>Data Saved:</strong> <code>emotional_goal: string</code></p>
+                <p><strong>Transitions:</strong></p>
+<ul>
+                    <li><code>emotional_goal_provided</code> → <code>VoiceSelection</code></li>
+</ul>
+                
+                <h3 id="voice-selection">VoiceSelection</h3>
+                <p><strong>Description:</strong> System asks for voice preference. Available options vary by content type.</p>
+                <p><strong>Questions Asked:</strong></p>
+<ul>
+                    <li>"Would you like to use your voice or a selected voice?"</li>
+</ul>
+                <p><strong>Data Saved:</strong> <code>voice_id: uuid</code>, <code>voice_type: 'user' | 'standard' | 'premium'</code></p>
+                <p><strong>Transitions:</strong></p>
+<ul>
+                    <li><code>voice_selected</code> → <code>Review</code></li>
+</ul>
+                
+                <h3 id="review">Review</h3>
+                <p><strong>Description:</strong> System presents complete summary of all gathered information for user confirmation.</p>
+                <p><strong>Actions:</strong> Display summary with all collected data</p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>user_confirms</code> → <code>Confirmed</code></li>
+                    <li><code>user_modifies</code> → Returns to appropriate earlier state</li>
+</ul>
+                
+                <h3 id="confirmed">Confirmed</h3>
+                <p><strong>Description:</strong> User has confirmed all details. System prepares for generation.</p>
+                <p><strong>Actions:</strong> Validate all required data, check credit availability</p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>ready_to_generate</code> → <code>Generating</code></li>
+                    <li><code>insufficient_credits</code> → Show credit purchase prompt</li>
+</ul>
+                
+                <h3 id="generating">Generating</h3>
+                <p><strong>Description:</strong> System generates content text (LLM) and audio (TTS). Background process.</p>
+                <p><strong>Actions:</strong> Call LLM with all context, generate text, synthesize audio, consume credit</p>
+                <p><strong>Data Saved:</strong> <code>content_text: text</code>, <code>structure: jsonb</code>, <code>audio_url: string</code>, <code>audio_duration: integer</code>, <code>content_type: enum</code></p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>generation_complete</code> → <code>Complete</code></li>
+                    <li><code>generation_failed</code> → Show error, return to <code>Review</code></li>
+</ul>
+                
+                <h3 id="complete">Complete</h3>
+                <p><strong>Description:</strong> Content is generated and saved. User can practice immediately or return to library.</p>
+                <p><strong>Actions:</strong> Display success message, show "Practice Now" and "Save for Later" options</p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>practice_now</code> → <code>Practice</code></li>
+                    <li><code>save_for_later</code> → <code>Idle</code></li>
+</ul>
+                
+                <h3 id="practice">Practice</h3>
+                <p><strong>Description:</strong> User is practicing the created content. Audio playback state.</p>
+                <p><strong>Actions:</strong> Play audio, allow pause/resume, track playback position</p>
+                <p><strong>Transitions:</strong></p>
+                <ul>
+                    <li><code>practice_complete</code> → <code>Idle</code> (save <code>last_played_at</code>, increment <code>play_count</code>)</li>
+                    <li><code>pause</code> → <code>Practice</code> (paused state)</li>
+                    <li><code>resume</code> → <code>Practice</code> (playing state)</li>
+</ul>
+                
+                <hr>
+                
+                <h2 id="state-context">State Context</h2>
+                <p>Each state maintains context about the conversation:</p>
+                <ul>
+                    <li><code>content_type: 'affirmation' | 'guided_meditation' | 'ritual'</code></li>
+                    <li><code>intent: string</code></li>
+                    <li><code>context: jsonb</code> (rituals only)</li>
+                    <li><code>statements: string[]</code> (affirmations only)</li>
+                    <li><code>duration_preference: integer</code> (meditations and rituals)</li>
+                    <li><code>practice_type: string</code> (meditations and rituals)</li>
+                    <li><code>imagery: string | null</code> (meditations only)</li>
+                    <li><code>identity_statements: string[]</code> (rituals only)</li>
+                    <li><code>emotional_goal: string</code> (rituals only)</li>
+                    <li><code>voice_id: uuid</code></li>
+                    <li><code>voice_type: string</code></li>
+</ul>
+                
+                <hr>
+                
+                <h2 id="error-handling">Error Handling</h2>
+                <p><strong>Credit Insufficient:</strong> If user doesn't have enough credits, system shows credit purchase prompt and remains in <code>Confirmed</code> state.</p>
+                <p><strong>Generation Failure:</strong> If generation fails, system returns to <code>Review</code> state with error message, allowing user to modify and retry.</p>
+                <p><strong>Network Error:</strong> System retries up to 3 times, then shows error and returns to <code>Review</code> state.</p>
+                
+                <hr>
+                
+                <h2 id="type-specific-flows">Type-Specific Flows</h2>
+                
+                <h3 id="affirmation-flow">Affirmation Flow</h3>
+                <p><strong>States:</strong> Greeting → IntentGathering → StatementCollection → VoiceSelection → Review → Confirmed → Generating → Complete</p>
+                <p><strong>Key Difference:</strong> No duration or practice type selection. Focuses on statements and voice.</p>
+                
+                <h3 id="meditation-flow">Meditation Flow</h3>
+                <p><strong>States:</strong> Greeting → IntentGathering → DurationSelection → PracticeTypeSelection → ImageryGathering → VoiceSelection → Review → Confirmed → Generating → Complete</p>
+                <p><strong>Key Difference:</strong> Includes duration, practice type, and optional imagery. No context or identity language gathering.</p>
+                
+                <h3 id="ritual-flow">Ritual Flow</h3>
+                <p><strong>States:</strong> Greeting → IntentGathering → ContextGathering → DurationSelection → PracticeTypeSelection → IdentityLanguageGathering → EmotionalAnchoringGathering → VoiceSelection → Review → Confirmed → Generating → Complete</p>
+                <p><strong>Key Difference:</strong> Most comprehensive flow. Includes context, identity language, and emotional anchoring—unique to rituals.</p>
             </div>
         </main>
     </div>
