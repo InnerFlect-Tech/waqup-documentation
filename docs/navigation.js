@@ -92,7 +92,8 @@ const navigationStructure = {
                     subfolders: [
                         { name: 'Phases', path: '07-roadmap-and-releases/phases/index.html' },
                         { name: 'Principles', path: '07-roadmap-and-releases/principles/index.html' },
-                        { name: 'Metrics', path: '07-roadmap-and-releases/metrics/index.html' }
+                        { name: 'Metrics', path: '07-roadmap-and-releases/metrics/index.html' },
+                        { name: 'Workload', path: '07-roadmap-and-releases/workload/index.html' }
                     ]
                 }
             ]
