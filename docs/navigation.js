@@ -197,21 +197,34 @@ function generateSidebar(currentPagePath) {
                 <ul class="nav-subgroup-items">`;
                 
                 item.subfolders.forEach(subfolder => {
-                    let subfolderPath = basePath + subfolder.path;
+                    // subfolder.path is relative to docs root (e.g., '06-value-and-growth-economy/pricing/index.html')
+                    // We need to construct the correct relative path based on current depth
+                    let subfolderPath;
+                    
+                    if (depth === 0) {
+                        // At root level (docs/index.html), use subfolder.path as-is
+                        subfolderPath = subfolder.path;
+                    } else {
+                        // At subfolder level, need to go up to root, then to subfolder
+                        // basePath already handles going up (e.g., '../' for depth 1, '../../' for depth 2)
+                        subfolderPath = basePath + subfolder.path;
+                    }
+                    
                     // Remove any double slashes
                     subfolderPath = subfolderPath.replace(/\/+/g, '/');
-                    // Ensure it doesn't start with /
+                    // Ensure it doesn't start with / (absolute paths don't work well on GitHub Pages)
                     if (subfolderPath.startsWith('/')) {
                         subfolderPath = subfolderPath.substring(1);
                     }
-                    // For root level, use relative paths without ./ for GitHub Pages compatibility
-                    const isFileProtocol = window.location.protocol === 'file:';
+                    
+                    // Handle protocol-specific path formatting
+                    const isFileProtocol = typeof window !== 'undefined' && window.location.protocol === 'file:';
                     if (depth === 0 && !subfolderPath.startsWith('./') && !subfolderPath.startsWith('../')) {
                         // Only add ./ for file:// protocol, not for HTTP/HTTPS (GitHub Pages)
                         if (isFileProtocol) {
                             subfolderPath = './' + subfolderPath;
                         }
-                        // For HTTP/HTTPS, keep as-is (relative path without ./)
+                        // For HTTP/HTTPS (GitHub Pages), keep as-is (relative path without ./)
                     }
                     
                     const isSubfolderActive = currentPagePath === subfolder.path || currentPagePath.endsWith(subfolder.path);
