@@ -108,20 +108,69 @@
     <script src="../../script.js"></script>
     <script src="../../navigation.js"></script>
     <style>
+        .workload-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: var(--border-radius);
+            color: white;
+        }
+        
+        .workload-header h1 {
+            margin: 0;
+            color: white;
+        }
+        
+        .workload-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        
         .workload-section {
             margin: 2rem 0;
-            padding: 1.5rem;
+            padding: 2rem;
             background: var(--bg-primary);
             border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s ease;
+        }
+        
+        .workload-section:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         .workload-section h3 {
             margin-top: 0;
             color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.75rem;
             margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .task-list {
@@ -131,22 +180,87 @@
         }
         
         .task-item {
-            padding: 1rem;
-            margin: 0.75rem 0;
+            padding: 1.5rem;
+            margin: 1rem 0;
             background: var(--bg-secondary);
             border-left: 4px solid var(--primary-color);
-            border-radius: 4px;
+            border-radius: 8px;
             transition: all 0.2s ease;
+            position: relative;
         }
         
         .task-item:hover {
             background: var(--bg-tertiary);
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateX(4px);
+        }
+        
+        .task-item.done {
+            opacity: 0.7;
+            background: #f0fdf4;
+            border-left-color: #22c55e;
+        }
+        
+        .task-item.done .task-title {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+        
+        .task-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .task-checkbox {
+            width: 24px;
+            height: 24px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #22c55e;
+            flex-shrink: 0;
+        }
+        
+        .task-content {
+            flex: 1;
+        }
+        
+        .task-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .task-description {
+            margin: 0.5rem 0 0 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .task-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .task-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
         }
         
         .task-item.depends-on {
             border-left-color: #f59e0b;
-            opacity: 0.7;
         }
         
         .task-item.depends-on::before {
@@ -154,18 +268,150 @@
             font-size: 0.875rem;
             color: #f59e0b;
             font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
         }
         
-        .shared-task {
+        .task-item.shared-task {
             background: #eff6ff;
             border-left-color: #3b82f6;
         }
         
-        .shared-task::before {
+        .task-item.shared-task::before {
             content: "👥 Shared Task: ";
             font-size: 0.875rem;
             color: #2563eb;
             font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .comment-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .comment-toggle {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .comment-toggle:hover {
+            text-decoration: underline;
+        }
+        
+        .comment-form {
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .comment-form.active {
+            display: block;
+        }
+        
+        .comment-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .comment-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .comment-submit {
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .comment-submit:hover {
+            background: var(--primary-dark);
+        }
+        
+        .comments-list {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .comment-item {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: var(--bg-primary);
+            border-left: 3px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+        }
+        
+        .comment-text {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        
+        .comment-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+        
+        .done-badge {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
         }
     </style>
 </head>
@@ -178,61 +424,244 @@
             <div class="content-wrapper">
                 <a href="../index.html" class="back-link">Back to Roadmap & Releases</a>
                 
-                <h1>Workload Organization</h1>
-                <p class="lead">Task management and workload distribution between Indias and John.</p>
+                <div class="workload-header">
+                    <div>
+                        <h1>Workload Organization</h1>
+                        <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">Task management and workload distribution between Indias and John</p>
+                    </div>
+                    <div class="workload-actions">
+                        <button class="btn" onclick="exportData()">📥 Export</button>
+                        <button class="btn" onclick="importData()">📤 Import</button>
+                    </div>
+                </div>
                 
-                <hr>
+                <div class="stats" id="stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-tasks">0</div>
+                        <div class="stat-label">Total Tasks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="done-tasks">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="pending-tasks">0</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                </div>
                 
                 <div class="workload-section">
                     <h3>👥 Shared Tasks</h3>
-                    <ul class="task-list">
-                        <li class="task-item shared-task">
-                            <strong>Review scientific content</strong>
-                            <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">Both Indias and John will review and verify scientific content in the documentation.</p>
+                    <ul class="task-list" data-section="shared">
+                        <li class="task-item shared-task" data-task-id="shared-1">
+                            <div class="task-header">
+                                <input type="checkbox" class="task-checkbox" data-task-id="shared-1">
+                                <div class="task-content">
+                                    <div class="task-title">Review scientific content</div>
+                                    <p class="task-description">Both Indias and John will review and verify scientific content in the documentation.</p>
+                                    <div class="task-meta">
+                                        <span class="task-badge" style="background: #dbeafe; color: #1e40af;">Shared</span>
+                                    </div>
+                                    <div class="comment-section">
+                                        <button class="comment-toggle" onclick="toggleComment('shared-1')">
+                                            💬 <span id="comment-count-shared-1">0</span> Comments
+                                        </button>
+                                        <div class="comment-form" id="comment-form-shared-1">
+                                            <textarea class="comment-input" id="comment-input-shared-1" placeholder="Add a comment..."></textarea>
+                                            <button class="comment-submit" onclick="addComment('shared-1')">Add Comment</button>
+                                        </div>
+                                        <div class="comments-list" id="comments-shared-1"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
                 
                 <div class="workload-section">
                     <h3>👤 John's Tasks</h3>
-                    <ul class="task-list">
-                        <li class="task-item">
-                            <strong>Decide and document latest stack decisions</strong>
-                            <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">Make final decisions on technology stack and document them in the architecture documentation.</p>
+                    <ul class="task-list" data-section="john">
+                        <li class="task-item" data-task-id="john-1">
+                            <div class="task-header">
+                                <input type="checkbox" class="task-checkbox" data-task-id="john-1">
+                                <div class="task-content">
+                                    <div class="task-title">Decide and document latest stack decisions</div>
+                                    <p class="task-description">Make final decisions on technology stack and document them in the architecture documentation.</p>
+                                    <div class="task-meta">
+                                        <span class="task-badge" style="background: #fef3c7; color: #92400e;">John</span>
+                                    </div>
+                                    <div class="comment-section">
+                                        <button class="comment-toggle" onclick="toggleComment('john-1')">
+                                            💬 <span id="comment-count-john-1">0</span> Comments
+                                        </button>
+                                        <div class="comment-form" id="comment-form-john-1">
+                                            <textarea class="comment-input" id="comment-input-john-1" placeholder="Add a comment..."></textarea>
+                                            <button class="comment-submit" onclick="addComment('john-1')">Add Comment</button>
+                                        </div>
+                                        <div class="comments-list" id="comments-john-1"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
-                        <li class="task-item">
-                            <strong>Do sitemap</strong>
-                            <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">Create and implement the site structure and navigation map.</p>
+                        <li class="task-item" data-task-id="john-2">
+                            <div class="task-header">
+                                <input type="checkbox" class="task-checkbox" data-task-id="john-2">
+                                <div class="task-content">
+                                    <div class="task-title">Do sitemap</div>
+                                    <p class="task-description">Create and implement the site structure and navigation map.</p>
+                                    <div class="task-meta">
+                                        <span class="task-badge" style="background: #fef3c7; color: #92400e;">John</span>
+                                    </div>
+                                    <div class="comment-section">
+                                        <button class="comment-toggle" onclick="toggleComment('john-2')">
+                                            💬 <span id="comment-count-john-2">0</span> Comments
+                                        </button>
+                                        <div class="comment-form" id="comment-form-john-2">
+                                            <textarea class="comment-input" id="comment-input-john-2" placeholder="Add a comment..."></textarea>
+                                            <button class="comment-submit" onclick="addComment('john-2')">Add Comment</button>
+                                        </div>
+                                        <div class="comments-list" id="comments-john-2"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
-                        <li class="task-item depends-on">
-                            <strong>Authentication and design</strong>
-                            <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">Can be done together with Indias. Requires: stack decisions and sitemap to be completed first.</p>
+                        <li class="task-item depends-on" data-task-id="john-3">
+                            <div class="task-header">
+                                <input type="checkbox" class="task-checkbox" data-task-id="john-3">
+                                <div class="task-content">
+                                    <div class="task-title">Authentication and design</div>
+                                    <p class="task-description">Can be done together with Indias. Requires: stack decisions and sitemap to be completed first.</p>
+                                    <div class="task-meta">
+                                        <span class="task-badge" style="background: #fef3c7; color: #92400e;">John</span>
+                                    </div>
+                                    <div class="comment-section">
+                                        <button class="comment-toggle" onclick="toggleComment('john-3')">
+                                            💬 <span id="comment-count-john-3">0</span> Comments
+                                        </button>
+                                        <div class="comment-form" id="comment-form-john-3">
+                                            <textarea class="comment-input" id="comment-input-john-3" placeholder="Add a comment..."></textarea>
+                                            <button class="comment-submit" onclick="addComment('john-3')">Add Comment</button>
+                                        </div>
+                                        <div class="comments-list" id="comments-john-3"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
-                        <li class="task-item depends-on">
-                            <strong>Do all pages without content (to open on desktop and app)</strong>
-                            <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">Create all page structures and layouts. Requires: authentication and design to be completed first.</p>
+                        <li class="task-item depends-on" data-task-id="john-4">
+                            <div class="task-header">
+                                <input type="checkbox" class="task-checkbox" data-task-id="john-4">
+                                <div class="task-content">
+                                    <div class="task-title">Do all pages without content (to open on desktop and app)</div>
+                                    <p class="task-description">Create all page structures and layouts. Requires: authentication and design to be completed first.</p>
+                                    <div class="task-meta">
+                                        <span class="task-badge" style="background: #fef3c7; color: #92400e;">John</span>
+                                    </div>
+                                    <div class="comment-section">
+                                        <button class="comment-toggle" onclick="toggleComment('john-4')">
+                                            💬 <span id="comment-count-john-4">0</span> Comments
+                                        </button>
+                                        <div class="comment-form" id="comment-form-john-4">
+                                            <textarea class="comment-input" id="comment-input-john-4" placeholder="Add a comment..."></textarea>
+                                            <button class="comment-submit" onclick="addComment('john-4')">Add Comment</button>
+                                        </div>
+                                        <div class="comments-list" id="comments-john-4"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
                 
                 <div class="workload-section">
                     <h3>👤 Indias's Tasks</h3>
-                    <ul class="task-list">
-                        <li class="task-item">
-                            <strong>Review all affirmations and update in documentation</strong>
-                            <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">Review all affirmation content and ensure documentation is up to date.</p>
+                    <ul class="task-list" data-section="indias">
+                        <li class="task-item" data-task-id="indias-1">
+                            <div class="task-header">
+                                <input type="checkbox" class="task-checkbox" data-task-id="indias-1">
+                                <div class="task-content">
+                                    <div class="task-title">Review all affirmations and update in documentation</div>
+                                    <p class="task-description">Review all affirmation content and ensure documentation is up to date.</p>
+                                    <div class="task-meta">
+                                        <span class="task-badge" style="background: #dbeafe; color: #1e40af;">Indias</span>
+                                    </div>
+                                    <div class="comment-section">
+                                        <button class="comment-toggle" onclick="toggleComment('indias-1')">
+                                            💬 <span id="comment-count-indias-1">0</span> Comments
+                                        </button>
+                                        <div class="comment-form" id="comment-form-indias-1">
+                                            <textarea class="comment-input" id="comment-input-indias-1" placeholder="Add a comment..."></textarea>
+                                            <button class="comment-submit" onclick="addComment('indias-1')">Add Comment</button>
+                                        </div>
+                                        <div class="comments-list" id="comments-indias-1"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
-                        <li class="task-item">
-                            <strong>Understand all APIs needed</strong>
-                            <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">Research and document all required APIs for the system.</p>
+                        <li class="task-item" data-task-id="indias-2">
+                            <div class="task-header">
+                                <input type="checkbox" class="task-checkbox" data-task-id="indias-2">
+                                <div class="task-content">
+                                    <div class="task-title">Understand all APIs needed</div>
+                                    <p class="task-description">Research and document all required APIs for the system.</p>
+                                    <div class="task-meta">
+                                        <span class="task-badge" style="background: #dbeafe; color: #1e40af;">Indias</span>
+                                    </div>
+                                    <div class="comment-section">
+                                        <button class="comment-toggle" onclick="toggleComment('indias-2')">
+                                            💬 <span id="comment-count-indias-2">0</span> Comments
+                                        </button>
+                                        <div class="comment-form" id="comment-form-indias-2">
+                                            <textarea class="comment-input" id="comment-input-indias-2" placeholder="Add a comment..."></textarea>
+                                            <button class="comment-submit" onclick="addComment('indias-2')">Add Comment</button>
+                                        </div>
+                                        <div class="comments-list" id="comments-indias-2"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
-                        <li class="task-item">
-                            <strong>Do simple script that creates it and apply on documentation</strong>
-                            <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">Create automation scripts for documentation generation and apply them.</p>
+                        <li class="task-item" data-task-id="indias-3">
+                            <div class="task-header">
+                                <input type="checkbox" class="task-checkbox" data-task-id="indias-3">
+                                <div class="task-content">
+                                    <div class="task-title">Do simple script that creates it and apply on documentation</div>
+                                    <p class="task-description">Create automation scripts for documentation generation and apply them.</p>
+                                    <div class="task-meta">
+                                        <span class="task-badge" style="background: #dbeafe; color: #1e40af;">Indias</span>
+                                    </div>
+                                    <div class="comment-section">
+                                        <button class="comment-toggle" onclick="toggleComment('indias-3')">
+                                            💬 <span id="comment-count-indias-3">0</span> Comments
+                                        </button>
+                                        <div class="comment-form" id="comment-form-indias-3">
+                                            <textarea class="comment-input" id="comment-input-indias-3" placeholder="Add a comment..."></textarea>
+                                            <button class="comment-submit" onclick="addComment('indias-3')">Add Comment</button>
+                                        </div>
+                                        <div class="comments-list" id="comments-indias-3"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
-                        <li class="task-item">
-                            <strong>Voice cloning</strong>
-                            <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">Work on voice cloning functionality and integration.</p>
+                        <li class="task-item" data-task-id="indias-4">
+                            <div class="task-header">
+                                <input type="checkbox" class="task-checkbox" data-task-id="indias-4">
+                                <div class="task-content">
+                                    <div class="task-title">Voice cloning</div>
+                                    <p class="task-description">Work on voice cloning functionality and integration.</p>
+                                    <div class="task-meta">
+                                        <span class="task-badge" style="background: #dbeafe; color: #1e40af;">Indias</span>
+                                    </div>
+                                    <div class="comment-section">
+                                        <button class="comment-toggle" onclick="toggleComment('indias-4')">
+                                            💬 <span id="comment-count-indias-4">0</span> Comments
+                                        </button>
+                                        <div class="comment-form" id="comment-form-indias-4">
+                                            <textarea class="comment-input" id="comment-input-indias-4" placeholder="Add a comment..."></textarea>
+                                            <button class="comment-submit" onclick="addComment('indias-4')">Add Comment</button>
+                                        </div>
+                                        <div class="comments-list" id="comments-indias-4"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -254,18 +683,196 @@
                         </ul>
                     </li>
                 </ul>
-                
-                <hr>
-                
-                <h2 id="notes">Notes</h2>
-                <ul>
-                    <li>Both team members will collaborate on reviewing scientific content</li>
-                    <li>Authentication and design can be done together as a collaborative task</li>
-                    <li>Task order should follow dependency chain for optimal workflow</li>
-                </ul>
             </div>
         </main>
     </div>
+    
+    <script>
+        // Task Management State (inspired by React useState pattern from Context7)
+        const STORAGE_KEY = 'waqup-workload-data';
+        
+        // Initialize state from localStorage
+        let taskState = {
+            tasks: {},
+            comments: {}
+        };
+        
+        function loadState() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    taskState = JSON.parse(saved);
+                } catch (e) {
+                    console.error('Error loading state:', e);
+                }
+            }
+            return taskState;
+        }
+        
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(taskState));
+            updateStats();
+        }
+        
+        function updateStats() {
+            const tasks = document.querySelectorAll('.task-item');
+            let total = tasks.length;
+            let done = 0;
+            
+            tasks.forEach(task => {
+                const taskId = task.dataset.taskId;
+                if (taskState.tasks[taskId]) {
+                    done++;
+                }
+            });
+            
+            document.getElementById('total-tasks').textContent = total;
+            document.getElementById('done-tasks').textContent = done;
+            document.getElementById('pending-tasks').textContent = total - done;
+        }
+        
+        // Initialize checkboxes
+        function initCheckboxes() {
+            document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+                const taskId = checkbox.dataset.taskId;
+                const taskItem = checkbox.closest('.task-item');
+                
+                // Load saved state
+                if (taskState.tasks[taskId]) {
+                    checkbox.checked = true;
+                    taskItem.classList.add('done');
+                }
+                
+                // Add event listener
+                checkbox.addEventListener('change', (e) => {
+                    const isDone = e.target.checked;
+                    if (isDone) {
+                        taskState.tasks[taskId] = {
+                            done: true,
+                            date: new Date().toISOString()
+                        };
+                        taskItem.classList.add('done');
+                    } else {
+                        delete taskState.tasks[taskId];
+                        taskItem.classList.remove('done');
+                    }
+                    saveState();
+                });
+            });
+        }
+        
+        // Comment management
+        function toggleComment(taskId) {
+            const form = document.getElementById(`comment-form-${taskId}`);
+            form.classList.toggle('active');
+        }
+        
+        function addComment(taskId) {
+            const input = document.getElementById(`comment-input-${taskId}`);
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            // Initialize comments array if needed
+            if (!taskState.comments[taskId]) {
+                taskState.comments[taskId] = [];
+            }
+            
+            // Add comment
+            const comment = {
+                text: text,
+                author: 'User', // Could be dynamic based on login
+                date: new Date().toISOString()
+            };
+            
+            taskState.comments[taskId].push(comment);
+            saveState();
+            
+            // Clear input
+            input.value = '';
+            
+            // Update UI
+            renderComments(taskId);
+        }
+        
+        function renderComments(taskId) {
+            const container = document.getElementById(`comments-${taskId}`);
+            const countEl = document.getElementById(`comment-count-${taskId}`);
+            const comments = taskState.comments[taskId] || [];
+            
+            countEl.textContent = comments.length;
+            
+            if (comments.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            container.innerHTML = comments.map(comment => {
+                const date = new Date(comment.date).toLocaleDateString();
+                return `
+                    <div class="comment-item">
+                        <div class="comment-author">${comment.author}</div>
+                        <p class="comment-text">${escapeHtml(comment.text)}</p>
+                        <div class="comment-date">${date}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Export/Import functionality
+        function exportData() {
+            const data = JSON.stringify(taskState, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `waqup-workload-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const imported = JSON.parse(e.target.result);
+                        taskState = imported;
+                        saveState();
+                        location.reload(); // Reload to apply changes
+                    } catch (err) {
+                        alert('Error importing file: ' + err.message);
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            initCheckboxes();
+            
+            // Render existing comments
+            Object.keys(taskState.comments || {}).forEach(taskId => {
+                renderComments(taskId);
+            });
+            
+            updateStats();
+        });
+    </script>
 </body>
 </html>
-
