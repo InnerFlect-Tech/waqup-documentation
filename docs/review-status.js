@@ -26,6 +26,13 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(reviewState));
     }
     
+    // Escape HTML to prevent XSS
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
     // Get unique review ID for a section
     function getReviewId(h2Element) {
         const pagePath = window.location.pathname.replace(/^.*\//, '').replace('.html', '') || 'index';
@@ -52,6 +59,17 @@
                     </label>
                 </div>
                 <div class="review-date" id="review-date-${reviewId}"></div>
+                <div class="section-comments">
+                    <button class="comment-toggle" onclick="toggleSectionComment('${reviewId}')">
+                        💬 <span id="comment-count-${reviewId}">0</span> Comments
+                    </button>
+                    <div class="comment-form" id="comment-form-${reviewId}">
+                        <input type="text" class="comment-name-input" id="comment-name-${reviewId}" placeholder="Your name" style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.875rem;">
+                        <textarea class="comment-input" id="comment-input-${reviewId}" placeholder="Add a comment..."></textarea>
+                        <button class="comment-submit" onclick="addSectionComment('${reviewId}')">Add Comment</button>
+                    </div>
+                    <div class="comments-list" id="comments-${reviewId}"></div>
+                </div>
             </div>
         `;
     }
@@ -78,6 +96,102 @@
         renderReviewStatus(reviewId);
     };
     
+    // Toggle comment form
+    window.toggleSectionComment = function(reviewId) {
+        const form = document.getElementById(`comment-form-${reviewId}`);
+        if (form) {
+            form.classList.toggle('active');
+        }
+    };
+    
+    // Add comment to section
+    window.addSectionComment = function(reviewId) {
+        const nameInput = document.getElementById(`comment-name-${reviewId}`);
+        const commentInput = document.getElementById(`comment-input-${reviewId}`);
+        
+        const name = nameInput ? nameInput.value.trim() : '';
+        const text = commentInput ? commentInput.value.trim() : '';
+        
+        if (!text) {
+            alert('Please enter a comment');
+            return;
+        }
+        
+        if (!name) {
+            alert('Please enter your name');
+            return;
+        }
+        
+        // Initialize comments array if needed
+        if (!reviewState[reviewId]) {
+            reviewState[reviewId] = {};
+        }
+        if (!reviewState[reviewId].comments) {
+            reviewState[reviewId].comments = [];
+        }
+        
+        // Add comment
+        const comment = {
+            name: name,
+            text: text,
+            date: new Date().toISOString()
+        };
+        
+        reviewState[reviewId].comments.push(comment);
+        saveState();
+        
+        // Clear inputs
+        if (nameInput) nameInput.value = '';
+        if (commentInput) commentInput.value = '';
+        
+        // Update UI
+        renderComments(reviewId);
+    };
+    
+    // Delete comment
+    window.deleteSectionComment = function(reviewId, index) {
+        if (!reviewState[reviewId] || !reviewState[reviewId].comments) return;
+        if (confirm('Are you sure you want to delete this comment?')) {
+            reviewState[reviewId].comments.splice(index, 1);
+            if (reviewState[reviewId].comments.length === 0) {
+                delete reviewState[reviewId].comments;
+            }
+            saveState();
+            renderComments(reviewId);
+        }
+    };
+    
+    // Render comments for a section
+    function renderComments(reviewId) {
+        const container = document.getElementById(`comments-${reviewId}`);
+        const countEl = document.getElementById(`comment-count-${reviewId}`);
+        
+        if (!container || !countEl) return;
+        
+        const comments = (reviewState[reviewId] && reviewState[reviewId].comments) || [];
+        
+        countEl.textContent = comments.length;
+        
+        if (comments.length === 0) {
+            container.innerHTML = '';
+            return;
+        }
+        
+        container.innerHTML = comments.map((comment, index) => {
+            const date = new Date(comment.date).toLocaleDateString();
+            return `
+                <div class="comment-item">
+                    <div class="comment-author">${escapeHtml(comment.name)}</div>
+                    <p class="comment-text">${escapeHtml(comment.text)}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="comment-date">${date}</div>
+                        <button class="comment-delete" onclick="deleteSectionComment('${reviewId}', ${index})">🗑️ Delete</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    
     // Render review status for a section
     function renderReviewStatus(reviewId) {
         const container = document.querySelector(`[data-review-id="${reviewId}"]`);
@@ -95,12 +209,15 @@
         });
         
         // Update date display
-        const dates = Object.values(status).map(s => new Date(s.date).toLocaleDateString());
+        const dates = Object.values(status).filter(s => s && s.date && !Array.isArray(s)).map(s => new Date(s.date).toLocaleDateString());
         if (dates.length > 0 && dateEl) {
             dateEl.textContent = `Last updated: ${dates[dates.length - 1]}`;
         } else if (dateEl) {
             dateEl.textContent = '';
         }
+        
+        // Render comments
+        renderComments(reviewId);
     }
     
     // Initialize review status on all h2 sections
