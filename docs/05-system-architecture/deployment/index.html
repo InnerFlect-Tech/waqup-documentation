@@ -204,6 +204,7 @@
     <link rel="stylesheet" href="../../styles.css">
     <script src="../../script.js"></script>
     <script src="../../navigation.js"></script>
+    <script src="../../review-status.js"></script>
 </head>
 <body>
     <div class="container">
@@ -215,6 +216,104 @@
                 <a href="../index.html" class="back-link">Back to System Architecture</a>
                 
                 <h1>Deployment</h1>
+                <p class="lead">Deployment architecture, CI/CD pipelines, environments, and observability (logging, monitoring, tracing).</p>
+                
+                <hr>
+                
+                <h2 id="deployment-architecture">Deployment Architecture</h2>
+                
+                <h3 id="environments">Environments</h3>
+                <ul>
+                    <li><strong>Development</strong>: Local development environment with Docker Compose</li>
+                    <li><strong>Staging</strong>: Pre-production environment for testing and validation</li>
+                    <li><strong>Production</strong>: Live production environment with high availability</li>
+                </ul>
+                
+                <h3 id="containerization">Containerization</h3>
+                <ul>
+                    <li><strong>Docker Containers</strong>: All services containerized for consistency</li>
+                    <li><strong>Multi-stage Builds</strong>: Optimized Docker images for smaller size</li>
+                    <li><strong>Base Images</strong>: Official language runtime images (Node.js, Python)</li>
+                    <li><strong>Container Registry</strong>: Docker Hub or private registry for image storage</li>
+                </ul>
+                
+                <h3 id="orchestration">Orchestration</h3>
+                <ul>
+                    <li><strong>Production</strong>: Kubernetes for container orchestration and scaling</li>
+                    <li><strong>Local Development</strong>: Docker Compose for easy local setup</li>
+                    <li><strong>Service Discovery</strong>: Kubernetes DNS for service-to-service communication</li>
+                    <li><strong>Load Balancing</strong>: Kubernetes ingress controllers for traffic distribution</li>
+                </ul>
+                
+                <h3 id="cicd">CI/CD</h3>
+                <ul>
+                    <li><strong>Automated Testing</strong>: Unit tests, integration tests run on every commit</li>
+                    <li><strong>Automated Building</strong>: Docker images built automatically on push</li>
+                    <li><strong>Automated Deployment</strong>: Staging auto-deploys, production requires approval</li>
+                    <li><strong>GitHub Actions</strong>: CI/CD pipeline orchestration</li>
+                    <li><strong>Build Artifacts</strong>: Docker images tagged with commit SHA</li>
+                </ul>
+                
+                <h3 id="deployment-strategies">Deployment Strategies</h3>
+                <ul>
+                    <li><strong>Blue-Green Deployment</strong>: Zero-downtime deployments with instant rollback</li>
+                    <li><strong>Canary Releases</strong>: Gradual rollout to subset of users</li>
+                    <li><strong>Feature Flags</strong>: Gradual feature rollouts, A/B testing support</li>
+                    <li><strong>Database Migrations</strong>: Versioned migrations with rollback capability</li>
+                    <li><strong>Health Checks</strong>: Automated health checks before traffic routing</li>
+                </ul>
+                
+                <h3 id="infrastructure-as-code">Infrastructure as Code</h3>
+                <ul>
+                    <li><strong>Terraform</strong>: Infrastructure provisioning and management</li>
+                    <li><strong>Version Control</strong>: Infrastructure changes tracked in Git</li>
+                    <li><strong>Environment Parity</strong>: Consistent infrastructure across environments</li>
+                </ul>
+                
+                <hr>
+                
+                <h2 id="observability">Observability</h2>
+                
+                <h3 id="logging">Logging</h3>
+                <ul>
+                    <li><strong>Structured Logging</strong>: JSON format with correlation IDs for traceability</li>
+                    <li><strong>Log Levels</strong>: ERROR, WARN, INFO, DEBUG with appropriate filtering</li>
+                    <li><strong>Sensitive Data</strong>: Never log passwords, tokens, payment data, or PII</li>
+                    <li><strong>Log Aggregation</strong>: Centralized logging via ELK Stack or CloudWatch</li>
+                    <li><strong>Log Retention</strong>: 30 days for production logs, 7 days for development</li>
+                    <li><strong>Correlation IDs</strong>: Unique IDs per request for tracing across services</li>
+                </ul>
+                
+                <h3 id="monitoring">Monitoring</h3>
+                <ul>
+                    <li><strong>Metrics Collection</strong>: Request latency, error rates, audio generation time, LLM call latency</li>
+                    <li><strong>Alerting</strong>: Error rate spikes, latency degradation, service downtime alerts</li>
+                    <li><strong>Dashboards</strong>: Service health, user activity, marketplace metrics dashboards</li>
+                    <li><strong>Service Health</strong>: Health check endpoints for all services</li>
+                    <li><strong>Resource Monitoring</strong>: CPU, memory, disk usage monitoring</li>
+                    <li><strong>Business Metrics</strong>: User signups, ritual generation, marketplace transactions</li>
+                </ul>
+                
+                <h3 id="tracing">Tracing</h3>
+                <ul>
+                    <li><strong>Distributed Tracing</strong>: Request tracing across services using Jaeger or Zipkin</li>
+                    <li><strong>Correlation IDs</strong>: Track requests through entire system</li>
+                    <li><strong>Span Collection</strong>: Trace spans for each service call</li>
+                    <li><strong>Performance Analysis</strong>: Identify bottlenecks and slow operations</li>
+                </ul>
+                
+                <h3 id="error-tracking">Error Tracking</h3>
+                <ul>
+                    <li><strong>Error Aggregation</strong>: Group similar errors for easier debugging</li>
+                    <li><strong>Stack Traces</strong>: Full stack traces for debugging</li>
+                    <li><strong>Error Context</strong>: User ID, request ID, environment context</li>
+                    <li><strong>Alerting</strong>: Immediate alerts for critical errors</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
 <h2 id="table-of-contents">Table of Contents</h2>
 <ul>
 <li><a href="#architecture-overview">Architecture Overview</a></li>

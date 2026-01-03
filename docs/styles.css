@@ -425,6 +425,11 @@ ul {
     border-radius: 50%;
 }
 
+/* Exclude task-list items from getting bullet points */
+.content-wrapper ul.task-list > li::before {
+    display: none;
+}
+
 ol {
     list-style-type: decimal;
     padding-left: 24px;
@@ -898,4 +903,42 @@ pre {
     color: var(--text-muted);
     font-size: 0.75rem;
     margin-left: auto;
+}
+
+/* Section Review Status (for all h2 sections) */
+.section-review-status {
+    margin: 0.75rem 0 1.5rem 0;
+    padding: 0.75rem 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.875rem;
+}
+
+.section-review-status .review-checkboxes {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.section-review-status .review-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    cursor: pointer;
+}
+
+.section-review-status .review-checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.section-review-status .review-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
 }

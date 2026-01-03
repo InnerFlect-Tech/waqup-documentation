@@ -204,6 +204,7 @@
     <link rel="stylesheet" href="../styles.css">
     <script src="../script.js"></script>
     <script src="../navigation.js"></script>
+    <script src="../review-status.js"></script>
 </head>
 <body>
     <div class="container">
@@ -240,10 +241,22 @@
                 <hr>
                 
                 <h2 id="architecture-overview">Architecture Overview</h2>
-                <p>This section covers the high-level system architecture. For detailed APIs and libraries, see <a href="./apis-and-libraries/index.html">APIs & Libraries</a>. For detailed data flows, see <a href="./core-architecture-and-apis/index.html#data-flow">Core Architecture & APIs</a>.</p>
-<h2 id="system-architecture">System Architecture</h2>
-<p>waQup is built as a cloud-native, microservices-oriented platform optimized for voice-first interactions, real-time conversation, and audio generation/streaming. The system prioritizes low-latency voice interactions, reliable audio delivery, and scalable ritual generation.</p>
-<h2 id="high-level-architecture-diagram">High-Level Architecture Diagram</h2>
+                <p>waQup is built as a <strong>cloud-native, microservices-oriented platform</strong> optimized for voice-first interactions, real-time conversation, and audio generation/streaming. The system prioritizes low-latency voice interactions, reliable audio delivery, and scalable ritual generation.</p>
+                
+                <p>For detailed information, explore the sections below:</p>
+                
+                <ul>
+                    <li><strong><a href="./apis-and-libraries/index.html">APIs & Libraries</a></strong> — Technology stack, external APIs, and library choices</li>
+                    <li><strong><a href="./core-architecture-and-apis/index.html">Core Architecture & APIs</a></strong> — Service architecture, API endpoints, and design principles</li>
+                    <li><strong><a href="./data-systems/index.html">Data Systems</a></strong> — Data flows, storage architecture, and data management patterns</li>
+                    <li><strong><a href="./security/index.html">Security</a></strong> — Authentication, authorization, encryption, and compliance</li>
+                    <li><strong><a href="./deployment/index.html">Deployment</a></strong> — Deployment architecture, CI/CD, and observability</li>
+                    <li><strong><a href="./scalability/index.html">Scalability</a></strong> — Scaling strategies and capacity planning</li>
+                </ul>
+                
+                <hr>
+                
+                <h2 id="high-level-architecture-diagram">High-Level Architecture Diagram</h2>
 <div class="mermaid-container"><div class="mermaid">graph TB
     subgraph "Client Layer"
         Mobile[Mobile App<br/>iOS/Android<br/>React Native]
@@ -327,8 +340,13 @@
     
     RewardSvc --> UserDB
     RewardSvc --> Cache</div></div>
-<h2 id="technology-stack">Technology Stack</h2>
-<h3 id="backend">Backend</h3>
+                
+                <p class="note">For detailed information about each component, see the documentation sections above.</p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
 <ul>
 <li><strong>Runtime</strong>: Node.js (TypeScript) or Python (FastAPI)</li>
 <li><strong>API Framework</strong>: Express.js / FastAPI</li>

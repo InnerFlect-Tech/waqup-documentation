@@ -204,6 +204,7 @@
     <link rel="stylesheet" href="../../styles.css">
     <script src="../../script.js"></script>
     <script src="../../navigation.js"></script>
+    <script src="../../review-status.js"></script>
 </head>
 <body>
     <div class="container">
@@ -215,6 +216,117 @@
                 <a href="../index.html" class="back-link">Back to System Architecture</a>
                 
                 <h1>Scalability</h1>
+                <p class="lead">Scalability strategy, scaling approaches, and capacity planning for growth.</p>
+                
+                <hr>
+                
+                <h2 id="scalability-strategy">Scalability Strategy</h2>
+                
+                <h3 id="initial-scale-year-1">Initial Scale (Year 1)</h3>
+                <ul>
+                    <li><strong>Users</strong>: 10,000 active users</li>
+                    <li><strong>Rituals</strong>: 100,000 generated rituals</li>
+                    <li><strong>Daily Practices</strong>: 5,000 practice sessions</li>
+                    <li><strong>Audio Storage</strong>: 1 TB</li>
+                    <li><strong>API Requests</strong>: 100,000 requests/day</li>
+                </ul>
+                
+                <h3 id="growth-scale-year-2-3">Growth Scale (Year 2-3)</h3>
+                <ul>
+                    <li><strong>Users</strong>: 100,000 active users</li>
+                    <li><strong>Rituals</strong>: 1,000,000 generated rituals</li>
+                    <li><strong>Daily Practices</strong>: 50,000 practice sessions</li>
+                    <li><strong>Audio Storage</strong>: 10 TB</li>
+                    <li><strong>API Requests</strong>: 1,000,000 requests/day</li>
+                </ul>
+                
+                <hr>
+                
+                <h3 id="scaling-approach">Scaling Approach</h3>
+                
+                <h4 id="horizontal-scaling">Horizontal Scaling</h4>
+                <ul>
+                    <li><strong>Stateless Services</strong>: All services designed to be stateless for horizontal scaling</li>
+                    <li><strong>Load Balancing</strong>: Kubernetes load balancers distribute traffic across instances</li>
+                    <li><strong>Auto-scaling</strong>: Kubernetes HPA (Horizontal Pod Autoscaler) based on CPU/memory metrics</li>
+                    <li><strong>Service Mesh</strong>: Optional service mesh for advanced traffic management</li>
+                </ul>
+                
+                <h4 id="database-scaling">Database Scaling</h4>
+                <ul>
+                    <li><strong>Read Replicas</strong>: Read replicas for read-heavy workloads (ritual library, marketplace)</li>
+                    <li><strong>Connection Pooling</strong>: Efficient connection pooling to manage database connections</li>
+                    <li><strong>Query Optimization</strong>: Indexed queries, query optimization for performance</li>
+                    <li><strong>Partitioning</strong>: Future consideration for table partitioning at scale</li>
+                    <li><strong>Database Sharding</strong>: Future consideration for horizontal database sharding</li>
+                </ul>
+                
+                <h4 id="caching">Caching</h4>
+                <ul>
+                    <li><strong>Aggressive Caching</strong>: Redis caching to reduce database load</li>
+                    <li><strong>Cache Layers</strong>: Multiple cache layers (application cache, Redis, CDN)</li>
+                    <li><strong>Cache Invalidation</strong>: Smart cache invalidation strategies</li>
+                    <li><strong>CDN Caching</strong>: CDN caching for static assets and audio files</li>
+                </ul>
+                
+                <h4 id="async-processing">Async Processing</h4>
+                <ul>
+                    <li><strong>Message Queue</strong>: Audio generation and LLM calls via message queue (RabbitMQ/AWS SQS)</li>
+                    <li><strong>Background Jobs</strong>: Background processing for non-real-time operations</li>
+                    <li><strong>Job Workers</strong>: Scalable worker pools for processing jobs</li>
+                    <li><strong>Priority Queues</strong>: Priority queues for time-sensitive operations</li>
+                </ul>
+                
+                <h4 id="cdn-distribution">CDN Distribution</h4>
+                <ul>
+                    <li><strong>All Audio Delivery</strong>: All audio files served via CDN for global distribution</li>
+                    <li><strong>Edge Locations</strong>: CDN edge locations worldwide for low latency</li>
+                    <li><strong>Cache Headers</strong>: Appropriate cache headers for audio files</li>
+                    <li><strong>Origin Protection</strong>: CDN protects origin servers from direct traffic</li>
+                </ul>
+                
+                <h4 id="cost-optimization">Cost Optimization</h4>
+                <ul>
+                    <li><strong>Reserved Instances</strong>: Reserved instances for predictable workloads</li>
+                    <li><strong>Spot Instances</strong>: Spot instances for batch jobs and non-critical workloads</li>
+                    <li><strong>Right-sizing</strong>: Right-sizing instances based on actual usage</li>
+                    <li><strong>Cost Monitoring</strong>: Cost monitoring and alerting for budget management</li>
+                </ul>
+                
+                <hr>
+                
+                <h2 id="capacity-planning">Capacity Planning</h2>
+                
+                <h3 id="metrics-to-monitor">Metrics to Monitor</h3>
+                <ul>
+                    <li><strong>Request Rate</strong>: Requests per second across all services</li>
+                    <li><strong>Response Time</strong>: P50, P95, P99 response times</li>
+                    <li><strong>Error Rate</strong>: Error percentage and error types</li>
+                    <li><strong>Resource Utilization</strong>: CPU, memory, disk usage</li>
+                    <li><strong>Database Performance</strong>: Query performance, connection pool usage</li>
+                    <li><strong>Cache Hit Rate</strong>: Cache effectiveness metrics</li>
+                </ul>
+                
+                <h3 id="scaling-triggers">Scaling Triggers</h3>
+                <ul>
+                    <li><strong>CPU Utilization</strong>: Scale up when CPU &gt; 70% for sustained period</li>
+                    <li><strong>Memory Utilization</strong>: Scale up when memory &gt; 80%</li>
+                    <li><strong>Request Queue</strong>: Scale up when request queue length exceeds threshold</li>
+                    <li><strong>Error Rate</strong>: Scale up when error rate increases due to capacity</li>
+                    <li><strong>Response Time</strong>: Scale up when response times degrade</li>
+                </ul>
+                
+                <h3 id="scaling-limits">Scaling Limits</h3>
+                <ul>
+                    <li><strong>Maximum Instances</strong>: Set maximum instance limits to control costs</li>
+                    <li><strong>Minimum Instances</strong>: Maintain minimum instances for availability</li>
+                    <li><strong>Cooldown Periods</strong>: Cooldown periods between scaling actions</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
 <h2 id="table-of-contents">Table of Contents</h2>
 <ul>
 <li><a href="#architecture-overview">Architecture Overview</a></li>

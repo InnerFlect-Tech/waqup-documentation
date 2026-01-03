@@ -201,88 +201,10 @@ import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.mi
             attributeFilter: ['style', 'stroke', 'stroke-width']
         });
     </script>
-        <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="../../styles.css">
     <script src="../../script.js"></script>
-        <script src="../../navigation.js"></script>
-    <script>
-        // Prevent scroll-to-top on sidebar link clicks and ensure active state is visible
-        (function() {
-            // Save scroll position before any navigation
-            let scrollPosition = window.scrollY || window.pageYOffset;
-            
-            // Update scroll position on scroll
-            window.addEventListener('scroll', function() {
-                scrollPosition = window.scrollY || window.pageYOffset;
-            }, { passive: true });
-            
-            document.addEventListener('DOMContentLoaded', function() {
-                const sidebar = document.querySelector('.sidebar');
-                if (!sidebar) return;
-                
-                const navLinks = sidebar.querySelectorAll('a');
-                
-                navLinks.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        const currentUrl = window.location.href.split('#')[0];
-                        const linkUrl = this.href.split('#')[0];
-                        
-                        // If clicking the exact same page, prevent default and maintain scroll
-                        // BUT: allow navigation if it's a parent link (even if marked active)
-                        if (linkUrl === currentUrl) {
-                            e.preventDefault();
-                            // Immediately restore scroll position
-                            requestAnimationFrame(() => {
-                                window.scrollTo(0, scrollPosition);
-                            });
-                            return false;
-                        }
-                        
-                        // If it's an active link but NOT the same URL, allow navigation
-                        // This handles the case where parent link is active but we're on a subfolder
-                        
-                        // For other links, save current scroll position
-                        scrollPosition = window.scrollY || window.pageYOffset;
-                        sessionStorage.setItem('scrollPosition', scrollPosition.toString());
-                        sessionStorage.setItem('scrollTimestamp', Date.now().toString());
-                    });
-                });
-                
-                // Restore scroll position on page load if it exists and is recent (within 2 seconds)
-                const savedScroll = sessionStorage.getItem('scrollPosition');
-                const savedTimestamp = sessionStorage.getItem('scrollTimestamp');
-                if (savedScroll && savedTimestamp) {
-                    const timeDiff = Date.now() - parseInt(savedTimestamp);
-                    if (timeDiff < 2000) { // Only restore if navigation was recent
-                        // Multiple attempts to restore scroll position
-                        const restoreScroll = function() {
-                            window.scrollTo(0, parseInt(savedScroll));
-                        };
-                        restoreScroll();
-                        setTimeout(restoreScroll, 50);
-                        setTimeout(restoreScroll, 100);
-                        setTimeout(restoreScroll, 200);
-                        sessionStorage.removeItem('scrollPosition');
-                        sessionStorage.removeItem('scrollTimestamp');
-                    }
-                }
-                
-                // Ensure active link is visible in sidebar
-                const activeLink = sidebar.querySelector('a.active');
-                if (activeLink) {
-                    // Scroll sidebar to show active link (only if it's not already visible)
-                    setTimeout(() => {
-                        const sidebarRect = sidebar.getBoundingClientRect();
-                        const linkRect = activeLink.getBoundingClientRect();
-                        
-                        // Check if link is outside visible area
-                        if (linkRect.top < sidebarRect.top || linkRect.bottom > sidebarRect.bottom) {
-                            activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-                        }
-                    }, 100);
-                }
-            });
-        })();
-    </script>
+    <script src="../../navigation.js"></script>
+    <script src="../../review-status.js"></script>
 </head>
 <body>
     <div class="container">
@@ -291,7 +213,7 @@ import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.mi
         </aside>
         <main class="main-content">
             <div class="content-wrapper">
-                <a href="../index.html" class="back-link">← Back to Scientific Foundations</a>
+                <a href="../index.html" class="back-link">Back to Scientific Foundations</a>
                 
                 <h1>Core Principles</h1>
                 <p class="lead">Scientific foundations that inform waQup's design: subconscious dominance, neuroplasticity, repetition, relaxed states, visualization, language, emotion, writing, rituals, RAS, hypnosis, patience, and action.</p>

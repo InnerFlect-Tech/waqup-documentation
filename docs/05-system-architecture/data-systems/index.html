@@ -6,7 +6,7 @@
     <meta name="description" content="waQup - Voice-first ritual creation platform documentation">
     <title>Scientific Foundations</title>
     <script type="module">
-        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ 
             startOnLoad: true,
             theme: 'base',
@@ -201,9 +201,10 @@
             attributeFilter: ['style', 'stroke', 'stroke-width']
         });
     </script>
-    <link rel="stylesheet" href="../../styles.css">
-    <script src="../../script.js"></script>
-    <script src="../../navigation.js"></script>
+        <link rel="stylesheet" href="../../styles.css">
+        <script src="../../script.js"></script>
+        <script src="../../navigation.js"></script>
+    <script src="../../review-status.js"></script>
 </head>
 <body>
     <div class="container">
@@ -215,7 +216,364 @@
 <a href="../index.html" class="back-link">Back to System Architecture</a>
                 
                 <h1>Data Systems</h1>
-<h2 id="table-of-contents">Table of Contents</h2>
+                <p class="lead">Data flow architecture, storage systems, data patterns, privacy, security, performance, and monitoring.</p>
+                
+                <hr>
+                
+                <h2 id="data-flow">Data Flow</h2>
+                <p>waQup's data flow architecture ensures efficient, secure, and scalable handling of user data, ritual generation, audio processing, and marketplace transactions. Data flows through multiple layers: client, API gateway, services, data stores, and external integrations.</p>
+                
+                <h3 id="ritual-creation-data-flow">Ritual Creation Data Flow</h3>
+                <div class="mermaid-container"><div class="mermaid">flowchart LR
+    Start([User Initiates<br/>Ritual Creation]) --> WS[WebSocket<br/>Conversation Service]
+    WS --> Intent[Extract Intent<br/>Redis Session]
+    Intent --> Context[Gather Context<br/>Redis Session]
+    Context --> Details[Practice Details<br/>Redis Session]
+    Details --> Personalize[Personalization<br/>Query Preferences]
+    Personalize --> Confirm[Present Summary<br/>User Confirms]
+    Confirm --> CheckCredit[Check Credit Balance<br/>Credit Service]
+    CheckCredit --> Generate[Generate Text<br/>Call LLM API]
+    Generate --> LLM[LLM Provider<br/>OpenAI/Anthropic]
+    LLM --> Text[Ritual Text]
+    Text --> StoreText[Store Text<br/>PostgreSQL]
+    StoreText --> AudioGen[Audio Generation<br/>Async Queue]
+    AudioGen --> TTS[TTS Provider<br/>ElevenLabs/PlayHT]
+    TTS --> Audio[Audio File]
+    Audio --> S3[Store Audio<br/>S3/Cloud Storage]
+    S3 --> CDN[CDN<br/>Distribution]
+    CDN --> Complete[Ritual Complete<br/>Available]
+    Complete --> ConsumeCredit[Consume Credit<br/>Credit Service]
+    ConsumeCredit --> Persist[Persist History<br/>PostgreSQL]
+    
+    style Start fill:#e1f5ff
+    style Complete fill:#d4edda
+    style S3 fill:#fff3cd
+    style StoreText fill:#f8d7da
+    style Persist fill:#f8d7da</div></div>
+                
+                <h3 id="audio-playback-data-flow">Audio Playback Data Flow</h3>
+                <div class="mermaid-container"><div class="mermaid">flowchart LR
+    User([User Selects<br/>Ritual]) --> Library[Ritual Library Service]
+    Library --> CheckCache{Check Redis<br/>Cache}
+    CheckCache -->|Hit| Cache[Return Cached<br/>Audio URL]
+    CheckCache -->|Miss| DB[Query PostgreSQL<br/>for Ritual Metadata]
+    DB --> AudioURL[Get Audio URL<br/>from Metadata]
+    AudioURL --> S3[S3/Cloud Storage<br/>Generate Pre-signed URL]
+    S3 --> CDN[CDN Delivery<br/>CloudFront/Cloudflare]
+    CDN --> Play[Audio Playback<br/>to User]
+    Play --> Event[Record Practice Event<br/>Store in PostgreSQL]
+    Cache --> Play
+    
+    style User fill:#e1f5ff
+    style Play fill:#d4edda
+    style S3 fill:#fff3cd</div></div>
+                
+                <h3 id="marketplace-purchase-data-flow">Marketplace Purchase Data Flow</h3>
+                <div class="mermaid-container"><div class="mermaid">sequenceDiagram
+    participant User
+    participant Catalog Service
+    participant Payment Service
+    participant Stripe
+    participant User DB
+    participant Ritual Library
+    participant Reward Service
+
+    User->>Catalog Service: Browse & Select Pack
+    Catalog Service->>User: Display Pack Details
+    User->>Payment Service: Initiate Purchase
+    Payment Service->>Stripe: Create Payment Intent
+    Stripe-->>Payment Service: Payment Intent Created
+    Payment Service->>User: Redirect to Stripe Checkout
+    User->>Stripe: Complete Payment
+    Stripe->>Payment Service: Webhook (Payment Success)
+    Payment Service->>User DB: Record Purchase Transaction
+    Payment Service->>Ritual Library: Grant Pack Access
+    Ritual Library->>User: Pack Available
+    Payment Service->>Reward Service: Calculate Creator Rewards
+    Reward Service->>User DB: Update Creator Token Balance
+    Note over Reward Service: Token mechanics detailed in Value & Growth Economy document</div></div>
+                
+                <hr>
+                
+                <h2 id="data-storage-architecture">Data Storage Architecture</h2>
+                <h3 id="persistent-storage-postgresql">Persistent Storage (PostgreSQL)</h3>
+                <p><strong>Users Table</strong>:</p>
+                <pre><code>- id (UUID, primary key)
+- email (string, unique)
+- created_at (timestamp)
+- preferences (JSONB: voice, pace, tone preferences)
+- practice_history_summary (JSONB: total practices, last practice)
+- credit_balance (integer, default: 1 for free tier)</code></pre>
+                
+                <p><strong>Credit Transactions Table</strong>:</p>
+                <pre><code>- id (UUID, primary key)
+- user_id (UUID, foreign key)
+- transaction_type (enum: purchase, consumption, refund)
+- amount (integer, credits)
+- balance_after (integer)
+- content_item_id (UUID, nullable, foreign key) -- replaces ritual_id
+- content_type (enum: affirmation, guided_meditation, ritual, nullable)
+- created_at (timestamp)
+- metadata (JSONB: purchase_pack_id, refund_reason, etc.)</code></pre>
+                
+                <p><strong>Content Items Table</strong> (replaces Rituals Table):</p>
+                <pre><code>- id (UUID, primary key)
+- user_id (UUID, foreign key)
+- content_type (enum: affirmation, guided_meditation, ritual) NOT NULL
+- title (string)
+- content_text (text)
+- voice_id (UUID, foreign key)
+- audio_url (string, S3 URL)
+- audio_duration (integer, seconds)
+- depth (string: shallow, medium, deep) -- system-assigned
+- tags (TEXT[] array)
+- structure (JSONB: type-specific structure)
+- context (JSONB: creation context, personalization)
+- created_at (timestamp)
+- last_played_at (timestamp)
+- play_count (integer, for reference only)
+- metadata (JSONB: additional metadata)</code></pre>
+                
+                <p class="note"><strong>Note</strong>: See Content Types & Taxonomy document for detailed schema and type definitions.</p>
+                
+                <p><strong>Ritual Packs Table</strong>:</p>
+                <pre><code>- id (UUID, primary key)
+- creator_id (UUID, foreign key)
+- title (string)
+- description (text)
+- price_type (enum: free, one_time, subscription)
+- price_amount (decimal)
+- subscription_interval (enum: monthly, annual)
+- published_at (timestamp)
+- status (enum: draft, published, archived)</code></pre>
+                
+                <p><strong>Conversations Table</strong>:</p>
+                <pre><code>- id (UUID, primary key)
+- user_id (UUID, foreign key)
+- session_id (string)
+- messages (JSONB: array of messages)
+- state (JSONB: state machine state)
+- created_at (timestamp)
+- completed_at (timestamp)
+- resulting_ritual_id (UUID, nullable)</code></pre>
+                
+                <p><strong>Practice Events Table</strong>:</p>
+                <pre><code>- id (UUID, primary key)
+- user_id (UUID, foreign key)
+- ritual_id (UUID, foreign key)
+- started_at (timestamp)
+- completed_at (timestamp, nullable)
+- duration (integer, seconds)
+- metadata (JSONB: context, device)</code></pre>
+                
+                <h3 id="ephemeral-storage-redis">Ephemeral Storage (Redis)</h3>
+                <p><strong>Session State</strong>:</p>
+                <pre><code>Key: session:{session_id}
+Value: {
+  state: "IntentDiscovery" | "ContextGathering" | ...
+  context: { intent, time, location, ... }
+  user_id: UUID
+}
+TTL: 1 hour</code></pre>
+                
+                <p><strong>User Profile Cache</strong>:</p>
+                <pre><code>Key: user:{user_id}:profile
+Value: { preferences, voice_selection, ... }
+TTL: 15 minutes</code></pre>
+                
+                <p><strong>Ritual Metadata Cache</strong>:</p>
+                <pre><code>Key: ritual:{ritual_id}:metadata
+Value: { title, duration, audio_url, ... }
+TTL: 1 hour</code></pre>
+                
+                <p><strong>Search Results Cache</strong>:</p>
+                <pre><code>Key: search:{query_hash}
+Value: [pack_ids, ...]
+TTL: 5 minutes</code></pre>
+                
+                <h3 id="object-storage-s3cloud-storage">Object Storage (S3/Cloud Storage)</h3>
+                <p><strong>Audio Files</strong>:</p>
+                <pre><code>Path: audio/{user_id}/{ritual_id}/{version}.mp3
+Format: MP3 or OGG
+Retention: Permanent (until user deletion)
+CDN: CloudFront/Cloudflare for delivery</code></pre>
+                
+                <hr>
+                
+                <h2 id="data-flow-patterns">Data Flow Patterns</h2>
+                <h3 id="write-pattern-ritual-creation">Write Pattern (Ritual Creation)</h3>
+                <ol>
+                    <li><strong>Ephemeral Data</strong> (Redis):
+                        <ul>
+                            <li>Conversation state stored in Redis during creation</li>
+                            <li>Fast access for state machine transitions</li>
+                            <li>TTL: 1 hour (session timeout)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Persistent Data</strong> (PostgreSQL):
+                        <ul>
+                            <li>Ritual metadata written after generation</li>
+                            <li>Conversation history persisted for personalization</li>
+                            <li>Practice events recorded after completion</li>
+                        </ul>
+                    </li>
+                    <li><strong>Object Storage</strong> (S3):
+                        <ul>
+                            <li>Audio files stored asynchronously</li>
+                            <li>Pre-signed URLs generated for secure access</li>
+                            <li>CDN distribution for fast delivery</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <h3 id="read-pattern-ritual-playback">Read Pattern (Ritual Playback)</h3>
+                <ol>
+                    <li><strong>Cache First</strong> (Redis):
+                        <ul>
+                            <li>Check cache for ritual metadata</li>
+                            <li>Check cache for audio URLs</li>
+                            <li>Cache hit: Return immediately</li>
+                        </ul>
+                    </li>
+                    <li><strong>Database Fallback</strong> (PostgreSQL):
+                        <ul>
+                            <li>Cache miss: Query database</li>
+                            <li>Retrieve ritual metadata</li>
+                            <li>Generate pre-signed S3 URL</li>
+                        </ul>
+                    </li>
+                    <li><strong>CDN Delivery</strong> (CloudFront/Cloudflare):
+                        <ul>
+                            <li>Audio served via CDN</li>
+                            <li>Low latency, global distribution</li>
+                            <li>Reduced origin server load</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <h3 id="search-pattern-marketplace-discovery">Search Pattern (Marketplace Discovery)</h3>
+                <ol>
+                    <li><strong>Cache Check</strong> (Redis):
+                        <ul>
+                            <li>Check cached search results</li>
+                            <li>Return if cache hit (&lt; 5 minutes)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Search Index</strong> (Elasticsearch):
+                        <ul>
+                            <li>Query Elasticsearch for pack matches</li>
+                            <li>Full-text search, filtering, sorting</li>
+                            <li>Return pack IDs</li>
+                        </ul>
+                    </li>
+                    <li><strong>Database Lookup</strong> (PostgreSQL):
+                        <ul>
+                            <li>Fetch full pack metadata</li>
+                            <li>Include creator information</li>
+                            <li>Return complete results</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <hr>
+                
+                <h2 id="data-privacy-security">Data Privacy & Security</h2>
+                <h3 id="data-minimization">Data Minimization</h3>
+                <ul>
+                    <li>Collect only necessary data</li>
+                    <li>No biometric data without consent</li>
+                    <li>No location data without consent</li>
+                    <li>No social connections (not a social platform)</li>
+                </ul>
+                
+                <h3 id="data-encryption">Data Encryption</h3>
+                <ul>
+                    <li>TLS in transit (all API calls)</li>
+                    <li>Encryption at rest (sensitive data)</li>
+                    <li>Pre-signed URLs for audio (time-limited access)</li>
+                    <li>JWT tokens for authentication</li>
+                </ul>
+                
+                <h3 id="data-access-control">Data Access Control</h3>
+                <ul>
+                    <li>User data isolated by user_id</li>
+                    <li>Creator data isolated by creator_id</li>
+                    <li>Role-based access control (RBAC)</li>
+                    <li>Audit logging for sensitive operations</li>
+                </ul>
+                
+                <h3 id="data-export-deletion">Data Export & Deletion</h3>
+                <ul>
+                    <li>Users can export all data (JSON format)</li>
+                    <li>Users can delete account and all data</li>
+                    <li>Audio files deleted from S3</li>
+                    <li>Database records soft-deleted or purged</li>
+                    <li>GDPR compliance</li>
+                </ul>
+                
+                <p class="note"><strong>Note</strong>: For comprehensive security architecture details, see <a href="../security/index.html">Security</a> page. For ethical data handling principles, see <a href="../../04-ai-voice-and-ethics/index.html">AI Voice & Ethics</a> document.</p>
+                
+                <hr>
+                
+                <h2 id="data-flow-performance">Data Flow Performance</h2>
+                <h3 id="optimization-strategies">Optimization Strategies</h3>
+                <ol>
+                    <li><strong>Caching</strong>:
+                        <ul>
+                            <li>Aggressive caching of frequently accessed data</li>
+                            <li>Redis for hot data (sessions, profiles, metadata)</li>
+                            <li>CDN for static assets (audio files)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Async Processing</strong>:
+                        <ul>
+                            <li>Audio generation via message queue</li>
+                            <li>LLM calls can be async for non-real-time flows</li>
+                            <li>Background jobs for analytics and reporting</li>
+                        </ul>
+                    </li>
+                    <li><strong>Database Optimization</strong>:
+                        <ul>
+                            <li>Indexed queries (user_id, ritual_id, creator_id)</li>
+                            <li>Read replicas for read-heavy workloads</li>
+                            <li>Connection pooling</li>
+                            <li>Query optimization</li>
+                        </ul>
+                    </li>
+                    <li><strong>CDN Distribution</strong>:
+                        <ul>
+                            <li>All audio delivery via CDN</li>
+                            <li>Global edge locations</li>
+                            <li>Reduced latency for users worldwide</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <hr>
+                
+                <h2 id="data-flow-monitoring">Data Flow Monitoring</h2>
+                <h3 id="key-metrics">Key Metrics</h3>
+                <ul>
+                    <li><strong>Latency</strong>: API response times, audio generation time</li>
+                    <li><strong>Throughput</strong>: Requests per second, rituals generated per hour</li>
+                    <li><strong>Cache Hit Rate</strong>: Redis cache effectiveness</li>
+                    <li><strong>Error Rate</strong>: Failed requests, generation failures</li>
+                    <li><strong>Storage</strong>: Database size, S3 storage usage</li>
+                </ul>
+                
+                <h3 id="alerting">Alerting</h3>
+                <ul>
+                    <li>High latency (&gt; 1s for API calls)</li>
+                    <li>High error rate (&gt; 1% failures)</li>
+                    <li>Cache hit rate drop (&lt; 80%)</li>
+                    <li>Storage capacity warnings (&gt; 80% full)</li>
+                    <li>Service downtime</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
 <ul>
 <li><a href="#architecture-overview">Architecture Overview</a></li>
 <li><a href="#system-architecture">System Architecture</a></li>
