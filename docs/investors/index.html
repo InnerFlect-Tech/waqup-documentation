@@ -188,39 +188,19 @@
     <script src="../investors-navigation.js"></script>
     <script src="../review-status.js"></script>
     <script>
-        // Fix card links - ensure they work correctly on both GitHub Pages and local file system
+        // Fix card links based on protocol (file:// needs ./ prefix, HTTP/HTTPS doesn't)
         document.addEventListener('DOMContentLoaded', function() {
             const isFileProtocol = window.location.protocol === 'file:';
-            const currentPath = window.location.pathname;
-            
-            // Determine base path for investors folder
-            let investorsBasePath = '';
-            if (currentPath.includes('/investors/')) {
-                // Extract everything up to and including /investors/
-                const investorsIndex = currentPath.indexOf('/investors/');
-                investorsBasePath = currentPath.substring(0, investorsIndex + 10); // +10 for '/investors'
-            } else if (currentPath.endsWith('/investors') || currentPath.endsWith('/investors/')) {
-                investorsBasePath = currentPath.replace(/\/$/, '');
-            } else {
-                // Fallback: assume we're in investors folder
-                investorsBasePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+            if (!isFileProtocol) {
+                // For GitHub Pages (HTTP/HTTPS), remove ./ prefix from card links
+                // This ensures links resolve correctly relative to investors/ folder
+                document.querySelectorAll('.doc-card a[href^="./"]').forEach(link => {
+                    const originalHref = link.getAttribute('href');
+                    // Remove ./ prefix for GitHub Pages
+                    link.href = originalHref.replace(/^\.\//, '');
+                });
             }
-            
-            // Fix all card links to be absolute from investors folder
-            document.querySelectorAll('.doc-card a[href]').forEach(link => {
-                const href = link.getAttribute('href');
-                // Only fix relative links that don't start with http://, https://, or /
-                if (href && !href.startsWith('http') && !href.startsWith('/') && !href.startsWith('../')) {
-                    // Make it absolute from investors folder
-                    if (!isFileProtocol) {
-                        // For GitHub Pages, use absolute path from repo root
-                        link.href = investorsBasePath + '/' + href;
-                    } else {
-                        // For file://, keep relative but ensure it's correct
-                        link.href = href;
-                    }
-                }
-            });
+            // For file://, keep ./ prefix (already in HTML)
         });
     </script>
     <style>
@@ -270,45 +250,45 @@
       <div class="documentation-grid">
         
             <div class="doc-card" data-group="Overview">
-              <h2><a href="01-executive-summary/index.html">Executive Summary</a></h2>
+              <h2><a href="./01-executive-summary/index.html">Executive Summary</a></h2>
               <div class="doc-card-badge">Overview</div>
               <p>Platform overview and investment focus</p>
-              <a href="01-executive-summary/index.html" class="doc-link">Read More →</a>
+              <a href="./01-executive-summary/index.html" class="doc-link">Read More →</a>
             </div>
           
             <div class="doc-card" data-group="Problem">
-              <h2><a href="02-the-problem/index.html">The Problem: Inner Change Is Poorly Tooled</a></h2>
+              <h2><a href="./02-the-problem/index.html">The Problem: Inner Change Is Poorly Tooled</a></h2>
               <div class="doc-card-badge">Problem</div>
               <p>Market limitations and user outcome challenges</p>
-              <a href="02-the-problem/index.html" class="doc-link">Read More →</a>
+              <a href="./02-the-problem/index.html" class="doc-link">Read More →</a>
             </div>
           
             <div class="doc-card" data-group="Insight">
-              <h2><a href="03-core-insight/index.html">Core Insight: Ritual + Repetition + Self-Voice</a></h2>
+              <h2><a href="./03-core-insight/index.html">Core Insight: Ritual + Repetition + Self-Voice</a></h2>
               <div class="doc-card-badge">Insight</div>
               <p>The foundational elements of waQup's approach</p>
-              <a href="03-core-insight/index.html" class="doc-link">Read More →</a>
+              <a href="./03-core-insight/index.html" class="doc-link">Read More →</a>
             </div>
           
             <div class="doc-card" data-group="Science">
-              <h2><a href="04-scientific-foundations/index.html">Scientific Foundations</a></h2>
+              <h2><a href="./04-scientific-foundations/index.html">Scientific Foundations</a></h2>
               <div class="doc-card-badge">Science</div>
               <p>Neuroscience, behavioral psychology, and mindfulness research</p>
-              <a href="04-scientific-foundations/index.html" class="doc-link">Read More →</a>
+              <a href="./04-scientific-foundations/index.html" class="doc-link">Read More →</a>
             </div>
           
             <div class="doc-card" data-group="Research">
-              <h2><a href="05-research-status/index.html">Research Status & Knowledge Gap</a></h2>
+              <h2><a href="./05-research-status/index.html">Research Status & Knowledge Gap</a></h2>
               <div class="doc-card-badge">Research</div>
               <p>Current foundation and production-grade objectives</p>
-              <a href="05-research-status/index.html" class="doc-link">Read More →</a>
+              <a href="./05-research-status/index.html" class="doc-link">Read More →</a>
             </div>
           
             <div class="doc-card" data-group="Product">
-              <h2><a href="06-the-product/index.html">The Product: What Exists vs What Is Being Built</a></h2>
+              <h2><a href="./06-the-product/index.html">The Product: What Exists vs What Is Being Built</a></h2>
               <div class="doc-card-badge">Product</div>
               <p>v1 exploratory phase and v2 production platform</p>
-              <a href="06-the-product/index.html" class="doc-link">Read More →</a>
+              <a href="./06-the-product/index.html" class="doc-link">Read More →</a>
             </div>
           
       </div>
