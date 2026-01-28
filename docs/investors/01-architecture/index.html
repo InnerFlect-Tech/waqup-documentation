@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="waQup - Voice-first ritual creation platform documentation">
-    <title>waQup Documentation</title>
+    <meta name="description" content="waQup - Architecture and Technical Foundation">
+    <title>Architecture - waQup Investor Brief</title>
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ 
@@ -104,23 +104,17 @@
             }
         });
         
-        // Remove borders from Mermaid diagrams after they render - ULTRA aggressive approach
         function removeMermaidBorders() {
             document.querySelectorAll('.mermaid svg').forEach(svg => {
-                // Remove stroke from all rect, polygon, circle, and ellipse elements
                 svg.querySelectorAll('rect, polygon, circle, ellipse').forEach(shape => {
-                    // Skip if it's part of a path or line
                     const parent = shape.closest('g');
                     if (parent && (parent.classList.contains('edgePath') || parent.classList.contains('flowchart-link'))) {
                         return;
                     }
-                    // Check if it's actually a shape (has fill) and not a line
                     const fill = shape.getAttribute('fill');
                     if (fill === 'none' || fill === 'transparent') {
-                        // Might be a line, skip it
                         return;
                     }
-                    // ULTRA aggressively remove stroke - ALL methods
                     shape.removeAttribute('stroke');
                     shape.setAttribute('stroke', 'none');
                     shape.setAttribute('stroke-width', '0');
@@ -129,14 +123,12 @@
                     shape.style.strokeWidth = '0';
                     shape.style.strokeOpacity = '0';
                     shape.style.border = 'none';
-                    // Force override with inline style
                     const currentStyle = shape.getAttribute('style') || '';
                     shape.setAttribute('style', currentStyle + ' stroke: none !important; stroke-width: 0 !important; stroke-opacity: 0 !important;');
                 });
             });
         }
         
-        // Run multiple times to catch all rendered diagrams
         function runBorderRemoval() {
             removeMermaidBorders();
             setTimeout(removeMermaidBorders, 100);
@@ -147,26 +139,17 @@
             setTimeout(removeMermaidBorders, 3000);
         }
         
-        // Continuous border removal using requestAnimationFrame
-        function continuousBorderRemoval() {
-            removeMermaidBorders();
-            requestAnimationFrame(continuousBorderRemoval);
-        }
-        
-        // Start continuous removal after a short delay
         setTimeout(() => {
-            // Run for 5 seconds continuously
             let count = 0;
             const interval = setInterval(() => {
                 removeMermaidBorders();
                 count++;
-                if (count > 50) { // Stop after ~5 seconds (50 * 100ms)
+                if (count > 50) {
                     clearInterval(interval);
                 }
             }, 100);
         }, 500);
         
-        // Run after Mermaid renders
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
                 runBorderRemoval();
@@ -175,7 +158,6 @@
             runBorderRemoval();
         }
         
-        // Also use MutationObserver to catch dynamically rendered diagrams
         const observer = new MutationObserver((mutations) => {
             let shouldRun = false;
             mutations.forEach((mutation) => {
@@ -201,10 +183,10 @@
             attributeFilter: ['style', 'stroke', 'stroke-width']
         });
     </script>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
-    <script src="navigation.js"></script>
-    <script src="review-status.js"></script>
+    <link rel="stylesheet" href="../../styles.css">
+    <script src="../../script.js"></script>
+    <script src="../../investors-navigation.js"></script>
+    <script src="../../review-status.js"></script>
     <style>
         .doc-switcher {
             background: var(--bg-primary);
@@ -232,93 +214,34 @@
             background: var(--bg-secondary);
         }
     </style>
-    <script>
-        // Fix card links based on protocol (file:// needs ./ prefix, HTTP/HTTPS doesn't)
-        document.addEventListener('DOMContentLoaded', function() {
-            const isFileProtocol = window.location.protocol === 'file:';
-            if (!isFileProtocol) {
-                // For GitHub Pages (HTTP/HTTPS), remove ./ prefix from card links
-                document.querySelectorAll('.doc-card a[href^="./"]').forEach(link => {
-                    link.href = link.href.replace(/^\.\//, '');
-                });
-            }
-            // For file://, keep ./ prefix (already in HTML)
-        });
-    </script>
 </head>
 <body>
     <div class="container">
         <aside class="sidebar">
-            <!-- Sidebar generated by navigation.js -->
+            <!-- Sidebar generated by investors-navigation.js -->
         </aside>
         <main class="main-content">
             <div class="doc-switcher">
-                <a href="index.html" class="active">Internal Docs</a>
-                <a href="investors/index.html">Investor Brief</a>
+                <a href="../../index.html">Internal Docs</a>
+                <a href="../index.html" class="active">Investor Brief</a>
             </div>
             <div class="content-wrapper">
-                
-    <div class="index-content">
-      <h1>waQup Documentation</h1>
-      <p class="lead">Comprehensive documentation for the waQup voice-first ritual creation platform.</p>
-      
-      <div class="documentation-grid">
-        
-            <div class="doc-card" data-group="Foundation">
-              <h2><a href="./01-product-constitution/index.html">Product Constitution</a></h2>
-              <div class="doc-card-badge">Foundation</div>
-              <p>Core identity and principles</p>
-              <a href="./01-product-constitution/index.html" class="doc-link">Read More →</a>
-            </div>
-          
-            <div class="doc-card" data-group="Foundation">
-              <h2><a href="./02-scientific-foundations/index.html">Scientific Foundations</a></h2>
-              <div class="doc-card-badge">Foundation</div>
-              <p>Research basis and psychological grounding</p>
-              <a href="./02-scientific-foundations/index.html" class="doc-link">Read More →</a>
-            </div>
-          
-            <div class="doc-card" data-group="User Experience">
-              <h2><a href="./03-conversational-and-ritual-system/index.html">Conversational & Ritual System</a></h2>
-              <div class="doc-card-badge">User Experience</div>
-              <p>How humans interact with the platform</p>
-              <a href="./03-conversational-and-ritual-system/index.html" class="doc-link">Read More →</a>
-            </div>
-          
-            <div class="doc-card" data-group="User Experience">
-              <h2><a href="./04-ai-voice-and-ethics/index.html">AI Voice & Ethics</a></h2>
-              <div class="doc-card-badge">User Experience</div>
-              <p>Voice guidelines and ethical principles</p>
-              <a href="./04-ai-voice-and-ethics/index.html" class="doc-link">Read More →</a>
-            </div>
-          
-            <div class="doc-card" data-group="Technical">
-              <h2><a href="./05-system-architecture/index.html">System Architecture</a></h2>
-              <div class="doc-card-badge">Technical</div>
-              <p>System design, APIs, and infrastructure</p>
-              <a href="./05-system-architecture/index.html" class="doc-link">Read More →</a>
-            </div>
-          
-            <div class="doc-card" data-group="Business">
-              <h2><a href="./06-value-and-growth-economy/index.html">Value & Growth Economy</a></h2>
-              <div class="doc-card-badge">Business</div>
-              <p>Credits, tokens, and economic model</p>
-              <a href="./06-value-and-growth-economy/index.html" class="doc-link">Read More →</a>
-            </div>
-          
-            <div class="doc-card" data-group="Planning">
-              <h2><a href="./07-roadmap-and-releases/index.html">Roadmap & Releases</a></h2>
-              <div class="doc-card-badge">Planning</div>
-              <p>Development timeline and releases</p>
-              <a href="./07-roadmap-and-releases/index.html" class="doc-link">Read More →</a>
-            </div>
-          
-      </div>
-    </div>
-  
+                <h1>Architecture</h1>
+                <p><strong>Technical Foundation</strong>: waQup's architecture is designed to support reliability, privacy, and long-term scalability.</p>
+                <hr>
+                <h2 id="key-principles">Key Principles</h2>
+                <ul>
+                    <li><strong>Minimal, ritual-first frontend</strong> — Focus on core user experience without feature bloat</li>
+                    <li><strong>Modular backend architecture</strong> — Scalable, maintainable system design</li>
+                    <li><strong>Local-first experience with cloud scalability</strong> — Works offline, syncs when online</li>
+                    <li><strong>Strong emphasis on data ownership and user privacy</strong> — User data remains user-controlled</li>
+                </ul>
+                <hr>
+                <h2 id="philosophy">Philosophy</h2>
+                <p><strong>Technology serves the ritual — not the other way around.</strong></p>
+                <p>Every architectural decision prioritizes the user's ritual practice over technical convenience. The platform is designed to fade into the background, allowing users to focus on their transformation journey.</p>
             </div>
         </main>
     </div>
 </body>
 </html>
-
