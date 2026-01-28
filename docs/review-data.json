@@ -51,8 +51,15 @@
       "read-indias": {
         "checked": true,
         "date": "2026-01-28T08:35:46.785Z"
-      }
+      },
+      "comments": [
+        {
+          "name": "Indias",
+          "text": "I think it should pay initial marketing, cost for a sprint to put into the App Store, initial costs of programming (expected 1 month sprint) - not this user surveys",
+          "date": "2026-01-28T08:36:59.945Z"
+        }
+      ]
     }
   },
-  "lastUpdated": "2026-01-28T08:35:47.633Z"
+  "lastUpdated": "2026-01-28T08:37:01.165Z"
 }
