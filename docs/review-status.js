@@ -1,29 +1,177 @@
 // Review Status System - Auto-adds review status to all h2 sections
 // This script automatically adds review status checkboxes to all h2 headings in documentation
+// Now supports online storage via GitHub API
 
 (function() {
     'use strict';
     
     const STORAGE_KEY = 'waqup-review-status';
+    const GITHUB_REPO = 'InnerFlect-Tech/waqup-documentation';
+    const DATA_FILE_PATH = 'docs/review-data.json';
+    const GITHUB_API_BASE = 'https://api.github.com';
     
-    // Initialize state from localStorage
+    // Initialize state
     let reviewState = {};
+    let isOnlineMode = false;
+    let githubToken = null;
     
-    function loadState() {
+    // Check if we should use online mode (GitHub API)
+    function initStorageMode() {
+        // Check for GitHub token in URL or localStorage
+        const urlParams = new URLSearchParams(window.location.search);
+        githubToken = urlParams.get('token') || localStorage.getItem('github-token');
+        
+        if (githubToken) {
+            isOnlineMode = true;
+            localStorage.setItem('github-token', githubToken);
+            console.log('Using online storage mode with GitHub API');
+        } else {
+            isOnlineMode = false;
+            console.log('Using local storage mode. Add ?token=YOUR_TOKEN to URL to enable online storage');
+        }
+    }
+    
+    // Load state from GitHub API
+    async function loadStateFromGitHub() {
+        if (!githubToken) return {};
+        
+        try {
+            const url = `${GITHUB_API_BASE}/repos/${GITHUB_REPO}/contents/${DATA_FILE_PATH}`;
+            const response = await fetch(url, {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Authorization': `token ${githubToken}`
+                }
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                const content = JSON.parse(atob(data.content.replace(/\s/g, '')));
+                return content.reviewStatus || {};
+            } else if (response.status === 404) {
+                // File doesn't exist yet, return empty state
+                return {};
+            } else {
+                console.error('Error loading from GitHub:', response.statusText);
+                return {};
+            }
+        } catch (error) {
+            console.error('Error loading from GitHub:', error);
+            // Fallback to localStorage
+            return loadStateFromLocal();
+        }
+    }
+    
+    // Load state from localStorage
+    function loadStateFromLocal() {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
             try {
-                reviewState = JSON.parse(saved);
+                return JSON.parse(saved);
             } catch (e) {
                 console.error('Error loading review state:', e);
-                reviewState = {};
+                return {};
             }
         }
+        return {};
+    }
+    
+    // Save state to GitHub API
+    async function saveStateToGitHub(state) {
+        if (!githubToken) {
+            saveStateToLocal(state);
+            return;
+        }
+        
+        try {
+            // First, get the current file to get its SHA (required for update)
+            const getUrl = `${GITHUB_API_BASE}/repos/${GITHUB_REPO}/contents/${DATA_FILE_PATH}`;
+            const getResponse = await fetch(getUrl, {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Authorization': `token ${githubToken}`
+                }
+            });
+            
+            let sha = null;
+            if (getResponse.ok) {
+                const data = await getResponse.json();
+                sha = data.sha;
+            }
+            
+            // Prepare the data
+            const fileData = {
+                reviewStatus: state,
+                lastUpdated: new Date().toISOString()
+            };
+            
+            const content = btoa(JSON.stringify(fileData, null, 2));
+            
+            // Create or update the file
+            const putUrl = `${GITHUB_API_BASE}/repos/${GITHUB_REPO}/contents/${DATA_FILE_PATH}`;
+            const putResponse = await fetch(putUrl, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Authorization': `token ${githubToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: `Update review status data - ${new Date().toISOString()}`,
+                    content: content,
+                    sha: sha // Include SHA if updating, omit if creating
+                })
+            });
+            
+            if (putResponse.ok) {
+                console.log('Review status saved to GitHub');
+                // Also save to localStorage as backup
+                saveStateToLocal(state);
+                return true;
+            } else {
+                const error = await putResponse.json();
+                console.error('Error saving to GitHub:', error);
+                // Fallback to localStorage
+                saveStateToLocal(state);
+                return false;
+            }
+        } catch (error) {
+            console.error('Error saving to GitHub:', error);
+            // Fallback to localStorage
+            saveStateToLocal(state);
+            return false;
+        }
+    }
+    
+    // Save state to localStorage
+    function saveStateToLocal(state) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+    
+    // Load state (tries online first, falls back to local)
+    async function loadState() {
+        initStorageMode();
+        
+        if (isOnlineMode) {
+            const onlineState = await loadStateFromGitHub();
+            if (Object.keys(onlineState).length > 0) {
+                reviewState = onlineState;
+                return reviewState;
+            }
+        }
+        
+        // Fallback to local storage
+        reviewState = loadStateFromLocal();
         return reviewState;
     }
     
-    function saveState() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(reviewState));
+    // Save state (tries online first, falls back to local)
+    async function saveState() {
+        if (isOnlineMode) {
+            await saveStateToGitHub(reviewState);
+        } else {
+            saveStateToLocal(reviewState);
+        }
     }
     
     // Escape HTML to prevent XSS
@@ -59,6 +207,7 @@
                     </label>
                 </div>
                 <div class="review-date" id="review-date-${reviewId}"></div>
+                ${isOnlineMode ? '<div style="font-size: 0.75rem; color: #10b981; margin-top: 0.5rem;">💾 Online storage enabled</div>' : '<div style="font-size: 0.75rem; color: #f59e0b; margin-top: 0.5rem;">💾 Local storage only. <a href="?token=YOUR_TOKEN" style="color: #2563eb;">Enable online storage</a></div>'}
                 <div class="section-comments">
                     <button class="comment-toggle" onclick="toggleSectionComment('${reviewId}')">
                         💬 <span id="comment-count-${reviewId}">0</span> Comments
@@ -75,7 +224,7 @@
     }
     
     // Update review status
-    window.updateSectionReviewStatus = function(reviewId, type, checked) {
+    window.updateSectionReviewStatus = async function(reviewId, type, checked) {
         if (!reviewState[reviewId]) {
             reviewState[reviewId] = {};
         }
@@ -92,7 +241,7 @@
             }
         }
         
-        saveState();
+        await saveState();
         renderReviewStatus(reviewId);
     };
     
@@ -105,7 +254,7 @@
     };
     
     // Add comment to section
-    window.addSectionComment = function(reviewId) {
+    window.addSectionComment = async function(reviewId) {
         const nameInput = document.getElementById(`comment-name-${reviewId}`);
         const commentInput = document.getElementById(`comment-input-${reviewId}`);
         
@@ -138,7 +287,7 @@
         };
         
         reviewState[reviewId].comments.push(comment);
-        saveState();
+        await saveState();
         
         // Clear inputs
         if (nameInput) nameInput.value = '';
@@ -149,14 +298,14 @@
     };
     
     // Delete comment
-    window.deleteSectionComment = function(reviewId, index) {
+    window.deleteSectionComment = async function(reviewId, index) {
         if (!reviewState[reviewId] || !reviewState[reviewId].comments) return;
         if (confirm('Are you sure you want to delete this comment?')) {
             reviewState[reviewId].comments.splice(index, 1);
             if (reviewState[reviewId].comments.length === 0) {
                 delete reviewState[reviewId].comments;
             }
-            saveState();
+            await saveState();
             renderComments(reviewId);
         }
     };
@@ -221,8 +370,8 @@
     }
     
     // Initialize review status on all h2 sections
-    function initReviewStatus() {
-        loadState();
+    async function initReviewStatus() {
+        await loadState();
         
         // Find all h2 elements with IDs (or create IDs for them)
         const h2Elements = document.querySelectorAll('h2');
@@ -262,4 +411,3 @@
         initReviewStatus();
     }
 })();
-
