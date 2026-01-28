@@ -1,4 +1,11 @@
 {
-  "reviewStatus": {},
-  "lastUpdated": null
+  "reviewStatus": {
+    "index-what-waqup-is": {
+      "read-john": {
+        "checked": true,
+        "date": "2026-01-28T08:26:03.705Z"
+      }
+    }
+  },
+  "lastUpdated": "2026-01-28T08:26:03.717Z"
 }
