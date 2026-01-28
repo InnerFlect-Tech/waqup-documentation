@@ -63,8 +63,96 @@ const investorsNavigationStructure = {
             items: [
                 {
                     id: '06-the-product',
-                    name: 'The Product: What Exists vs What Is Being Built',
+                    name: 'The Product: v1 vs v2',
                     path: '06-the-product/index.html',
+                    subfolders: []
+                }
+            ]
+        },
+        {
+            title: 'Architecture',
+            items: [
+                {
+                    id: '07-architecture-overview',
+                    name: 'Architecture Overview',
+                    path: '07-architecture-overview/index.html',
+                    subfolders: []
+                }
+            ]
+        },
+        {
+            title: 'Market',
+            items: [
+                {
+                    id: '08-market-positioning',
+                    name: 'Market Positioning & Differentiation',
+                    path: '08-market-positioning/index.html',
+                    subfolders: []
+                }
+            ]
+        },
+        {
+            title: 'Growth',
+            items: [
+                {
+                    id: '09-growth-engine',
+                    name: 'Growth Engine: Marketplace & Referral Dynamics',
+                    path: '09-growth-engine/index.html',
+                    subfolders: []
+                }
+            ]
+        },
+        {
+            title: 'Business',
+            items: [
+                {
+                    id: '10-business-model',
+                    name: 'Business Model',
+                    path: '10-business-model/index.html',
+                    subfolders: []
+                }
+            ]
+        },
+        {
+            title: 'Opportunity',
+            items: [
+                {
+                    id: '11-market-opportunity',
+                    name: 'Market Opportunity',
+                    path: '11-market-opportunity/index.html',
+                    subfolders: []
+                }
+            ]
+        },
+        {
+            title: 'Risk',
+            items: [
+                {
+                    id: '12-risks-mitigation',
+                    name: 'Risks & Mitigation Strategy',
+                    path: '12-risks-mitigation/index.html',
+                    subfolders: []
+                }
+            ]
+        },
+        {
+            title: 'Planning',
+            items: [
+                {
+                    id: '13-roadmap-milestones',
+                    name: 'Roadmap & Milestones',
+                    path: '13-roadmap-milestones/index.html',
+                    subfolders: []
+                }
+            ]
+        },
+        {
+            title: 'Investment',
+            items: [
+                {
+                    id: '14-the-ask',
+                    name: 'The Ask',
+                    path: '14-the-ask/index.html',
                     subfolders: []
                 }
             ]
