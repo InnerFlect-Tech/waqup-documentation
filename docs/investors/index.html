@@ -191,9 +191,36 @@
         // Fix card links - ensure they work correctly on both GitHub Pages and local file system
         document.addEventListener('DOMContentLoaded', function() {
             const isFileProtocol = window.location.protocol === 'file:';
-            // Links are already correct (relative to investors/ folder)
-            // No modification needed for GitHub Pages
-            // For file:// protocol, paths work as-is since they're relative
+            const currentPath = window.location.pathname;
+            
+            // Determine base path for investors folder
+            let investorsBasePath = '';
+            if (currentPath.includes('/investors/')) {
+                // Extract everything up to and including /investors/
+                const investorsIndex = currentPath.indexOf('/investors/');
+                investorsBasePath = currentPath.substring(0, investorsIndex + 10); // +10 for '/investors'
+            } else if (currentPath.endsWith('/investors') || currentPath.endsWith('/investors/')) {
+                investorsBasePath = currentPath.replace(/\/$/, '');
+            } else {
+                // Fallback: assume we're in investors folder
+                investorsBasePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+            }
+            
+            // Fix all card links to be absolute from investors folder
+            document.querySelectorAll('.doc-card a[href]').forEach(link => {
+                const href = link.getAttribute('href');
+                // Only fix relative links that don't start with http://, https://, or /
+                if (href && !href.startsWith('http') && !href.startsWith('/') && !href.startsWith('../')) {
+                    // Make it absolute from investors folder
+                    if (!isFileProtocol) {
+                        // For GitHub Pages, use absolute path from repo root
+                        link.href = investorsBasePath + '/' + href;
+                    } else {
+                        // For file://, keep relative but ensure it's correct
+                        link.href = href;
+                    }
+                }
+            });
         });
     </script>
     <style>
