@@ -4,84 +4,67 @@
 const investorsNavigationStructure = {
     groups: [
         {
-            title: 'Strategy',
+            title: 'Overview',
             items: [
                 {
-                    id: '01-architecture',
-                    name: 'Architecture',
-                    path: '01-architecture/index.html',
-                    subfolders: []
-                },
-                {
-                    id: '02-market-positioning',
-                    name: 'Market Positioning & Differentiation',
-                    path: '02-market-positioning/index.html',
+                    id: '01-executive-summary',
+                    name: 'Executive Summary',
+                    path: '01-executive-summary/index.html',
                     subfolders: []
                 }
             ]
         },
         {
-            title: 'Growth',
+            title: 'Problem',
             items: [
                 {
-                    id: '03-growth-engine',
-                    name: 'Growth Engine',
-                    path: '03-growth-engine/index.html',
+                    id: '02-the-problem',
+                    name: 'The Problem: Inner Change Is Poorly Tooled',
+                    path: '02-the-problem/index.html',
                     subfolders: []
                 }
             ]
         },
         {
-            title: 'Business',
+            title: 'Insight',
             items: [
                 {
-                    id: '04-business-model',
-                    name: 'Business Model',
-                    path: '04-business-model/index.html',
+                    id: '03-core-insight',
+                    name: 'Core Insight: Ritual + Repetition + Self-Voice',
+                    path: '03-core-insight/index.html',
                     subfolders: []
                 }
             ]
         },
         {
-            title: 'Market',
+            title: 'Science',
             items: [
                 {
-                    id: '05-market-opportunity',
-                    name: 'Market Opportunity',
-                    path: '05-market-opportunity/index.html',
+                    id: '04-scientific-foundations',
+                    name: 'Scientific Foundations',
+                    path: '04-scientific-foundations/index.html',
                     subfolders: []
                 }
             ]
         },
         {
-            title: 'Risk',
+            title: 'Research',
             items: [
                 {
-                    id: '06-risks-mitigation',
-                    name: 'Risks & Mitigation Strategy',
-                    path: '06-risks-mitigation/index.html',
+                    id: '05-research-status',
+                    name: 'Research Status & Knowledge Gap',
+                    path: '05-research-status/index.html',
                     subfolders: []
                 }
             ]
         },
         {
-            title: 'Planning',
+            title: 'Product',
             items: [
                 {
-                    id: '07-roadmap-milestones',
-                    name: 'Roadmap & Milestones',
-                    path: '07-roadmap-milestones/index.html',
-                    subfolders: []
-                }
-            ]
-        },
-        {
-            title: 'Investment',
-            items: [
-                {
-                    id: '08-the-ask',
-                    name: 'The Ask',
-                    path: '08-the-ask/index.html',
+                    id: '06-the-product',
+                    name: 'The Product: What Exists vs What Is Being Built',
+                    path: '06-the-product/index.html',
                     subfolders: []
                 }
             ]
@@ -107,7 +90,7 @@ function generateInvestorsSidebar(currentPagePath) {
         homePath = 'index.html';
     } else {
         // Calculate depth: number of directories (subtract 1 for filename)
-        // e.g., '01-architecture/index.html' -> depth 2
+        // e.g., '01-executive-summary/index.html' -> depth 2
         const pathParts = normalizedPath.split('/');
         depth = pathParts.length - 1;
         basePath = depth === 1 ? '' : '../'.repeat(depth - 1);
