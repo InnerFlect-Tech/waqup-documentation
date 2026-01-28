@@ -75,26 +75,22 @@ const investorsNavigationStructure = {
 // Generate sidebar navigation HTML for investor docs
 function generateInvestorsSidebar(currentPagePath) {
     // Calculate relative path depth
+    // currentPagePath is relative to investors/ folder (e.g., 'index.html' or '01-executive-summary/index.html')
     let depth, basePath, homePath;
     
-    // Normalize path - remove 'investors/' prefix if present
-    let normalizedPath = currentPagePath;
-    if (normalizedPath.startsWith('investors/')) {
-        normalizedPath = normalizedPath.replace('investors/', '');
-    }
-    
     // Handle root index.html specially (investors/index.html)
-    if (normalizedPath === 'index.html' || normalizedPath === '' || normalizedPath.endsWith('/')) {
+    if (currentPagePath === 'index.html' || currentPagePath === '' || currentPagePath.endsWith('/')) {
         depth = 1; // investors/index.html is depth 1 (relative to investors/)
         basePath = '';
         homePath = 'index.html';
     } else {
         // Calculate depth: number of directories (subtract 1 for filename)
-        // e.g., '01-executive-summary/index.html' -> depth 2
-        const pathParts = normalizedPath.split('/');
-        depth = pathParts.length - 1;
-        basePath = depth === 1 ? '' : '../'.repeat(depth - 1);
-        homePath = depth === 1 ? 'index.html' : '../'.repeat(depth - 1) + 'index.html';
+        // e.g., '01-executive-summary/index.html' -> ['01-executive-summary', 'index.html'] -> depth 2
+        const pathParts = currentPagePath.split('/');
+        depth = pathParts.length; // This gives us the depth from investors/ folder
+        // For depth 2 (in a subfolder), we need '../' to go up one level
+        basePath = '../';
+        homePath = '../index.html';
     }
     
     // Ensure homePath doesn't start with /
@@ -104,6 +100,8 @@ function generateInvestorsSidebar(currentPagePath) {
     }
     
     const isFileProtocol = typeof window !== 'undefined' && window.location.protocol === 'file:';
+    // For GitHub Pages, don't add ./ prefix
+    // For file:// protocol, add ./ prefix for root level
     if (depth === 1 && cleanHomePath && !cleanHomePath.startsWith('./') && !cleanHomePath.startsWith('../')) {
         if (isFileProtocol) {
             cleanHomePath = './' + cleanHomePath;
@@ -127,10 +125,11 @@ function generateInvestorsSidebar(currentPagePath) {
             let itemPath;
             
             if (depth === 1) {
-                // At investors/index.html level, use item.path as-is
+                // At investors/index.html level, use item.path as-is (no prefix)
                 itemPath = item.path;
             } else {
-                // At subfolder level, need to go up to investors/, then to item
+                // At subfolder level (e.g., in 01-executive-summary/index.html)
+                // Need to go up one level with '../', then to item
                 itemPath = basePath + item.path;
             }
             
@@ -142,13 +141,15 @@ function generateInvestorsSidebar(currentPagePath) {
             }
             
             // Handle protocol-specific path formatting
+            // For GitHub Pages (HTTP/HTTPS), don't add ./ prefix
+            // For file:// protocol, add ./ prefix for root level only
             if (depth === 1 && !itemPath.startsWith('./') && !itemPath.startsWith('../')) {
                 if (isFileProtocol) {
                     itemPath = './' + itemPath;
                 }
             }
             
-            const isActive = currentPagePath.includes(item.id);
+            const isActive = currentPagePath.includes(item.id) || currentPagePath === item.path;
             const activeClass = isActive ? ' class="active"' : '';
             
             html += `<li><a href="${itemPath}"${activeClass}>${item.name}</a>`;
@@ -231,21 +232,38 @@ function generateInvestorsSidebar(currentPagePath) {
                 cleanPath = currentPath.replace(/^\/+/, '').replace(/^docs\//, '');
             }
         } else {
+            // For GitHub Pages (HTTP/HTTPS)
             cleanPath = currentPath.replace(/^\/+/, '');
+            
+            // Remove repository name if present (e.g., 'waqup-documentation/')
             const pathParts = cleanPath.split('/');
-            if (pathParts.length > 1) {
+            if (pathParts.length > 0) {
+                // Check if first part is a repo name (not 'docs' or 'investors' or numbered folder)
                 const firstPart = pathParts[0];
-                if (firstPart !== 'docs' && !/^\d{2}-/.test(firstPart) && firstPart !== 'investors') {
+                if (firstPart !== 'docs' && firstPart !== 'investors' && !/^\d{2}-/.test(firstPart)) {
+                    // Might be repo name, remove it
                     cleanPath = pathParts.slice(1).join('/');
                 }
             }
+            
+            // Remove 'docs/' prefix if present
             cleanPath = cleanPath.replace(/^docs\//, '');
         }
         
         // Ensure we're tracking investors path correctly
-        // If we're in investors folder, keep the path relative to investors/
+        // If we're in investors folder, extract path relative to investors/
         if (cleanPath.startsWith('investors/')) {
             cleanPath = cleanPath.replace('investors/', '');
+        } else if (cleanPath.includes('/investors/')) {
+            // Handle case where path includes /investors/ in the middle
+            const investorsIndex = cleanPath.indexOf('/investors/');
+            cleanPath = cleanPath.substring(investorsIndex + 11); // +11 for '/investors/'
+        }
+        
+        // If we're not in investors folder, this shouldn't be using investors navigation
+        // But handle gracefully
+        if (!cleanPath && currentPath.includes('investors')) {
+            cleanPath = 'index.html';
         }
         
         if (!cleanPath || cleanPath === 'index.html' || cleanPath.endsWith('/')) {
